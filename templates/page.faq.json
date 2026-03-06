@@ -2,7 +2,45 @@
   "sections": {
     "main": {
       "type": "faq-accordion",
-      "settings": {}
+      "settings": {},
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "What are ChewTeinz gummies made of?",
+            "answer": "Our gummies are made with a plant-based protein blend of organic pea and rice protein, naturally sweetened with allulose and stevia. They use pectin for a soft gummy texture, natural mango flavour, and lycopene for colour. A light coating of coconut oil and carnauba wax keeps them smooth and non-sticky."
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "How should I store my gummies?",
+            "answer": "To maintain freshness and quality throughout the full 24-month shelf life, store your gummies in a cool, dry place away from direct sunlight and heat. Keep the pouch tightly sealed after opening to preserve texture and flavour. If you live in a warm or humid climate, storing the gummies in the refrigerator can help prevent softening or sticking — just make sure the pouch is sealed properly to avoid moisture."
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "What is your shipping policy?",
+            "answer": "We offer free shipping on orders over $50. Standard orders typically arrive within 3-5 business days. We ship only in Australia."
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "When is the best time to eat ChewTeinz?",
+            "answer": "Anytime you need a protein boost! Many of our customers enjoy them post-workout for recovery, as a mid-afternoon snack, or even as a sweet treat after dinner. They're versatile and delicious whenever you need them."
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "Can kids eat ChewTeinz?",
+            "answer": "While ChewTeinz are safe and made with quality ingredients, they're formulated for adults and fitness enthusiasts. We recommend consulting with a pediatrician before giving them to children under 12."
+          }
+        }
+      },
+      "block_order": ["faq_1", "faq_2", "faq_3", "faq_4", "faq_5"]
     }
   },
   "order": ["main"]

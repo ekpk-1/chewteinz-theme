@@ -3,7 +3,7 @@
     "main": {
       "type": "policy-content",
       "settings": {
-        "page_title": "Shipping Policy",
+        "policy_type": "shipping_policy",
         "page_subtitle": "Fast and reliable delivery across Australia"
       }
     }

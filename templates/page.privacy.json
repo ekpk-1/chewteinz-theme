@@ -3,7 +3,7 @@
     "main": {
       "type": "policy-content",
       "settings": {
-        "page_title": "Privacy Policy",
+        "policy_type": "privacy_policy",
         "page_subtitle": "Your privacy matters to us"
       }
     }

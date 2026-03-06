@@ -3,7 +3,7 @@
     "main": {
       "type": "policy-content",
       "settings": {
-        "page_title": "Refund & Returns",
+        "policy_type": "refund_policy",
         "page_subtitle": "Your satisfaction is our priority"
       }
     }

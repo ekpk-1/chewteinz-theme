@@ -3,7 +3,7 @@
     "main": {
       "type": "policy-content",
       "settings": {
-        "page_title": "Terms of Service",
+        "policy_type": "terms_of_service",
         "page_subtitle": "Please read these terms carefully"
       }
     }
