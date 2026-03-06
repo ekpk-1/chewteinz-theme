@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "main": {
+      "type": "policy-content",
+      "settings": {
+        "page_title": "Refund & Returns",
+        "page_subtitle": "Your satisfaction is our priority"
+      }
+    }
+  },
+  "order": ["main"]
+}

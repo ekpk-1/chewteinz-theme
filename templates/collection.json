@@ -1,0 +1,7 @@
+{
+  "sections": {
+    "banner": { "type": "collection-banner", "settings": {} },
+    "product-grid": { "type": "product-grid", "settings": {} }
+  },
+  "order": ["banner", "product-grid"]
+}

@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "main": {
+      "type": "policy-content",
+      "settings": {
+        "page_title": "Terms of Service",
+        "page_subtitle": "Please read these terms carefully"
+      }
+    }
+  },
+  "order": ["main"]
+}

@@ -1,0 +1,29 @@
+<div class="fixed top-0 left-0 right-0 z-60 bg-gradient-to-r from-chewteinz-yellow via-chewteinz-pink to-chewteinz-purple shadow-lg overflow-hidden">
+  <div class="relative h-10 sm:h-12 flex items-center">
+    <div class="flex animate-slide-left">
+      {% for i in (1..2) %}
+        <div class="inline-flex items-center gap-3 px-8 text-white font-body font-semibold text-sm sm:text-base flex-shrink-0">
+          {% for j in (1..5) %}
+            {% render 'icon', icon: 'truck', size: 18 %}
+            <span class="whitespace-nowrap">{{ section.settings.banner_text }}</span>
+            <span class="mx-4">&bull;</span>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "banner_text",
+      "label": "Banner Text",
+      "default": "Free shipping over $50 purchase"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,106 @@
+{
+  "sections": {
+    "hero": { "type": "hero", "settings": {} },
+    "benefits": {
+      "type": "benefits",
+      "settings": {},
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "icon_char": "⬢",
+            "title": "High in Protein",
+            "description": "20g of premium protein per serving to fuel your gains",
+            "gradient": "from-chewteinz-blue to-blue-300",
+            "icon_color": "text-blue-500"
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "icon_char": "○",
+            "title": "Low Sugar",
+            "description": "Only 0g of sugar. All the taste, none of the guilt",
+            "gradient": "from-chewteinz-pink to-pink-300",
+            "icon_color": "text-pink-500"
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "icon_char": "✦",
+            "title": "Tastes Amazing",
+            "description": "Like candy, but better. Your taste buds will thank you",
+            "gradient": "from-chewteinz-yellow to-yellow-300",
+            "icon_color": "text-yellow-500"
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "icon_char": "↻",
+            "title": "Boosts Recovery",
+            "description": "Perfect post-workout snack to speed up muscle recovery",
+            "gradient": "from-chewteinz-purple to-purple-300",
+            "icon_color": "text-purple-500"
+          }
+        }
+      },
+      "block_order": ["benefit_1", "benefit_2", "benefit_3", "benefit_4"]
+    },
+    "why-us": { "type": "why-us", "settings": {} },
+    "featured-product": { "type": "featured-product", "settings": {} },
+    "social-feed": {
+      "type": "social-feed",
+      "settings": {},
+      "blocks": {
+        "social_1": {
+          "type": "image",
+          "settings": {
+            "image_url": "",
+            "link": "https://www.instagram.com/reel/DU2e5yFDVho/",
+            "gradient": "from-pink-400 to-purple-500"
+          }
+        },
+        "social_2": {
+          "type": "image",
+          "settings": {
+            "image_url": "https://1pg86aook1.ufs.sh/f/pN2g9q3wzUsTBF56nDQl3oAhbDIGrSJNv7YtpkE86aigXRs4",
+            "link": "https://www.instagram.com/p/DTj_8ZDk4Vc/",
+            "gradient": "from-blue-400 to-cyan-500"
+          }
+        },
+        "social_3": {
+          "type": "image",
+          "settings": {
+            "image_url": "https://1pg86aook1.ufs.sh/f/pN2g9q3wzUsT6lm0dGSIb5XrW1u874y3wMHZYlzOSfjB2CAc",
+            "link": "https://www.instagram.com/p/DTmfpSzE-S2/",
+            "gradient": "from-red-400 to-pink-400"
+          }
+        },
+        "social_4": {
+          "type": "image",
+          "settings": {
+            "image_url": "",
+            "link": "https://www.instagram.com/p/DU4vuaKGT4B/",
+            "gradient": "from-yellow-400 to-orange-500"
+          }
+        },
+        "social_5": {
+          "type": "image",
+          "settings": {
+            "gradient": "from-green-400 to-lime-500"
+          }
+        },
+        "social_6": {
+          "type": "image",
+          "settings": {
+            "gradient": "from-purple-400 to-pink-500"
+          }
+        }
+      },
+      "block_order": ["social_1", "social_2", "social_3", "social_4", "social_5", "social_6"]
+    }
+  },
+  "order": ["hero", "benefits", "why-us", "featured-product", "social-feed"]
+}

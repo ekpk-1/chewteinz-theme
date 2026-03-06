@@ -1,0 +1,92 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "ChewTeinz",
+    "theme_version": "1.0.0",
+    "theme_author": "ChewTeinz",
+    "theme_documentation_url": "https://chewteinz.com",
+    "theme_support_url": "https://chewteinz.com"
+  },
+  {
+    "name": "Airtable Integration",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Airtable API Settings"
+      },
+      {
+        "type": "paragraph",
+        "content": "These settings power the subscribe and notify modals. API keys are exposed client-side — consider using a proxy endpoint for production."
+      },
+      {
+        "type": "text",
+        "id": "airtable_base_id",
+        "label": "Airtable Base ID",
+        "default": "appDEsoLVaTbRQ5UL"
+      },
+      {
+        "type": "text",
+        "id": "airtable_table_name",
+        "label": "Airtable Table Name (Support)",
+        "default": "ChewTeinz Support"
+      },
+      {
+        "type": "text",
+        "id": "airtable_api_key",
+        "label": "Airtable API Key (Support)"
+      },
+      {
+        "type": "text",
+        "id": "airtable_chewfan_table",
+        "label": "Airtable ChewFan Table Name",
+        "default": "ChewFan Listing"
+      },
+      {
+        "type": "text",
+        "id": "airtable_contact_api_key",
+        "label": "Airtable Contact API Key"
+      }
+    ]
+  },
+  {
+    "name": "Supabase Integration",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Supabase Settings"
+      },
+      {
+        "type": "paragraph",
+        "content": "Used for logging contact form submissions."
+      },
+      {
+        "type": "text",
+        "id": "supabase_url",
+        "label": "Supabase URL"
+      },
+      {
+        "type": "text",
+        "id": "supabase_anon_key",
+        "label": "Supabase Anon Key"
+      }
+    ]
+  },
+  {
+    "name": "Make.com Integration",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Make.com Webhook"
+      },
+      {
+        "type": "paragraph",
+        "content": "Used for forwarding contact form submissions."
+      },
+      {
+        "type": "text",
+        "id": "make_webhook_url",
+        "label": "Make.com Webhook URL"
+      }
+    ]
+  }
+]

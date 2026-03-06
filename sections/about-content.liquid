@@ -1,0 +1,94 @@
+<div class="min-h-screen pt-32 pb-20">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h1 class="text-6xl md:text-7xl font-display font-bold mb-6 bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink bg-clip-text text-transparent">
+        Our Story
+      </h1>
+    </div>
+
+    <div class="space-y-12">
+      <div class="bg-gradient-to-br from-chewteinz-yellow to-chewteinz-orange rounded-3xl p-8 md:p-12 text-white">
+        <h2 class="text-4xl font-display font-bold mb-4">The Beginning</h2>
+        <p class="text-xl font-body leading-relaxed">
+          ChewTeinz was born from a simple frustration: Meal prepping took too long, snacking junk food was too convenient and all protein bars tasted boring. So we asked ourselves--Why can't getting your protein be quick, easy and yum?
+        </p>
+      </div>
+
+      <div class="bg-gradient-to-br from-chewteinz-blue to-chewteinz-purple rounded-3xl p-8 md:p-12 text-white">
+        <h2 class="text-4xl font-display font-bold mb-4">The Mission</h2>
+        <p class="text-xl font-body leading-relaxed mb-4">
+          We're on a mission to make fitness taste fun. Every ChewTeinz pack is filled with clean protein, zero sugar and maximum flavours.
+        </p>
+        <p class="text-xl font-body leading-relaxed">
+          We believe that healthy habits should bring joy, not sacrifice. That's why we've created a protein snack that you'll actually look forward to eating.
+        </p>
+      </div>
+
+      <div class="bg-gradient-to-br from-chewteinz-pink to-pink-400 rounded-3xl p-8 md:p-12 text-white">
+        <h2 class="text-4xl font-display font-bold mb-6">Our Values</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-4">
+              {% render 'icon', icon: 'sparkles', size: 32, class: 'text-white' %}
+            </div>
+            <h3 class="text-2xl font-display font-bold mb-2">Quality First</h3>
+            <p class="font-body">Clean ingredients, no artificial colors, and always delicious.</p>
+          </div>
+          <div>
+            <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-4">
+              {% render 'icon', icon: 'zap', size: 32, class: 'text-white' %}
+            </div>
+            <h3 class="text-2xl font-display font-bold mb-2">Real Results</h3>
+            <p class="font-body">Packed with protein to fuel your fitness goals.</p>
+          </div>
+          <div>
+            <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-4">
+              {% render 'icon', icon: 'award', size: 32, class: 'text-white' %}
+            </div>
+            <h3 class="text-2xl font-display font-bold mb-2">Fun Always</h3>
+            <p class="font-body">Life's too short for boring protein supplements.</p>
+          </div>
+          <div>
+            <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-4">
+              {% render 'icon', icon: 'leaf', size: 32, class: 'text-white' %}
+            </div>
+            <h3 class="text-2xl font-display font-bold mb-2">Better Tomorrow</h3>
+            <p class="font-body">Sustainable practices and eco-friendly packaging.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl p-8 md:p-12 shadow-lg text-center">
+        <h2 class="text-4xl font-display font-bold mb-4 text-gray-800">Join the ChewTeinz Family</h2>
+        <p class="text-xl text-gray-600 font-body mb-8">
+          Thousands of fitness enthusiasts have already made the switch to protein that tastes like candy...Guilt Free.
+        </p>
+        <div class="flex flex-wrap justify-center gap-6 mb-8">
+          {% for i in (1..5) %}
+            {%- assign rotations = "15,-20,25,-30,35" | split: "," -%}
+            <img
+              src="https://1pg86aook1.ufs.sh/f/pN2g9q3wzUsTAzp81qYdzGFpfVKBbR6Qy9iWxIh3krP4LwZS"
+              alt=""
+              class="w-16 h-16"
+              style="transform: rotate({{ rotations[forloop.index0] }}deg)"
+              loading="lazy"
+            >
+          {% endfor %}
+        </div>
+        <a
+          href="{{ routes.all_products_collection_url }}"
+          class="inline-block px-8 py-4 bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink text-white font-display font-bold text-xl rounded-full hover:scale-105 transition-transform"
+        >
+          I'm ready!
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "About Content",
+  "settings": []
+}
+{% endschema %}

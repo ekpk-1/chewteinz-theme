@@ -1,0 +1,45 @@
+{
+  "general": {
+    "shop_now": "Shop Now",
+    "view_all": "View All Products",
+    "learn_more": "Learn More",
+    "close": "Close",
+    "send_message": "Send Message",
+    "contact_us": "Contact Us"
+  },
+  "cart": {
+    "title": "Your Cart",
+    "empty": "Your cart is empty",
+    "empty_description": "Add some delicious protein treats!",
+    "checkout": "Checkout",
+    "total": "Total",
+    "redirect_notice": "You'll be redirected to secure checkout"
+  },
+  "products": {
+    "order_now": "Order Now!",
+    "notify_me": "Notify Me",
+    "out_of_stock": "Out of Stock",
+    "sold_out": "Sold Out"
+  },
+  "subscribe": {
+    "heading": "Get Exclusive Perks!",
+    "subheading": "Join our VIP list for special offers & early access",
+    "submit": "Get My 10% Off",
+    "no_thanks": "No thanks, I'll pay full price",
+    "success": "Success!",
+    "preparing_gift": "Preparing your gift..."
+  },
+  "gift": {
+    "congratulations": "Congratulations!",
+    "gift_ready": "Your Gift is Ready!",
+    "copy_instruction": "Click to copy your discount code",
+    "copied": "Code copied to clipboard!",
+    "discount": "10% OFF Your First Order"
+  },
+  "notify": {
+    "heading": "Get Notified",
+    "submit": "Notify Me",
+    "success_heading": "You're on the list!",
+    "privacy": "We respect your privacy. Unsubscribe anytime."
+  }
+}

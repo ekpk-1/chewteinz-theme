@@ -1,0 +1,120 @@
+<nav class="fixed left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-lg transition-all duration-300 top-10 sm:top-12" id="main-nav">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16 sm:h-18 md:h-20">
+      <a href="/" class="flex items-center transition-transform duration-300 hover:-translate-y-1">
+        <img
+          src="https://1pg86aook1.ufs.sh/f/pN2g9q3wzUsTZWfCRu4PgqRxlpeEzvaLNWk8fbGJSHDVM2I5"
+          alt="{{ shop.name }}"
+          class="h-[45px] sm:h-[55px] md:h-[61.6px] w-auto"
+        >
+      </a>
+
+      <div class="hidden md:flex items-center space-x-8">
+        {%- assign all_products_url = routes.all_products_collection_url -%}
+        {% assign nav_items = "About Us:/pages/about,Contact:/pages/contact,FAQ:/pages/faq" | split: "," %}
+        <a
+          href="/"
+          class="font-body font-semibold transition-colors hover:text-chewteinz-purple {% if request.path == '/' %}text-chewteinz-purple{% else %}text-gray-700{% endif %}"
+        >
+          Home
+        </a>
+        <a
+          href="{{ all_products_url }}"
+          class="font-body font-semibold transition-colors hover:text-chewteinz-purple {% if request.path == all_products_url %}text-chewteinz-purple{% else %}text-gray-700{% endif %}"
+        >
+          Shop Products
+        </a>
+        {% for item in nav_items %}
+          {% assign parts = item | split: ":" %}
+          {% assign label = parts[0] %}
+          {% assign url = parts[1] %}
+          <a
+            href="{{ url }}"
+            class="font-body font-semibold transition-colors hover:text-chewteinz-purple {% if request.path == url %}text-chewteinz-purple{% else %}text-gray-700{% endif %}"
+          >
+            {{ label }}
+          </a>
+        {% endfor %}
+      </div>
+
+      <div class="hidden md:flex items-center space-x-4">
+        <button
+          type="button"
+          class="relative p-3 bg-chewteinz-yellow rounded-full hover:scale-110 transition-transform shadow-lg"
+          onclick="window.cartDrawer.open()"
+          aria-label="Open cart"
+          tabindex="0"
+        >
+          {% render 'icon', icon: 'shopping-cart', size: 20 %}
+          <span class="cart-count-badge absolute -top-1 -right-1 bg-chewteinz-pink text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center {% if cart.item_count == 0 %}hidden{% endif %}">
+            {{ cart.item_count }}
+          </span>
+        </button>
+      </div>
+
+      <button
+        class="md:hidden p-2"
+        onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
+        aria-label="Toggle menu"
+        tabindex="0"
+        id="mobile-menu-btn"
+      >
+        <span class="menu-icon">{% render 'icon', icon: 'menu', size: 24 %}</span>
+        <span class="close-icon hidden">{% render 'icon', icon: 'x', size: 24 %}</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="md:hidden bg-white border-t hidden" id="mobile-menu">
+    <div class="px-4 py-4 space-y-3">
+      {% assign nav_items = "About Us:/pages/about,Contact:/pages/contact,FAQ:/pages/faq" | split: "," %}
+      <a
+        href="/"
+        class="block w-full text-left px-4 py-3 rounded-lg font-body font-semibold transition-colors {% if request.path == '/' %}bg-chewteinz-purple text-white{% else %}text-gray-700 hover:bg-gray-100{% endif %}"
+        onclick="document.getElementById('mobile-menu').classList.add('hidden')"
+      >
+        Home
+      </a>
+      <a
+        href="{{ all_products_url }}"
+        class="block w-full text-left px-4 py-3 rounded-lg font-body font-semibold transition-colors {% if request.path == all_products_url %}bg-chewteinz-purple text-white{% else %}text-gray-700 hover:bg-gray-100{% endif %}"
+        onclick="document.getElementById('mobile-menu').classList.add('hidden')"
+      >
+        Shop Products
+      </a>
+      {% for item in nav_items %}
+        {% assign parts = item | split: ":" %}
+        {% assign label = parts[0] %}
+        {% assign url = parts[1] %}
+        <a
+          href="{{ url }}"
+          class="block w-full text-left px-4 py-3 rounded-lg font-body font-semibold transition-colors {% if request.path == url %}bg-chewteinz-purple text-white{% else %}text-gray-700 hover:bg-gray-100{% endif %}"
+          onclick="document.getElementById('mobile-menu').classList.add('hidden')"
+        >
+          {{ label }}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</nav>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    if (btn && menu) {
+      btn.addEventListener('click', function() {
+        const isOpen = !menu.classList.contains('hidden');
+        btn.querySelector('.menu-icon').classList.toggle('hidden', !isOpen);
+        btn.querySelector('.close-icon').classList.toggle('hidden', isOpen);
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,32 @@
+{
+  "current": {
+    "airtable_base_id": "appDEsoLVaTbRQ5UL",
+    "airtable_table_name": "ChewTeinz Support",
+    "airtable_api_key": "",
+    "airtable_chewfan_table": "ChewFan Listing",
+    "airtable_contact_api_key": "",
+    "supabase_url": "",
+    "supabase_anon_key": "",
+    "make_webhook_url": "https://hook.eu2.make.com/nqrs2nriv53twj2g7ygveq7kyihla633",
+    "sections": {
+      "announcement-banner": {
+        "type": "announcement-banner",
+        "settings": {
+          "banner_text": "Free shipping over $50 purchase"
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {}
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {}
+      },
+      "cart-drawer": {
+        "type": "cart-drawer",
+        "settings": {}
+      }
+    }
+  }
+}

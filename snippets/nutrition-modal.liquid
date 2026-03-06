@@ -1,0 +1,60 @@
+<div id="nutrition-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 transition-opacity duration-300 opacity-0 pointer-events-none" aria-hidden="true">
+  <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="window.modals.closeNutrition()"></div>
+
+  <div class="relative bg-white rounded-3xl shadow-2xl max-w-2xl w-full overflow-hidden transform transition-all duration-300 scale-95" id="nutrition-modal-content">
+    <button
+      type="button"
+      onclick="window.modals.closeNutrition()"
+      class="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/80 hover:bg-white transition-colors"
+      aria-label="Close"
+      tabindex="0"
+    >
+      {% render 'icon', icon: 'x', size: 20, class: 'text-gray-600' %}
+    </button>
+
+    <div class="relative bg-gradient-to-br from-chewteinz-yellow via-chewteinz-pink to-chewteinz-purple p-6 text-center">
+      <h2 class="text-2xl sm:text-3xl font-display font-bold text-white mb-1">Nutrition Information</h2>
+      <p class="text-base sm:text-lg text-white/90 font-body" id="nutrition-product-name"></p>
+    </div>
+
+    <div class="p-6 sm:p-8 max-h-[calc(100vh-200px)] overflow-y-auto">
+      <div class="border-2 rounded-lg p-4 font-body" id="nutrition-table-container" style="background-color:#A2CD76;border-color:#8BB65C">
+        <div class="border-b-8 border-white pb-2 mb-3">
+          <h3 class="text-3xl font-bold text-white">Nutrition Facts</h3>
+        </div>
+        <div class="border-b-4 border-white pb-2 mb-2">
+          <p class="text-sm text-white"><span class="font-semibold">Servings per container:</span> 3</p>
+          <p class="text-sm text-white"><span class="font-semibold">Serving size:</span> 20 gummies (~60g)</p>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-white" id="nutrition-table">
+            <thead>
+              <tr class="border-b-2 border-white">
+                <th class="text-left py-2 px-2 font-bold"></th>
+                <th class="text-center py-2 px-2 font-bold nutrition-border-l">AVG QTY<br>per serve</th>
+                <th class="text-center py-2 px-2 font-bold nutrition-border-l">AVG QTY<br>per 100g</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="nutrition-row-border"><td class="py-2 px-2 font-semibold">Energy</td><td class="text-center py-2 px-2 nutrition-border-l">452kJ</td><td class="text-center py-2 px-2 nutrition-border-l">752kJ</td></tr>
+              <tr class="nutrition-row-border"><td class="py-2 px-2 font-semibold">Protein</td><td class="text-center py-2 px-2 nutrition-border-l">20g</td><td class="text-center py-2 px-2 nutrition-border-l">33.3g</td></tr>
+              <tr class="nutrition-row-border"><td class="py-2 px-2 font-semibold">Fat, Total</td><td class="text-center py-2 px-2 nutrition-border-l">1.5g</td><td class="text-center py-2 px-2 nutrition-border-l">2.5g</td></tr>
+              <tr class="nutrition-row-border"><td class="py-2 px-2 pl-6">- Saturated</td><td class="text-center py-2 px-2 nutrition-border-l">0.5g</td><td class="text-center py-2 px-2 nutrition-border-l">0.8g</td></tr>
+              <tr class="nutrition-row-border"><td class="py-2 px-2 font-semibold">Carbohydrates</td><td class="text-center py-2 px-2 nutrition-border-l">30g</td><td class="text-center py-2 px-2 nutrition-border-l">50g</td></tr>
+              <tr class="nutrition-row-border"><td class="py-2 px-2 pl-6">- Sugars</td><td class="text-center py-2 px-2 nutrition-border-l">0g</td><td class="text-center py-2 px-2 nutrition-border-l">0g</td></tr>
+              <tr class="nutrition-row-border"><td class="py-2 px-2 font-semibold">Dietary Fiber</td><td class="text-center py-2 px-2 nutrition-border-l">2g</td><td class="text-center py-2 px-2 nutrition-border-l">3.3g</td></tr>
+              <tr class="border-b-2 border-white"><td class="py-2 px-2 font-semibold">Sodium</td><td class="text-center py-2 px-2 nutrition-border-l">50mg</td><td class="text-center py-2 px-2 nutrition-border-l">83mg</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="mt-4 pt-3 nutrition-border-t">
+          <p class="text-xs text-white/80 italic">* Based on an average diet. Your daily values may be higher or lower depending on your energy needs.</p>
+        </div>
+      </div>
+
+      <button type="button" onclick="window.modals.closeNutrition()" class="w-full mt-6 py-3 bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink text-white font-display font-bold text-lg rounded-full hover:scale-105 transition-transform shadow-lg">
+        Close
+      </button>
+    </div>
+  </div>
+</div>

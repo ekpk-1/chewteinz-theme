@@ -1,0 +1,106 @@
+<div class="min-h-screen pt-32 pb-20 bg-gradient-to-b from-chewteinz-purple/20 via-white to-chewteinz-pink/20">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h1 class="text-6xl md:text-7xl font-display font-bold mb-6 bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink bg-clip-text text-transparent">
+        FAQ
+      </h1>
+      <p class="text-2xl text-gray-600 font-body">
+        Got questions? We've got answers!
+      </p>
+    </div>
+
+    <div class="space-y-4 mb-16" id="faq-list">
+      {% for block in section.blocks %}
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl faq-item" {{ block.shopify_attributes }}>
+          <button
+            type="button"
+            class="w-full px-8 py-6 flex items-center justify-between text-left faq-toggle"
+            onclick="toggleFaq(this)"
+            aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
+            tabindex="0"
+          >
+            <h3 class="text-xl font-display font-bold text-gray-800 pr-4">
+              {{ block.settings.question }}
+            </h3>
+            <span class="text-chewteinz-purple flex-shrink-0 transition-transform {% if forloop.first %}rotate-180{% endif %} faq-chevron">
+              {% render 'icon', icon: 'chevron-down', size: 24 %}
+            </span>
+          </button>
+          <div class="overflow-hidden transition-all duration-300 {% if forloop.first %}max-h-96{% else %}max-h-0{% endif %} faq-content">
+            <div class="px-8 pb-6">
+              <p class="text-gray-600 font-body text-lg leading-relaxed">
+                {{ block.settings.answer }}
+              </p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="bg-gradient-to-r from-chewteinz-blue to-chewteinz-purple rounded-3xl p-12 text-center text-white">
+      <div class="text-6xl mb-4">💬</div>
+      <h3 class="text-4xl font-display font-bold mb-4">Still Have Questions?</h3>
+      <p class="text-xl font-body mb-8">
+        Our team is here to help! Reach out and we'll get back to you faster than you can say "ChewTeinz"
+      </p>
+      <a
+        href="/pages/contact"
+        class="inline-block px-8 py-4 bg-white text-chewteinz-purple font-display font-bold text-lg rounded-full hover:scale-105 transition-transform"
+      >
+        Contact Support
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleFaq(btn) {
+    var item = btn.closest('.faq-item');
+    var content = item.querySelector('.faq-content');
+    var chevron = item.querySelector('.faq-chevron');
+    var isOpen = content.classList.contains('max-h-96');
+
+    document.querySelectorAll('.faq-item').forEach(function(el) {
+      el.querySelector('.faq-content').classList.remove('max-h-96');
+      el.querySelector('.faq-content').classList.add('max-h-0');
+      el.querySelector('.faq-chevron').classList.remove('rotate-180');
+      el.querySelector('.faq-toggle').setAttribute('aria-expanded', 'false');
+    });
+
+    if (!isOpen) {
+      content.classList.remove('max-h-0');
+      content.classList.add('max-h-96');
+      chevron.classList.add('rotate-180');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "FAQ Accordion",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ Item",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question" },
+        { "type": "textarea", "id": "answer", "label": "Answer" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Accordion",
+      "blocks": [
+        { "type": "faq", "settings": { "question": "What are ChewTeinz gummies made of?", "answer": "Our gummies are made with a plant-based protein blend of organic pea and rice protein, naturally sweetened with allulose and stevia. They use pectin for a soft gummy texture, natural mango flavour, and lycopene for colour. A light coating of coconut oil and carnauba wax keeps them smooth and non-sticky." } },
+        { "type": "faq", "settings": { "question": "How should I store my gummies?", "answer": "To maintain freshness and quality throughout the full 24-month shelf life, store your gummies in a cool, dry place away from direct sunlight and heat. Keep the pouch tightly sealed after opening to preserve texture and flavour. If you live in a warm or humid climate, storing the gummies in the refrigerator can help prevent softening or sticking — just make sure the pouch is sealed properly to avoid moisture." } },
+        { "type": "faq", "settings": { "question": "What is your shipping policy?", "answer": "We offer free shipping on orders over $50. Standard orders typically arrive within 3-5 business days. We ship only in Australia." } },
+        { "type": "faq", "settings": { "question": "When is the best time to eat ChewTeinz?", "answer": "Anytime you need a protein boost! Many of our customers enjoy them post-workout for recovery, as a mid-afternoon snack, or even as a sweet treat after dinner. They're versatile and delicious whenever you need them." } },
+        { "type": "faq", "settings": { "question": "Can kids eat ChewTeinz?", "answer": "While ChewTeinz are safe and made with quality ingredients, they're formulated for adults and fitness enthusiasts. We recommend consulting with a pediatrician before giving them to children under 12." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

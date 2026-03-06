@@ -1,0 +1,54 @@
+<div class="min-h-screen pt-32 pb-20 bg-gradient-to-b from-chewteinz-blue/20 to-white">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h1 class="text-6xl md:text-7xl font-display font-bold mb-6 bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink bg-clip-text text-transparent">
+        {{ page.title }}
+      </h1>
+      {% if section.settings.page_subtitle != blank %}
+        <p class="text-2xl text-gray-600 font-body">
+          {{ section.settings.page_subtitle }}
+        </p>
+      {% endif %}
+    </div>
+
+    <div class="bg-white rounded-3xl p-8 md:p-12 shadow-lg">
+      <div class="policy-content max-w-none font-body text-gray-700 leading-relaxed">
+        {{ page.content }}
+      </div>
+      <style>
+        .policy-content h2 { font-family: "Fredoka", system-ui, sans-serif; font-weight: 700; color: #1f2937; font-size: 1.875rem; margin-top: 2rem; margin-bottom: 1rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; }
+        .policy-content h3 { font-family: "Fredoka", system-ui, sans-serif; font-weight: 700; color: #1f2937; font-size: 1.5rem; margin-top: 1.5rem; margin-bottom: 0.75rem; }
+        .policy-content p { margin-bottom: 1rem; line-height: 1.625; }
+        .policy-content ul { list-style: disc; margin-left: 1.5rem; margin-bottom: 1rem; }
+        .policy-content ul li { color: #374151; margin-bottom: 0.5rem; }
+        .policy-content a { color: #C8A2F0; font-weight: 600; }
+        .policy-content a:hover { text-decoration: underline; }
+        .policy-content strong { font-weight: 600; }
+      </style>
+
+      <div class="bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink rounded-xl p-8 text-center text-white mt-12">
+        <h3 class="text-2xl font-display font-bold mb-4">Need Help?</h3>
+        <p class="text-lg font-body mb-6">Our team is here to assist you with any questions.</p>
+        <a
+          href="/pages/contact"
+          class="inline-block bg-white text-chewteinz-purple px-8 py-3 rounded-full font-display font-bold text-lg hover:scale-105 transition-transform"
+        >
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Policy Content",
+  "settings": [
+    {
+      "type": "text",
+      "id": "page_subtitle",
+      "label": "Page Subtitle"
+    }
+  ]
+}
+{% endschema %}

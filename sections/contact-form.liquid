@@ -1,0 +1,127 @@
+<div class="min-h-screen pt-32 pb-20 bg-gradient-to-b from-chewteinz-blue/20 to-white">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h1 class="text-6xl md:text-7xl font-display font-bold mb-6 bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink bg-clip-text text-transparent">
+        Get In Touch
+      </h1>
+      <p class="text-2xl text-gray-600 font-body">
+        We'd love to hear from you!
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+      <div class="space-y-8">
+        <div class="bg-white rounded-3xl p-8 shadow-lg">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+              {% render 'icon', icon: 'instagram', size: 24, class: 'text-white' %}
+            </div>
+            <div>
+              <h3 class="text-2xl font-display font-bold text-gray-800 mb-2">Send us a DM</h3>
+              <p class="text-gray-600 font-body mb-2">We're active on Instagram and love to chat!</p>
+              <a href="https://www.instagram.com/chewteinz?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="text-chewteinz-purple font-semibold hover:underline">@chewteinz</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-3xl p-8 shadow-lg">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-chewteinz-blue to-chewteinz-purple rounded-full flex items-center justify-center flex-shrink-0">
+              {% render 'icon', icon: 'help-circle', size: 24, class: 'text-white' %}
+            </div>
+            <div>
+              <h3 class="text-2xl font-display font-bold text-gray-800 mb-2">Check our FAQ</h3>
+              <p class="text-gray-600 font-body mb-2">Quick answers to common questions</p>
+              <a href="/pages/faq" class="text-chewteinz-purple font-semibold hover:underline text-left">View FAQ</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl p-8 shadow-lg">
+        <h2 class="text-3xl font-display font-bold text-gray-800 mb-6">Send us a message</h2>
+        <form id="contact-form" class="space-y-6" onsubmit="return handleContactSubmit(event)">
+          <div>
+            <label class="block text-gray-700 font-semibold mb-2 font-body" for="contact-name">Name</label>
+            <input
+              type="text"
+              id="contact-name"
+              name="name"
+              required
+              class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-chewteinz-purple outline-none transition-colors font-body"
+              placeholder="Your name"
+            >
+          </div>
+          <div>
+            <label class="block text-gray-700 font-semibold mb-2 font-body" for="contact-email">Email</label>
+            <input
+              type="email"
+              id="contact-email"
+              name="email"
+              required
+              class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-chewteinz-purple outline-none transition-colors font-body"
+              placeholder="your@email.com"
+            >
+          </div>
+          <div>
+            <label class="block text-gray-700 font-semibold mb-2 font-body" for="contact-subject">Subject</label>
+            <input
+              type="text"
+              id="contact-subject"
+              name="subject"
+              required
+              class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-chewteinz-purple outline-none transition-colors font-body"
+              placeholder="How can we help?"
+            >
+          </div>
+          <div>
+            <label class="block text-gray-700 font-semibold mb-2 font-body" for="contact-message">Message</label>
+            <textarea
+              id="contact-message"
+              name="message"
+              required
+              rows="5"
+              class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-chewteinz-purple outline-none transition-colors font-body resize-none"
+              placeholder="Tell us what's on your mind..."
+            ></textarea>
+          </div>
+
+          <div id="contact-success" class="hidden p-4 bg-green-50 border-2 border-green-200 rounded-xl">
+            <p class="text-green-700 font-body text-center">Thank you! Your message has been sent successfully.</p>
+          </div>
+          <div id="contact-error" class="hidden p-4 bg-red-50 border-2 border-red-200 rounded-xl">
+            <p class="text-red-700 font-body text-center">Oops! Something went wrong. Please try again.</p>
+          </div>
+
+          <button
+            type="submit"
+            id="contact-submit-btn"
+            class="w-full py-4 bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink text-white font-display font-bold text-lg rounded-full hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+          >
+            Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="bg-gradient-to-r from-chewteinz-yellow via-chewteinz-pink to-chewteinz-purple rounded-3xl p-12 text-center text-white">
+      <div class="flex justify-center mb-4">
+        <img src="https://1pg86aook1.ufs.sh/f/pN2g9q3wzUsTAzp81qYdzGFpfVKBbR6Qy9iWxIh3krP4LwZS" alt="" class="w-20 h-20" style="transform: rotate(10deg)" loading="lazy">
+      </div>
+      <h3 class="text-4xl font-display font-bold mb-4">Follow Us on Social Media</h3>
+      <p class="text-xl font-body mb-8">Join our community for daily inspo and sweet deals</p>
+      <div class="flex justify-center gap-4">
+        <a href="https://www.instagram.com/chewteinz?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:scale-110 transition-transform" aria-label="Instagram">
+          {% render 'icon', icon: 'instagram', size: 28, class: 'text-white' %}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Contact Form",
+  "settings": []
+}
+{% endschema %}

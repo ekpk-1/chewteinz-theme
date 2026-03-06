@@ -1,0 +1,41 @@
+<div id="preorder-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 transition-opacity duration-300 opacity-0 pointer-events-none" aria-hidden="true">
+  <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="window.modals.closePreorder()"></div>
+
+  <div class="relative bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden transform transition-all duration-300 scale-95" id="preorder-modal-content">
+    <button
+      type="button"
+      onclick="window.modals.closePreorder()"
+      class="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/80 hover:bg-white transition-colors"
+      aria-label="Close"
+      tabindex="0"
+    >
+      {% render 'icon', icon: 'x', size: 20, class: 'text-gray-600' %}
+    </button>
+
+    <div class="relative bg-gradient-to-br from-chewteinz-yellow via-chewteinz-pink to-chewteinz-purple p-8 text-center">
+      <span class="absolute top-4 left-4 text-white animate-sparkle">{% render 'icon', icon: 'sparkles', size: 24 %}</span>
+      <span class="absolute bottom-4 right-4 text-white animate-sparkle" style="animation-delay:0.3s">{% render 'icon', icon: 'sparkles', size: 24 %}</span>
+      <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white animate-sparkle" style="animation-delay:0.15s">{% render 'icon', icon: 'sparkles', size: 32 %}</span>
+
+      <div class="relative">
+        {% render 'icon', icon: 'shopping-bag', size: 64, class: 'mx-auto mb-4 text-white' %}
+        <h2 class="text-3xl sm:text-4xl font-display font-bold text-white mb-2">Now In Stock!</h2>
+        <p class="text-lg text-white/90 font-body">ChewTeinz Mango Madness</p>
+      </div>
+    </div>
+
+    <div class="p-6 sm:p-8">
+      <p class="text-gray-700 text-center mb-6 font-body text-base sm:text-lg">
+        ChewTeinz Mango Madness is now available! Get your hands on our delicious protein-packed gummies today.
+      </p>
+      <div class="flex flex-col gap-3">
+        <a href="{{ routes.all_products_collection_url }}" class="block w-full py-3 bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink text-white font-display font-bold text-lg rounded-full hover:scale-105 transition-transform shadow-lg text-center" onclick="window.modals.closePreorder()">
+          Shop Now
+        </a>
+        <button type="button" onclick="window.modals.closePreorder()" class="w-full py-3 bg-gray-100 text-gray-700 font-display font-semibold text-base rounded-full hover:bg-gray-200 transition-colors">
+          Maybe Later
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

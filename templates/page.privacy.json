@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "main": {
+      "type": "policy-content",
+      "settings": {
+        "page_title": "Privacy Policy",
+        "page_subtitle": "Your privacy matters to us"
+      }
+    }
+  },
+  "order": ["main"]
+}

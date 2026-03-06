@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "main": {
+      "type": "policy-content",
+      "settings": {
+        "page_title": "Shipping Policy",
+        "page_subtitle": "Fast and reliable delivery across Australia"
+      }
+    }
+  },
+  "order": ["main"]
+}

@@ -1,0 +1,3 @@
+# Replace YOUR-DEV-STORE with your actual development store name (e.g. my-store or my-store.myshopify.com)
+[environments.default]
+store = "YOUR-DEV-STORE"

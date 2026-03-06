@@ -1,0 +1,66 @@
+<div id="notify-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 transition-opacity duration-300 opacity-0 pointer-events-none" aria-hidden="true">
+  <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="window.modals.closeNotify()"></div>
+
+  <div class="relative bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden transform transition-all duration-300 scale-95" id="notify-modal-content">
+    <button
+      type="button"
+      onclick="window.modals.closeNotify()"
+      class="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/90 hover:bg-white transition-colors shadow-lg"
+      aria-label="Close"
+      tabindex="0"
+    >
+      {% render 'icon', icon: 'x', size: 20, class: 'text-gray-600' %}
+    </button>
+
+    <div class="relative bg-gradient-to-br from-chewteinz-yellow via-chewteinz-pink to-chewteinz-purple p-6 sm:p-8 text-center overflow-hidden">
+      <div class="absolute inset-0 opacity-20">
+        {% for i in (1..6) %}
+          <span class="absolute text-white animate-sparkle" style="left:{{ i | times: 15 }}%;top:{{ i | times: 12 | plus: 5 }}%;animation-delay:{{ i | times: 0.3 }}s">
+            {% render 'icon', icon: 'sparkles', size: 14 %}
+          </span>
+        {% endfor %}
+      </div>
+      <div class="relative">
+        <div class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-3">
+          {% render 'icon', icon: 'bell', size: 32, class: 'text-white' %}
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-display font-bold text-white mb-2 drop-shadow-lg">Get Notified</h2>
+        <p class="text-base sm:text-lg text-white/95 font-body drop-shadow">
+          Be first to know when <span class="font-bold" id="notify-flavor-name"></span> drops!
+        </p>
+      </div>
+    </div>
+
+    <div class="p-6">
+      <div id="notify-form-section">
+        <form id="notify-form" class="space-y-4" onsubmit="return window.modals.handleNotifySubmit(event)">
+          <div>
+            <input type="text" id="notify-name" placeholder="Enter your name" class="w-full px-4 py-3 rounded-full border-2 border-gray-200 focus:border-chewteinz-purple focus:outline-none transition-colors font-body text-gray-800 placeholder-gray-400">
+          </div>
+          <div>
+            <input type="email" id="notify-email" placeholder="Enter your email" class="w-full px-4 py-3 rounded-full border-2 border-gray-200 focus:border-chewteinz-purple focus:outline-none transition-colors font-body text-gray-800 placeholder-gray-400">
+            <div id="notify-error" class="hidden mt-2">
+              <div class="flex items-center gap-2 text-red-500 text-sm font-body">
+                {% render 'icon', icon: 'alert-circle', size: 16 %}
+                <span id="notify-error-text"></span>
+              </div>
+            </div>
+          </div>
+          <button type="submit" id="notify-submit-btn" class="w-full py-3 bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink text-white font-display font-bold text-base rounded-full hover:scale-105 transition-transform shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100">
+            Notify Me
+          </button>
+        </form>
+        <p class="text-xs text-gray-500 text-center mt-4 font-body">We respect your privacy. Unsubscribe anytime.</p>
+      </div>
+
+      <div id="notify-success-section" class="hidden text-center py-6">
+        <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+          {% render 'icon', icon: 'check', size: 32, class: 'text-white' %}
+        </div>
+        <h3 class="text-xl font-display font-bold text-gray-800 mb-2">You're on the list!</h3>
+        <p class="text-gray-600 font-body text-sm" id="notify-success-text">We'll email you as soon as it's available.</p>
+        <button type="button" onclick="window.modals.closeNotify()" class="mt-4 px-6 py-2 bg-gray-100 text-gray-700 font-display font-semibold rounded-full hover:bg-gray-200 transition-colors">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

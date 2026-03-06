@@ -1,0 +1,72 @@
+<div class="pb-12 sm:pb-16 md:pb-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mb-8 sm:mb-10 md:mb-12">
+      <div class="bg-white rounded-2xl shadow-lg p-4 max-w-2xl mx-auto">
+        <div class="flex flex-wrap gap-2 sm:gap-3 justify-center" id="filter-buttons">
+          {%- assign filters = "all,berry,tropical,citrus" | split: "," -%}
+          {%- for f in filters -%}
+            <button
+              type="button"
+              data-filter="{{ f }}"
+              class="filter-btn px-4 py-1.5 sm:px-6 sm:py-2 rounded-full font-display font-semibold text-sm sm:text-base transition-all {% if f == 'all' %}bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink text-white{% else %}bg-gray-100 text-gray-700 hover:bg-gray-200{% endif %}"
+              onclick="filterProducts('{{ f }}')"
+            >
+              {{ f | capitalize }}
+            </button>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+
+    {% if collection.products.size == 0 %}
+      <div class="text-center py-12">
+        <p class="text-lg text-gray-600">No products found in this category.</p>
+      </div>
+    {% else %}
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8" id="products-grid">
+        {% for product in collection.products %}
+          {%- assign title_lower = product.title | downcase -%}
+          {%- assign product_filter = "" -%}
+          {%- if title_lower contains 'blueberry' -%}
+            {%- assign product_filter = "berry" -%}
+          {%- elsif title_lower contains 'mango' or title_lower contains 'sour watermelon' -%}
+            {%- assign product_filter = "tropical" -%}
+          {%- endif -%}
+          <div class="product-card-wrapper" data-tags="{{ product_filter }}">
+            {% render 'product-card', product: product %}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<script>
+  function filterProducts(filter) {
+    var btns = document.querySelectorAll('.filter-btn');
+    btns.forEach(function(btn) {
+      if (btn.dataset.filter === filter) {
+        btn.className = 'filter-btn px-4 py-1.5 sm:px-6 sm:py-2 rounded-full font-display font-semibold text-sm sm:text-base transition-all bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink text-white';
+      } else {
+        btn.className = 'filter-btn px-4 py-1.5 sm:px-6 sm:py-2 rounded-full font-display font-semibold text-sm sm:text-base transition-all bg-gray-100 text-gray-700 hover:bg-gray-200';
+      }
+    });
+
+    var cards = document.querySelectorAll('.product-card-wrapper');
+    cards.forEach(function(card) {
+      if (filter === 'all') {
+        card.style.display = '';
+      } else {
+        var tags = card.dataset.tags || '';
+        card.style.display = tags.indexOf(filter) !== -1 ? '' : 'none';
+      }
+    });
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Product Grid",
+  "settings": []
+}
+{% endschema %}
