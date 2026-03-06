@@ -14,13 +14,12 @@
   <div class="h-56 sm:h-64 md:h-72 bg-gradient-to-br from-chewteinz-yellow to-chewteinz-pink flex items-center justify-center relative overflow-hidden scale-[0.98]">
     {% if product.featured_image %}
       <img
-        src="{{ product.featured_image | image_url: width: 600, height: 600 }}"
+        src="{{ product.featured_image | image_url: width: 600 }}"
         alt="{{ product.title | escape }}"
         class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
         loading="lazy"
         width="600"
-        height="600"
-      >
+        height="600">
     {% else %}
       <div class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl transform group-hover:scale-125 group-hover:rotate-12 transition-all duration-500">
         🍬
@@ -34,8 +33,12 @@
       <span class="{% if product.compare_at_price > product.price %}text-chewteinz-pink{% endif %}">{{ product.price | money }}</span>
     </div>
 
-    <span class="absolute top-2 left-2 sm:top-3 sm:left-3 md:top-4 md:left-4 text-white opacity-0 group-hover:opacity-100 transition-opacity animate-sparkle">{% render 'icon', icon: 'sparkles', size: 16 %}</span>
-    <span class="absolute bottom-2 right-2 sm:bottom-3 sm:right-3 md:bottom-4 md:right-4 text-white opacity-0 group-hover:opacity-100 transition-opacity animate-sparkle" style="animation-delay:0.3s">{% render 'icon', icon: 'sparkles', size: 16 %}</span>
+    <span class="absolute top-2 left-2 sm:top-3 sm:left-3 md:top-4 md:left-4 text-white opacity-0 group-hover:opacity-100 transition-opacity animate-sparkle">{% render 'icon'
+, icon: 'sparkles'
+, size: 16 %}</span>
+    <span class="absolute bottom-2 right-2 sm:bottom-3 sm:right-3 md:bottom-4 md:right-4 text-white opacity-0 group-hover:opacity-100 transition-opacity animate-sparkle" style="animation-delay:0.3s">{% render 'icon'
+, icon: 'sparkles'
+, size: 16 %}</span>
   </div>
 
   <div class="p-4 sm:p-5 md:p-6">
@@ -51,36 +54,40 @@
         <button
           type="button"
           onclick="window.modals.openNotify('{{ product.title | escape }}')"
-          class="w-full font-display font-semibold py-2 sm:py-3 text-sm sm:text-base rounded-full transition-transform flex items-center justify-center gap-2 bg-gradient-to-r from-chewteinz-yellow to-chewteinz-orange text-gray-800 hover:scale-105"
-        >
-          {% render 'icon', icon: 'bell', size: 16 %}
+          class="w-full font-display font-semibold py-2 sm:py-3 text-sm sm:text-base rounded-full transition-transform flex items-center justify-center gap-2 bg-gradient-to-r from-chewteinz-yellow to-chewteinz-orange text-gray-800 hover:scale-105">
+          {% render 'icon'
+            , icon: 'bell'
+            , size: 16 %}
           Notify Me
         </button>
       {% elsif product.available %}
         <button
           type="button"
           onclick="window.cartDrawer.addItem({{ variant.id }})"
-          class="w-full font-display font-semibold py-2 sm:py-3 text-sm sm:text-base rounded-full transition-transform flex items-center justify-center gap-2 bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink text-white hover:scale-105"
-        >
-          {% render 'icon', icon: 'shopping-cart', size: 16 %}
+          class="w-full font-display font-semibold py-2 sm:py-3 text-sm sm:text-base rounded-full transition-transform flex items-center justify-center gap-2 bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink text-white hover:scale-105">
+          {% render 'icon'
+            , icon: 'shopping-cart'
+            , size: 16 %}
           Order Now!
         </button>
       {% else %}
         <button
           type="button"
           disabled
-          class="w-full font-display font-semibold py-2 sm:py-3 text-sm sm:text-base rounded-full flex items-center justify-center gap-2 bg-gray-300 text-gray-500 cursor-not-allowed"
-        >
-          {% render 'icon', icon: 'shopping-cart', size: 16 %}
+          class="w-full font-display font-semibold py-2 sm:py-3 text-sm sm:text-base rounded-full flex items-center justify-center gap-2 bg-gray-300 text-gray-500 cursor-not-allowed">
+          {% render 'icon'
+            , icon: 'shopping-cart'
+            , size: 16 %}
           Out of Stock
         </button>
       {% endif %}
       <button
         type="button"
         onclick="window.modals.openNutrition('{{ product.title | escape }}')"
-        class="w-full bg-gray-100 text-gray-700 font-display font-semibold py-2 sm:py-2.5 text-sm sm:text-base rounded-full hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"
-      >
-        {% render 'icon', icon: 'info', size: 16 %}
+        class="w-full bg-gray-100 text-gray-700 font-display font-semibold py-2 sm:py-2.5 text-sm sm:text-base rounded-full hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
+        {% render 'icon'
+          , icon: 'info'
+          , size: 16 %}
         Learn More
       </button>
     </div>
