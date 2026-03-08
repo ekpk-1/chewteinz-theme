@@ -1,8 +1,17 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
-    "klaviyo_public_key": "",
-    "klaviyo_subscribe_list_id": "",
-    "klaviyo_notify_list_id": "",
+    "klaviyo_public_key": "YfFYSU",
+    "klaviyo_subscribe_list_id": "https://www.klaviyo.com/list/Yiif5M",
+    "klaviyo_notify_list_id": "https://www.klaviyo.com/list/XMmxua",
     "supabase_url": "",
     "supabase_anon_key": "",
     "make_webhook_url": "https://hook.eu2.make.com/nqrs2nriv53twj2g7ygveq7kyihla633",
@@ -25,6 +34,7 @@
         "type": "cart-drawer",
         "settings": {}
       }
-    }
+    },
+    "content_for_index": []
   }
 }
