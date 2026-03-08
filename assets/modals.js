@@ -93,12 +93,7 @@ window.modals = {
               type: 'profile',
               attributes: {
                 email: email.toLowerCase(),
-                first_name: name || undefined,
-                subscriptions: {
-                  email: {
-                    marketing: { consent: 'SUBSCRIBED' }
-                  }
-                }
+                first_name: name || undefined
               }
             }
           }
@@ -116,7 +111,7 @@ window.modals = {
       headers: {
         'Content-Type': 'application/vnd.api+json',
         'Accept': 'application/vnd.api+json',
-        'revision': '2024-10-15'
+        'revision': '2026-01-15'
       },
       body: JSON.stringify(payload)
     })
@@ -280,12 +275,7 @@ window.modals = {
               attributes: {
                 email: email.toLowerCase(),
                 first_name: name,
-                properties: { notify_product: flavorName },
-                subscriptions: {
-                  email: {
-                    marketing: { consent: 'SUBSCRIBED' }
-                  }
-                }
+                properties: { notify_product: flavorName }
               }
             }
           }
@@ -303,7 +293,7 @@ window.modals = {
       headers: {
         'Content-Type': 'application/vnd.api+json',
         'Accept': 'application/vnd.api+json',
-        'revision': '2024-10-15'
+        'revision': '2026-01-15'
       },
       body: JSON.stringify(payload)
     })
