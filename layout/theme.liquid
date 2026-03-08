@@ -21,11 +21,9 @@
 
   <script>
     window.chewteinzSettings = {
-      airtableApiKey: {{ settings.airtable_api_key | json }},
-      airtableBaseId: {{ settings.airtable_base_id | json }},
-      airtableTableName: {{ settings.airtable_table_name | json }},
-      airtableChewfanTable: {{ settings.airtable_chewfan_table | json }},
-      airtableContactApiKey: {{ settings.airtable_contact_api_key | json }},
+      klaviyoPublicKey: {{ settings.klaviyo_public_key | json }},
+      klaviyoSubscribeListId: {{ settings.klaviyo_subscribe_list_id | json }},
+      klaviyoNotifyListId: {{ settings.klaviyo_notify_list_id | json }},
       supabaseUrl: {{ settings.supabase_url | json }},
       supabaseAnonKey: {{ settings.supabase_anon_key | json }},
       makeWebhookUrl: {{ settings.make_webhook_url | json }}

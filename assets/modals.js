@@ -72,18 +72,59 @@ window.modals = {
     btn.disabled = true;
 
     var settings = window.chewteinzSettings || {};
-    fetch('https://api.airtable.com/v0/' + settings.airtableBaseId + '/' + encodeURIComponent(settings.airtableChewfanTable), {
+    var publicKey = settings.klaviyoPublicKey;
+    var listId = settings.klaviyoSubscribeListId;
+
+    if (!publicKey || !listId) {
+      errorEl.classList.remove('hidden');
+      errorText.textContent = 'Newsletter signup is not configured. Please contact the store owner.';
+      btn.textContent = 'Get My 10% Off';
+      btn.disabled = false;
+      return false;
+    }
+
+    var payload = {
+      data: {
+        type: 'subscription',
+        attributes: {
+          custom_source: 'Subscribe modal (10% off)',
+          profile: {
+            data: {
+              type: 'profile',
+              attributes: {
+                email: email.toLowerCase(),
+                first_name: name || undefined,
+                subscriptions: {
+                  email: {
+                    marketing: { consent: 'SUBSCRIBED' }
+                  }
+                }
+              }
+            }
+          }
+        },
+        relationships: {
+          list: {
+            data: { type: 'list', id: listId }
+          }
+        }
+      }
+    };
+
+    fetch('https://a.klaviyo.com/client/subscriptions?company_id=' + encodeURIComponent(publicKey), {
       method: 'POST',
       headers: {
-        'Authorization': 'Bearer ' + settings.airtableContactApiKey,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/vnd.api+json',
+        'Accept': 'application/vnd.api+json',
+        'revision': '2024-10-15'
       },
-      body: JSON.stringify({ fields: { Name: name, Email: email.toLowerCase() } })
+      body: JSON.stringify(payload)
     })
     .then(function(res) {
       if (!res.ok) {
         return res.json().then(function(data) {
-          throw new Error(data.error && data.error.message ? data.error.message : 'Failed to subscribe');
+          var msg = (data.errors && data.errors[0] && data.errors[0].detail) || 'Failed to subscribe';
+          throw new Error(msg);
         });
       }
       document.getElementById('subscribe-form-section').classList.add('hidden');
@@ -202,12 +243,12 @@ window.modals = {
 
   handleNotifySubmit(e) {
     e.preventDefault();
-    var self = this;
     var name = document.getElementById('notify-name').value.trim();
     var email = document.getElementById('notify-email').value.trim();
     var errorEl = document.getElementById('notify-error');
     var errorText = document.getElementById('notify-error-text');
     var btn = document.getElementById('notify-submit-btn');
+    var flavorName = document.getElementById('notify-flavor-name').textContent.trim() || 'this product';
 
     if (!name) { errorEl.classList.remove('hidden'); errorText.textContent = 'Please enter your name'; return false; }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errorEl.classList.remove('hidden'); errorText.textContent = 'Please enter a valid email address'; return false; }
@@ -217,19 +258,60 @@ window.modals = {
     btn.disabled = true;
 
     var settings = window.chewteinzSettings || {};
-    fetch('https://api.airtable.com/v0/' + settings.airtableBaseId + '/' + encodeURIComponent(settings.airtableChewfanTable), {
+    var publicKey = settings.klaviyoPublicKey;
+    var listId = settings.klaviyoNotifyListId || settings.klaviyoSubscribeListId;
+
+    if (!publicKey || !listId) {
+      errorEl.classList.remove('hidden');
+      errorText.textContent = 'Back-in-stock signup is not configured. Please contact the store owner.';
+      btn.textContent = 'Notify Me';
+      btn.disabled = false;
+      return false;
+    }
+
+    var payload = {
+      data: {
+        type: 'subscription',
+        attributes: {
+          custom_source: 'Back-in-stock notify: ' + flavorName,
+          profile: {
+            data: {
+              type: 'profile',
+              attributes: {
+                email: email.toLowerCase(),
+                first_name: name,
+                properties: { notify_product: flavorName },
+                subscriptions: {
+                  email: {
+                    marketing: { consent: 'SUBSCRIBED' }
+                  }
+                }
+              }
+            }
+          }
+        },
+        relationships: {
+          list: {
+            data: { type: 'list', id: listId }
+          }
+        }
+      }
+    };
+
+    fetch('https://a.klaviyo.com/client/subscriptions?company_id=' + encodeURIComponent(publicKey), {
       method: 'POST',
       headers: {
-        'Authorization': 'Bearer ' + settings.airtableContactApiKey,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/vnd.api+json',
+        'Accept': 'application/vnd.api+json',
+        'revision': '2024-10-15'
       },
-      body: JSON.stringify({ fields: { Name: name, Email: email.toLowerCase() } })
+      body: JSON.stringify(payload)
     })
     .then(function(res) {
       if (!res.ok) {
         return res.json().then(function(data) {
-          var msg = (data.error && data.error.message) || 'Failed to subscribe';
-          if (msg.indexOf('already exists') !== -1) msg = "You're already on the list!";
+          var msg = (data.errors && data.errors[0] && data.errors[0].detail) || 'Failed to sign up';
+          if (msg.toLowerCase().indexOf('already') !== -1) msg = "You're already on the list!";
           throw new Error(msg);
         });
       }

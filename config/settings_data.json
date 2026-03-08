@@ -1,10 +1,8 @@
 {
   "current": {
-    "airtable_base_id": "appDEsoLVaTbRQ5UL",
-    "airtable_table_name": "ChewTeinz Support",
-    "airtable_api_key": "",
-    "airtable_chewfan_table": "ChewFan Listing",
-    "airtable_contact_api_key": "",
+    "klaviyo_public_key": "",
+    "klaviyo_subscribe_list_id": "",
+    "klaviyo_notify_list_id": "",
     "supabase_url": "",
     "supabase_anon_key": "",
     "make_webhook_url": "https://hook.eu2.make.com/nqrs2nriv53twj2g7ygveq7kyihla633",

@@ -8,43 +8,31 @@
     "theme_support_url": "https://chewteinz.com"
   },
   {
-    "name": "Airtable Integration",
+    "name": "Klaviyo Integration",
     "settings": [
       {
         "type": "header",
-        "content": "Airtable API Settings"
+        "content": "Klaviyo Email & SMS Marketing"
       },
       {
         "type": "paragraph",
-        "content": "These settings power the subscribe and notify modals. API keys are exposed client-side — consider using a proxy endpoint for production."
+        "content": "Power the subscribe and back-in-stock notify modals. Use your Public API Key (Site ID) from Klaviyo → Settings → API Keys. List IDs are in Audience → Lists & Segments (6-char code in the list URL)."
       },
       {
         "type": "text",
-        "id": "airtable_base_id",
-        "label": "Airtable Base ID",
-        "default": "appDEsoLVaTbRQ5UL"
+        "id": "klaviyo_public_key",
+        "label": "Klaviyo Public API Key (Site ID)"
       },
       {
         "type": "text",
-        "id": "airtable_table_name",
-        "label": "Airtable Table Name (Support)",
-        "default": "ChewTeinz Support"
+        "id": "klaviyo_subscribe_list_id",
+        "label": "List ID (Subscribe / 10% Off Modal)"
       },
       {
         "type": "text",
-        "id": "airtable_api_key",
-        "label": "Airtable API Key (Support)"
-      },
-      {
-        "type": "text",
-        "id": "airtable_chewfan_table",
-        "label": "Airtable ChewFan Table Name",
-        "default": "ChewFan Listing"
-      },
-      {
-        "type": "text",
-        "id": "airtable_contact_api_key",
-        "label": "Airtable Contact API Key"
+        "id": "klaviyo_notify_list_id",
+        "label": "List ID (Back-in-Stock Notify Modal)",
+        "info": "Can be same as Subscribe list. Back-in-stock signups will include a product preference."
       }
     ]
   },
