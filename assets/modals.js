@@ -72,10 +72,9 @@ window.modals = {
     btn.disabled = true;
 
     var settings = window.chewteinzSettings || {};
-    var publicKey = settings.klaviyoPublicKey;
     var listId = settings.klaviyoSubscribeListId;
 
-    if (!publicKey || !listId) {
+    if (!listId) {
       errorEl.classList.remove('hidden');
       errorText.textContent = 'Newsletter signup is not configured. Please contact the store owner.';
       btn.textContent = 'Get My 10% Off';
@@ -83,37 +82,16 @@ window.modals = {
       return false;
     }
 
-    var payload = {
-      data: {
-        type: 'subscription',
-        attributes: {
-          custom_source: 'Subscribe modal (10% off)',
-          profile: {
-            data: {
-              type: 'profile',
-              attributes: {
-                email: email.toLowerCase(),
-                first_name: name || undefined
-              }
-            }
-          }
-        },
-        relationships: {
-          list: {
-            data: { type: 'list', id: listId }
-          }
-        }
-      }
-    };
+    var formBody = 'g=' + encodeURIComponent(listId) + '&email=' + encodeURIComponent(email.toLowerCase());
+    if (name) formBody += '&$first_name=' + encodeURIComponent(name);
+    formBody += '&$source=' + encodeURIComponent('Subscribe modal (10% off)');
 
-    fetch('https://a.klaviyo.com/client/subscriptions?company_id=' + encodeURIComponent(publicKey), {
+    fetch('https://manage.kmail-lists.com/ajax/subscriptions/subscribe', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/vnd.api+json',
-        'Accept': 'application/vnd.api+json',
-        'revision': '2026-01-15'
+        'Content-Type': 'application/x-www-form-urlencoded'
       },
-      body: JSON.stringify(payload)
+      body: formBody
     })
     .then(function(res) {
       if (!res.ok) {
@@ -253,10 +231,9 @@ window.modals = {
     btn.disabled = true;
 
     var settings = window.chewteinzSettings || {};
-    var publicKey = settings.klaviyoPublicKey;
     var listId = settings.klaviyoNotifyListId || settings.klaviyoSubscribeListId;
 
-    if (!publicKey || !listId) {
+    if (!listId) {
       errorEl.classList.remove('hidden');
       errorText.textContent = 'Back-in-stock signup is not configured. Please contact the store owner.';
       btn.textContent = 'Notify Me';
@@ -264,38 +241,18 @@ window.modals = {
       return false;
     }
 
-    var payload = {
-      data: {
-        type: 'subscription',
-        attributes: {
-          custom_source: 'Back-in-stock notify: ' + flavorName,
-          profile: {
-            data: {
-              type: 'profile',
-              attributes: {
-                email: email.toLowerCase(),
-                first_name: name,
-                properties: { notify_product: flavorName }
-              }
-            }
-          }
-        },
-        relationships: {
-          list: {
-            data: { type: 'list', id: listId }
-          }
-        }
-      }
-    };
+    var formBody = 'g=' + encodeURIComponent(listId) + '&email=' + encodeURIComponent(email.toLowerCase()) +
+      '&$first_name=' + encodeURIComponent(name) +
+      '&$source=' + encodeURIComponent('Back-in-stock notify: ' + flavorName) +
+      '&$fields=' + encodeURIComponent('$first_name,$source,notify_product') +
+      '&notify_product=' + encodeURIComponent(flavorName);
 
-    fetch('https://a.klaviyo.com/client/subscriptions?company_id=' + encodeURIComponent(publicKey), {
+    fetch('https://manage.kmail-lists.com/ajax/subscriptions/subscribe', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/vnd.api+json',
-        'Accept': 'application/vnd.api+json',
-        'revision': '2026-01-15'
+        'Content-Type': 'application/x-www-form-urlencoded'
       },
-      body: JSON.stringify(payload)
+      body: formBody
     })
     .then(function(res) {
       if (!res.ok) {
