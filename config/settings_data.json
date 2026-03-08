@@ -10,8 +10,8 @@
 {
   "current": {
     "klaviyo_public_key": "YfFYSU",
-    "klaviyo_subscribe_list_id": "https://www.klaviyo.com/list/Yiif5M",
-    "klaviyo_notify_list_id": "https://www.klaviyo.com/list/XMmxua",
+    "klaviyo_subscribe_list_id": "Yiif5M",
+    "klaviyo_notify_list_id": "Yiif5M",
     "supabase_url": "",
     "supabase_anon_key": "",
     "make_webhook_url": "https://hook.eu2.make.com/nqrs2nriv53twj2g7ygveq7kyihla633",
