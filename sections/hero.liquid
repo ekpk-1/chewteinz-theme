@@ -19,11 +19,28 @@
 
   <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
     <div class="relative mb-4 sm:mb-6 md:mb-[2vh] flex justify-center mt-8 sm:mt-12 md:top-[5vh]">
-      <img
-        src="https://1pg86aook1.ufs.sh/f/pN2g9q3wzUsTZWfCRu4PgqRxlpeEzvaLNWk8fbGJSHDVM2I5"
-        alt="{{ shop.name }}"
-        class="w-[90%] max-w-sm sm:max-w-xl md:max-w-2xl h-auto drop-shadow-2xl animate-bounce-slow"
-      >
+      {%- assign hero_image = section.settings.hero_image -%}
+      {%- if hero_image != blank -%}
+        <img
+          src="{{ hero_image | image_url: width: 800 }}"
+          srcset="{{ hero_image | image_url: width: 400 }} 400w,
+                  {{ hero_image | image_url: width: 600 }} 600w,
+                  {{ hero_image | image_url: width: 800 }} 800w,
+                  {{ hero_image | image_url: width: 1200 }} 1200w"
+          sizes="(max-width: 640px) 90vw, (max-width: 768px) 600px, 800px"
+          alt="{{ hero_image.alt | default: shop.name }}"
+          class="w-[90%] max-w-sm sm:max-w-xl md:max-w-2xl h-auto drop-shadow-2xl animate-bounce-slow"
+          loading="eager"
+          width="{{ hero_image.width }}"
+          height="{{ hero_image.height }}"
+        >
+      {%- else -%}
+        <img
+          src="https://1pg86aook1.ufs.sh/f/pN2g9q3wzUsTZWfCRu4PgqRxlpeEzvaLNWk8fbGJSHDVM2I5"
+          alt="{{ shop.name }}"
+          class="w-[90%] max-w-sm sm:max-w-xl md:max-w-2xl h-auto drop-shadow-2xl animate-bounce-slow"
+        >
+      {%- endif -%}
     </div>
 
     <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-semibold text-white text-shadow mb-4 sm:mb-6 md:mb-8 px-4">
@@ -69,6 +86,12 @@
 {
   "name": "Hero",
   "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Image",
+      "info": "Upload the main hero image. If empty, the default image is shown."
+    },
     {
       "type": "text",
       "id": "heading",
