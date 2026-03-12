@@ -12,13 +12,12 @@
         alt=""
         class="absolute w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 opacity-20 animate-float"
         style="left:{{ coords[0] }}%;top:{{ coords[1] }}%;animation-delay:{{ delay_val }}s;animation-duration:{{ dur_base }}s;transform:rotate({{ rotations[idx] }}deg)"
-        loading="lazy"
-      >
+        loading="lazy">
     {%- endfor -%}
   </div>
 
   <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
-    <div class="relative mb-4 sm:mb-6 md:mb-[2vh] flex justify-center mt-8 sm:mt-12 md:top-[5vh]">
+    <div class="relative mb-4 sm:mb-6 md:mb-[2vh] flex justify-end mt-8 sm:mt-12 md:top-[5vh]">
       {%- assign hero_image = section.settings.hero_image -%}
       {%- if hero_image != blank -%}
         <img
@@ -32,14 +31,12 @@
           class="w-[90%] max-w-sm sm:max-w-xl md:max-w-2xl h-auto drop-shadow-2xl animate-bounce-slow"
           loading="eager"
           width="{{ hero_image.width }}"
-          height="{{ hero_image.height }}"
-        >
+          height="{{ hero_image.height }}">
       {%- else -%}
         <img
           src="https://1pg86aook1.ufs.sh/f/pN2g9q3wzUsTZWfCRu4PgqRxlpeEzvaLNWk8fbGJSHDVM2I5"
           alt="{{ shop.name }}"
-          class="w-[90%] max-w-sm sm:max-w-xl md:max-w-2xl h-auto drop-shadow-2xl animate-bounce-slow"
-        >
+          class="w-[90%] max-w-sm sm:max-w-xl md:max-w-2xl h-auto drop-shadow-2xl animate-bounce-slow">
       {%- endif -%}
     </div>
 
@@ -52,12 +49,11 @@
     </p>
 
     <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4">
-      <a
-        href="{{ section.settings.cta_link }}"
-        class="group relative px-6 py-3 sm:px-8 sm:py-4 bg-white text-chewteinz-purple font-display font-bold text-lg sm:text-xl rounded-full shadow-2xl hover:scale-110 transition-transform w-full sm:w-auto max-w-xs sm:max-w-none text-center"
-      >
+      <a href="{{ section.settings.cta_link }}" class="group relative px-6 py-3 sm:px-8 sm:py-4 bg-white text-chewteinz-purple font-display font-bold text-lg sm:text-xl rounded-full shadow-2xl hover:scale-110 transition-transform w-full sm:w-auto max-w-xs sm:max-w-none text-center">
         <span class="relative z-10">{{ section.settings.cta_text }}</span>
-        <span class="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">{% render 'icon', icon: 'sparkles', size: 20 %}</span>
+        <span class="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">{% render 'icon'
+, icon: 'sparkles'
+, size: 20 %}</span>
       </a>
     </div>
 
@@ -83,39 +79,38 @@
 </section>
 
 {% schema %}
-{
-  "name": "Hero",
-  "settings": [
-    {
-      "type": "image_picker",
-      "id": "hero_image",
-      "label": "Hero Image",
-      "info": "Upload the main hero image. If empty, the default image is shown."
-    },
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "The smarter way to snack."
-    },
-    {
-      "type": "text",
-      "id": "subheading",
-      "label": "Subheading",
-      "default": "Snack happy and guilt free"
-    },
-    {
-      "type": "text",
-      "id": "cta_text",
-      "label": "CTA Text",
-      "default": "Shop Now"
-    },
-    {
-      "type": "url",
-      "id": "cta_link",
-      "label": "CTA Link",
-      "default": "/collections/all"
-    }
-  ]
-}
+  {
+    "name": "Hero",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "hero_image",
+        "label": "Hero Image",
+        "info": "Upload the main hero image. If empty, the default image is shown."
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "The smarter way to snack."
+      },
+      {
+        "type": "text",
+        "id": "subheading",
+        "label": "Subheading",
+        "default": "Snack happy and guilt free"
+      },
+      {
+        "type": "text",
+        "id": "cta_text",
+        "label": "CTA Text",
+        "default": "Shop Now"
+      }, {
+        "type": "url",
+        "id": "cta_link",
+        "label": "CTA Link",
+        "default": "/collections/all"
+      }
+    ]
+  }
 {% endschema %}
