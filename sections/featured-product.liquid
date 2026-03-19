@@ -27,7 +27,7 @@
                   height="600">
               {% endif %}
 
-              <div class="absolute top-2 right-2 sm:top-3 sm:right-3 md:top-4 md:right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 sm:px-4 sm:py-2 font-display font-bold text-sm sm:text-base text-gray-800">
+              <div class="absolute top-2 right-2 sm:top-3 sm:right-3 md:top-4 md:right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 sm:px-4 sm:py-2 font-display font-bold text-base sm:text-lg md:text-xl text-gray-800">
                 {{ featured.price | money }}
               </div>
 
@@ -72,11 +72,8 @@
                     {% render 'icon'
                       , icon: 'info'
                       , size: 16 %}
-                    Learn More
+                    Nutritional Facts
                   </button>
-                  <a href="{{ routes.all_products_collection_url }}" class="flex-1 bg-gray-100 text-gray-700 font-display font-semibold py-2 sm:py-2.5 text-sm sm:text-base rounded-full hover:bg-gray-200 transition-colors text-center">
-                    View
-                  </a>
                 </div>
               </div>
             </div>

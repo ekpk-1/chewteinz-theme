@@ -1,6 +1,6 @@
 <section class="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-white to-gray-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-center mb-4 bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink bg-clip-text text-transparent px-4">
+    <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-center mb-4 bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink bg-clip-text text-transparent px-4 overflow-visible">
       {{ section.settings.heading }}
     </h2>
     <p class="text-base sm:text-lg md:text-xl text-gray-600 text-center mb-8 sm:mb-12 md:mb-16 font-body px-4">
@@ -26,49 +26,128 @@
         </div>
       {% endfor %}
     </div>
+
+    {% if section.settings.button_label != blank %}
+      <div class="flex justify-center mt-10 sm:mt-14">
+        <a
+          href="{{ section.settings.button_link }}"
+          class="group relative px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink text-white font-display font-bold text-lg sm:text-xl rounded-full shadow-2xl hover:scale-110 transition-transform text-center"
+          aria-label="{{ section.settings.button_label }}">
+          <span class="relative z-10">{{ section.settings.button_label }}</span>
+          <span class="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">{% render 'icon'
+, icon: 'sparkles'
+, size: 20 %}</span>
+        </a>
+      </div>
+    {% endif %}
   </div>
 </section>
 
 {% schema %}
-{
-  "name": "Benefits",
-  "settings": [
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Why You'll Love Us"
-    },
-    {
-      "type": "text",
-      "id": "subheading",
-      "label": "Subheading",
-      "default": "Protein has never been this fun"
-    }
-  ],
-  "blocks": [
-    {
-      "type": "benefit",
-      "name": "Benefit Card",
-      "settings": [
-        { "type": "text", "id": "icon_char", "label": "Icon Character", "default": "⬢" },
-        { "type": "text", "id": "title", "label": "Title", "default": "High in Protein" },
-        { "type": "textarea", "id": "description", "label": "Description", "default": "20g of premium protein per serving to fuel your gains" },
-        { "type": "text", "id": "gradient", "label": "Gradient Classes", "default": "from-chewteinz-blue to-blue-300" },
-        { "type": "text", "id": "icon_color", "label": "Icon Color Class", "default": "text-blue-500" }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "Benefits",
-      "blocks": [
-        { "type": "benefit", "settings": { "icon_char": "⬢", "title": "High in Protein", "description": "20g of premium protein per serving to fuel your gains", "gradient": "from-chewteinz-blue to-blue-300", "icon_color": "text-blue-500" } },
-        { "type": "benefit", "settings": { "icon_char": "○", "title": "Low Sugar", "description": "Only 0g of sugar. All the taste, none of the guilt", "gradient": "from-chewteinz-pink to-pink-300", "icon_color": "text-pink-500" } },
-        { "type": "benefit", "settings": { "icon_char": "✦", "title": "Tastes Amazing", "description": "Like candy, but better. Your taste buds will thank you", "gradient": "from-chewteinz-yellow to-yellow-300", "icon_color": "text-yellow-500" } },
-        { "type": "benefit", "settings": { "icon_char": "↻", "title": "Boosts Recovery", "description": "Perfect post-workout snack to speed up muscle recovery", "gradient": "from-chewteinz-purple to-purple-300", "icon_color": "text-purple-500" } }
-      ]
-    }
-  ]
-}
+  {
+    "name": "Benefits",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Why You'll Love Us"
+      }, {
+        "type": "text",
+        "id": "subheading",
+        "label": "Subheading",
+        "default": "Protein has never been this fun"
+      }, {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button Label",
+        "default": "Buy Now"
+      }, {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button Link"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "benefit",
+        "name": "Benefit Card",
+        "settings": [
+          {
+            "type": "text",
+            "id": "icon_char",
+            "label": "Icon Character",
+            "default": "⬢"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "High in Protein"
+          },
+          {
+            "type": "textarea",
+            "id": "description",
+            "label": "Description",
+            "default": "20g of premium protein per serving to fuel your gains"
+          },
+          {
+            "type": "text",
+            "id": "gradient",
+            "label": "Gradient Classes",
+            "default": "from-chewteinz-blue to-blue-300"
+          }, {
+            "type": "text",
+            "id": "icon_color",
+            "label": "Icon Color Class",
+            "default": "text-blue-500"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Benefits",
+        "blocks": [
+          {
+            "type": "benefit",
+            "settings": {
+              "icon_char": "⬢",
+              "title": "High in Protein",
+              "description": "20g of premium protein per serving to fuel your gains",
+              "gradient": "from-chewteinz-blue to-blue-300",
+              "icon_color": "text-blue-500"
+            }
+          }, {
+            "type": "benefit",
+            "settings": {
+              "icon_char": "○",
+              "title": "Low Sugar",
+              "description": "Only 0g of sugar. All the taste, none of the guilt",
+              "gradient": "from-chewteinz-pink to-pink-300",
+              "icon_color": "text-pink-500"
+            }
+          }, {
+            "type": "benefit",
+            "settings": {
+              "icon_char": "✦",
+              "title": "Tastes Amazing",
+              "description": "Like candy, but better. Your taste buds will thank you",
+              "gradient": "from-chewteinz-yellow to-yellow-300",
+              "icon_color": "text-yellow-500"
+            }
+          }, {
+            "type": "benefit",
+            "settings": {
+              "icon_char": "↻",
+              "title": "Boosts Recovery",
+              "description": "Perfect post-workout snack to speed up muscle recovery",
+              "gradient": "from-chewteinz-purple to-purple-300",
+              "icon_color": "text-purple-500"
+            }
+          }
+        ]
+      }
+    ]
+  }
 {% endschema %}
