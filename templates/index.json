@@ -1,9 +1,26 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "hero": { "type": "hero", "settings": {} },
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "hero_image": "shopify://shop_images/LogoChewTeinz_Logo_Page_1.png",
+        "heading": "The smarter way to snack.",
+        "subheading": "Snack happy and guilt free",
+        "cta_text": "Shop Now",
+        "cta_link": "shopify://collections/all"
+      }
+    },
     "benefits": {
       "type": "benefits",
-      "settings": {},
       "blocks": {
         "benefit_1": {
           "type": "benefit",
@@ -46,13 +63,33 @@
           }
         }
       },
-      "block_order": ["benefit_1", "benefit_2", "benefit_3", "benefit_4"]
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4"
+      ],
+      "settings": {
+        "heading": "Why You'll Love Us",
+        "subheading": "Protein has never been this fun"
+      }
     },
-    "why-us": { "type": "why-us", "settings": {} },
-    "featured-product": { "type": "featured-product", "settings": {} },
+    "why-us": {
+      "type": "why-us",
+      "settings": {
+        "heading": "We Make Fitness Taste Fun"
+      }
+    },
+    "featured-product": {
+      "type": "featured-product",
+      "settings": {
+        "heading": "Choose Your Flavor",
+        "subheading": "Each bag contains 60g of protein",
+        "product": ""
+      }
+    },
     "social-feed": {
       "type": "social-feed",
-      "settings": {},
       "blocks": {
         "social_1": {
           "type": "image",
@@ -89,18 +126,40 @@
         "social_5": {
           "type": "image",
           "settings": {
+            "image_url": "",
+            "link": "",
             "gradient": "from-green-400 to-lime-500"
           }
         },
         "social_6": {
           "type": "image",
           "settings": {
+            "image_url": "",
+            "link": "",
             "gradient": "from-purple-400 to-pink-500"
           }
         }
       },
-      "block_order": ["social_1", "social_2", "social_3", "social_4", "social_5", "social_6"]
+      "block_order": [
+        "social_1",
+        "social_2",
+        "social_3",
+        "social_4",
+        "social_5",
+        "social_6"
+      ],
+      "settings": {
+        "heading": "Follow Us @chewteinz",
+        "subheading": "For sweet gains and daily inspo 🍭",
+        "instagram_url": "https://www.instagram.com/chewteinz"
+      }
     }
   },
-  "order": ["hero", "benefits", "why-us", "featured-product", "social-feed"]
+  "order": [
+    "hero",
+    "benefits",
+    "why-us",
+    "featured-product",
+    "social-feed"
+  ]
 }
