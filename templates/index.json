@@ -71,7 +71,9 @@
       ],
       "settings": {
         "heading": "Why You'll Love Us",
-        "subheading": "Protein has never been this fun"
+        "subheading": "Protein has never been this fun",
+        "button_label": "Buy Now",
+        "button_link": "shopify://collections/all"
       }
     },
     "why-us": {
