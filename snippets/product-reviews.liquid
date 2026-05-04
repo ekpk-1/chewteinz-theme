@@ -68,7 +68,11 @@
           <p class="text-gray-700 font-body text-base sm:text-lg mb-4">
             Be the first to review {{ product.title }} and help other chewers find their flavor.
           </p>
-          <a href="mailto:{{ shop.email | default: 'hello@chewteinz.com' }}?subject=Review%20for%20{{ product.title | url_encode }}" class="inline-block px-6 py-3 bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink text-white font-display font-bold rounded-full shadow-lg hover:scale-105 transition-transform">
+          <a
+            href="https://judge.me/reviews/new?shop_domain={{ shop.permanent_domain }}&amp;product_handle={{ product.handle }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block px-6 py-3 bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink text-white font-display font-bold rounded-full shadow-lg hover:scale-105 transition-transform">
             Leave a review
           </a>
         </div>
