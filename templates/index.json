@@ -158,9 +158,14 @@
       "settings": {
         "heading": "Choose Your Flavor",
         "subheading": "Each bag contains 60g of protein",
-        "product": "",
+        "product": "chewteinz-mango-madness",
         "show_reviews": true
       }
+    },
+    "1777883564b583311b": {
+      "type": "apps",
+      "custom_css": [],
+      "settings": {}
     }
   },
   "order": [
@@ -168,6 +173,7 @@
     "social-feed",
     "benefits",
     "why-us",
-    "featured-product"
+    "featured-product",
+    "1777883564b583311b"
   ]
 }
