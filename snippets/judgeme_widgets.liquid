@@ -1,0 +1,27 @@
+{%- comment -%}
+  Judge.me widgets snippet.
+
+  Judge.me auto-populates this file when you use "Install theme" from
+  the Judge.me dashboard. Do not manually edit below the comment block —
+  it will be overwritten.
+
+  Manual usage (before app install or for custom placements):
+    Preview badge:  {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', product: product %}
+    Review widget:  {% render 'judgeme_widgets', widget_type: 'judgeme_review_widget',  product: product %}
+{%- endcomment -%}
+
+{%- if widget_type == 'judgeme_preview_badge' -%}
+  <div
+    class="jdgm-widget jdgm-preview-badge"
+    data-id="{{ product.id }}"
+    data-auto-install="{{ product.title | escape }}">
+  </div>
+
+{%- elsif widget_type == 'judgeme_review_widget' -%}
+  <div
+    class="jdgm-widget jdgm-review-widget"
+    data-id="{{ product.id }}"
+    data-product-title="{{ product.title | escape }}">
+  </div>
+
+{%- endif -%}
