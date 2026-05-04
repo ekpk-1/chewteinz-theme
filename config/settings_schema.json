@@ -8,6 +8,24 @@
         "theme_support_url": "https://chewteinz.com"
     },
     {
+        "name": "Favicon",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Favicon"
+            },
+            {
+                "type": "paragraph",
+                "content": "Upload a square image (PNG, 32×32px recommended). It appears in browser tabs, bookmarks, and home screen shortcuts."
+            },
+            {
+                "type": "image_picker",
+                "id": "favicon",
+                "label": "Favicon image"
+            }
+        ]
+    },
+    {
         "name": "Klaviyo Integration",
         "settings": [
             {
