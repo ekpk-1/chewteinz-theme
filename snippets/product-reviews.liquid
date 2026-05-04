@@ -64,9 +64,7 @@
       {%- endcomment -%}
       <div class="text-center pt-6 pb-2">
         <a
-          href="https://judge.me/reviews/stores/new?platform=shopify&amp;product_handle={{ product.handle }}&amp;product_id={{ product.id }}&amp;product_title={{ product.title | url_encode }}"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="https://judge.me/reviews/stores/new?platform=shopify&amp;shop_domain={{ shop.permanent_domain }}&amp;product_handle={{ product.handle }}&amp;product_id={{ product.id }}&amp;product_title={{ product.title | url_encode }}"
           class="inline-block px-6 py-3 bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink text-white font-display font-bold rounded-full shadow-lg hover:scale-105 transition-transform">
           Leave a Review
         </a>
