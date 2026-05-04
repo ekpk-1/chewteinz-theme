@@ -1,0 +1,108 @@
+{%- comment -%}
+  ChewTeinz product reviews snippet.
+
+  Drop this snippet into any product context (e.g. featured-product.liquid):
+  {% render 'product-reviews', product: product %}
+
+  Compatible with the most common review apps in the Shopify App Store:
+  - Shopify Product Reviews (free, official) — auto-injects into `.spr-container`
+  - Judge.me — auto-injects into `.jdgm-widget`
+  - Loox — auto-injects into `#looxReviews`
+
+  Whichever app the merchant installs will hydrate this section. If no app
+  is installed yet, customers see a friendly empty state with a CTA so the
+  block never looks broken.
+{%- endcomment -%}
+
+{%- if product != blank -%}
+  {%- assign rating = product.metafields.reviews.rating.value -%}
+  {%- assign rating_count = product.metafields.reviews.rating_count -%}
+
+  <section class="py-10 sm:py-14 md:py-16 mt-10 sm:mt-12 md:mt-16 bg-gradient-to-br from-chewteinz-blue to-chewteinz-purple rounded-2xl" id="product-reviews">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-6 sm:mb-8">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-display font-bold mb-2 text-white text-shadow bg-clip-text text-transparent">
+          What Our Customers Are Saying
+        </h2>
+
+        {%- if rating != blank -%}
+          {%- assign full_stars = rating.rating | floor -%}
+          <div class="flex items-center justify-center gap-1 mb-2" aria-label="Rated {{ rating.rating }} out of {{ rating.scale_max }}">
+            {%- for i in (1..rating.scale_max) -%}
+              <svg
+                class="w-5 h-5 sm:w-6 sm:h-6 {% if i <= full_stars %}text-chewteinz-yellow{% else %}text-gray-200{% endif %}"
+                fill="currentColor"
+                viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.367 2.446a1 1 0 00-.364 1.118l1.287 3.957c.3.922-.755 1.688-1.54 1.118l-3.366-2.446a1 1 0 00-1.176 0l-3.367 2.446c-.784.57-1.838-.196-1.539-1.118l1.286-3.957a1 1 0 00-.363-1.118L2.05 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.951-.69l1.286-3.957z" />
+              </svg>
+            {%- endfor -%}
+          </div>
+          <p class="text-sm sm:text-base text-gray-600 font-body">
+            {{ rating.rating }} out of {{ rating.scale_max }} · {{ rating_count }} review{% if rating_count != 1 %}s{% endif %}
+          </p>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} Shopify Product Reviews app target {%- endcomment -%}
+      <div
+        class="spr-container"
+        id="shopify-product-reviews"
+        data-id="{{ product.id }}"></div>
+
+      {%- comment -%} Judge.me widget target {%- endcomment -%}
+      <div
+        class="jdgm-widget jdgm-review-widget"
+        data-id="{{ product.id }}"
+        data-product-title="{{ product.title | escape }}"></div>
+
+      {%- comment -%} Loox widget target {%- endcomment -%}
+      <div id="looxReviews" data-product-id="{{ product.id }}"></div>
+
+      {%- comment -%}
+        Empty state shown only when no review app has injected content.
+        Apps replace these containers on load, so this stays hidden once a
+        review app is installed.
+      {%- endcomment -%}
+      <div id="reviews-empty-state" class="text-center py-8">
+        <div class="bg-gradient-to-br from-yellow-50 via-pink-50 to-purple-50 rounded-2xl p-6 sm:p-8">
+          <p class="text-gray-700 font-body text-base sm:text-lg mb-4">
+            Be the first to review {{ product.title }} and help other chewers find their flavor.
+          </p>
+          <a href="mailto:{{ shop.email | default: 'hello@chewteinz.com' }}?subject=Review%20for%20{{ product.title | url_encode }}" class="inline-block px-6 py-3 bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink text-white font-display font-bold rounded-full shadow-lg hover:scale-105 transition-transform">
+            Leave a review
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Hide empty state if a review app has populated any of the containers.
+      (function () {
+        var empty = document.getElementById('reviews-empty-state');
+        if (!empty) return;
+        var targets = [
+          document.getElementById('shopify-product-reviews'),
+          document.querySelector('.jdgm-widget'),
+          document.getElementById('looxReviews')
+        ];
+        var hide = function () {
+          for (var i = 0; i < targets.length; i++) {
+            var t = targets[i];
+            if (t && t.children && t.children.length > 0) {
+              empty.style.display = 'none';
+              return true;
+            }
+          }
+          return false;
+        };
+        if (!hide()) {
+          var tries = 0;
+          var interval = setInterval(function () {
+            tries++;
+            if (hide() || tries > 20) clearInterval(interval);
+          }, 500);
+        }
+      })();
+    </script>
+  </section>
+{%- endif -%}

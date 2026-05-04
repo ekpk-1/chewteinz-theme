@@ -89,6 +89,10 @@
         View All Products
       </a>
     </div>
+
+    {%- if section.settings.show_reviews and featured != blank -%}
+      {% render 'product-reviews', product: featured %}
+    {%- endif -%}
   </div>
 </section>
 
@@ -110,6 +114,12 @@
         "type": "product",
         "id": "product",
         "label": "Featured Product"
+      }, {
+        "type": "checkbox",
+        "id": "show_reviews",
+        "label": "Show reviews under product",
+        "default": true,
+        "info": "Renders the reviews section. Compatible with Shopify Product Reviews, Judge.me and Loox apps."
       }
     ]
   }

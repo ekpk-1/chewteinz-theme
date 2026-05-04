@@ -17,7 +17,7 @@
   </div>
 
   <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
-    <div class="relative flex justify-center mt-8 sm:mt-12 md:top-[5vh]">
+    <div class="relative flex justify-center mt-6 sm:mt-8 md:top-[5vh]">
       {%- assign hero_image = section.settings.hero_image -%}
       {%- if hero_image != blank -%}
         <img
@@ -40,13 +40,24 @@
       {%- endif -%}
     </div>
 
-    <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-semibold text-white text-shadow mb-4 sm:mb-6 md:mb-8 px-4">
+    <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white text-shadow my-4 sm:my-5 md:my-6 px-4 leading-tight">
       {{ section.settings.heading }}
     </h2>
 
-    <p class="text-lg sm:text-xl md:text-2xl text-white/90 mb-8 sm:mb-10 md:mb-12 font-body px-4">
-      {{ section.settings.subheading }}
-    </p>
+    <div class="mb-6 sm:mb-8 md:mb-10 flex justify-center gap-4 sm:gap-6 md:gap-10 text-white px-4">
+      <div class="text-center">
+        <div class="text-3xl sm:text-4xl md:text-5xl font-display font-bold drop-shadow-lg">20g</div>
+        <div class="text-sm sm:text-base md:text-lg font-body font-semibold">Protein</div>
+      </div>
+      <div class="text-center">
+        <div class="text-3xl sm:text-4xl md:text-5xl font-display font-bold drop-shadow-lg">0g</div>
+        <div class="text-sm sm:text-base md:text-lg font-body font-semibold">Sugar</div>
+      </div>
+      <div class="text-center">
+        <div class="text-3xl sm:text-4xl md:text-5xl font-display font-bold drop-shadow-lg">0</div>
+        <div class="text-sm sm:text-base md:text-lg font-body font-semibold">Guilt</div>
+      </div>
+    </div>
 
     <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4">
       <a href="{{ section.settings.cta_link }}" class="group relative px-6 py-3 sm:px-8 sm:py-4 bg-white text-chewteinz-purple font-display font-bold text-lg sm:text-xl rounded-full shadow-2xl hover:scale-110 transition-transform w-full sm:w-auto max-w-xs sm:max-w-none text-center">
@@ -55,21 +66,6 @@
 , icon: 'sparkles'
 , size: 20 %}</span>
       </a>
-    </div>
-
-    <div class="mt-10 sm:mt-12 md:mt-16 flex justify-center gap-4 sm:gap-6 md:gap-8 text-white px-4">
-      <div class="text-center">
-        <div class="text-2xl sm:text-3xl md:text-4xl font-display font-bold">60g</div>
-        <div class="text-sm sm:text-base md:text-lg font-body">Protein</div>
-      </div>
-      <div class="text-center">
-        <div class="text-2xl sm:text-3xl md:text-4xl font-display font-bold">0g</div>
-        <div class="text-sm sm:text-base md:text-lg font-body">Sugar</div>
-      </div>
-      <div class="text-center">
-        <div class="text-2xl sm:text-3xl md:text-4xl font-display font-bold">100%</div>
-        <div class="text-sm sm:text-base md:text-lg font-body">Delicious</div>
-      </div>
     </div>
   </div>
 
@@ -92,13 +88,13 @@
         "type": "text",
         "id": "heading",
         "label": "Heading",
-        "default": "The smarter way to snack."
+        "default": "Finally, candy that actually builds muscle."
       },
       {
         "type": "text",
         "id": "subheading",
         "label": "Subheading",
-        "default": "Snack happy and guilt free"
+        "default": "20g of protein • 0g sugar • 0 guilt"
       },
       {
         "type": "text",

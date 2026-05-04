@@ -11,13 +11,53 @@
 
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 mb-8 sm:mb-10 md:mb-12">
       {% for block in section.blocks %}
-        {% if block.settings.link != blank %}
+        {%- assign has_video = false -%}
+        {%- if block.settings.video != blank or block.settings.video_url != blank -%}
+          {%- assign has_video = true -%}
+        {%- endif -%}
+
+        {% if block.settings.link != blank and has_video == false %}
           <a href="{{ block.settings.link }}" target="_blank" rel="noopener noreferrer" {{ block.shopify_attributes }}>
         {% else %}
           <div {{ block.shopify_attributes }}>
         {% endif %}
-          <div class="aspect-square bg-gradient-to-br {{ block.settings.gradient }} rounded-2xl flex items-center justify-center hover:scale-105 transition-transform cursor-pointer shadow-lg overflow-hidden">
-            {% if block.settings.image != blank %}
+          <div class="aspect-square bg-gradient-to-br {{ block.settings.gradient }} rounded-2xl flex items-center justify-center hover:scale-105 transition-transform cursor-pointer shadow-lg overflow-hidden relative">
+            {% if has_video %}
+              {%- if block.settings.video != blank -%}
+                <video
+                  class="w-full h-full object-cover"
+                  src="{{ block.settings.video.sources[1].url | default: block.settings.video.sources[0].url }}"
+                  {% if block.settings.video.preview_image %}poster="{{ block.settings.video.preview_image | image_url: width: 400 }}"{% endif %}
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  onmouseover="this.play()"
+                  onmouseout="this.pause()"
+                  onclick="this.paused ? this.play() : this.pause()"
+                ></video>
+              {%- else -%}
+                <video
+                  class="w-full h-full object-cover"
+                  src="{% if block.settings.video_url contains '://' %}{{ block.settings.video_url }}{% else %}{{ block.settings.video_url | asset_url }}{% endif %}"
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  onmouseover="this.play()"
+                  onmouseout="this.pause()"
+                  onclick="this.paused ? this.play() : this.pause()"
+                ></video>
+              {%- endif -%}
+              <div class="absolute top-2 right-2 bg-white/90 rounded-full p-1.5 pointer-events-none">
+                <svg class="w-3 h-3 sm:w-4 sm:h-4 text-chewteinz-purple" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+              {% if block.settings.link != blank %}
+                <a href="{{ block.settings.link }}" target="_blank" rel="noopener noreferrer" class="absolute bottom-2 left-2 right-2 text-center bg-white/90 backdrop-blur-sm text-chewteinz-purple text-xs font-bold py-1.5 px-2 rounded-full hover:bg-white">
+                  Watch on Instagram
+                </a>
+              {% endif %}
+            {% elsif block.settings.image != blank %}
               <img
                 src="{{ block.settings.image | image_url: width: 400, height: 400 }}"
                 alt="Instagram Post"
@@ -46,7 +86,7 @@
               >
             {% endif %}
           </div>
-        {% if block.settings.link != blank %}
+        {% if block.settings.link != blank and has_video == false %}
           </a>
         {% else %}
           </div>
@@ -54,15 +94,24 @@
       {% endfor %}
     </div>
 
-    <div class="flex justify-center px-4">
+    <div class="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 px-4">
       <a
         href="{{ section.settings.instagram_url }}"
         target="_blank"
         rel="noopener noreferrer"
-        class="flex items-center gap-2 sm:gap-3 px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-display font-bold text-sm sm:text-base md:text-lg rounded-full shadow-lg hover:scale-105 transition-transform"
+        class="flex items-center gap-2 sm:gap-3 px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-display font-bold text-sm sm:text-base md:text-lg rounded-full shadow-lg hover:scale-105 transition-transform w-full sm:w-auto justify-center"
       >
         {% render 'icon', icon: 'instagram', size: 18 %}
         Follow on Instagram
+      </a>
+      <a
+        href="{{ section.settings.facebook_url }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center gap-2 sm:gap-3 px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-display font-bold text-sm sm:text-base md:text-lg rounded-full shadow-lg hover:scale-105 transition-transform w-full sm:w-auto justify-center"
+      >
+        {% render 'icon', icon: 'facebook', size: 18 %}
+        Follow on Facebook
       </a>
     </div>
   </div>
@@ -89,6 +138,12 @@
       "id": "instagram_url",
       "label": "Instagram URL",
       "default": "https://www.instagram.com/chewteinz"
+    },
+    {
+      "type": "text",
+      "id": "facebook_url",
+      "label": "Facebook URL",
+      "default": "https://www.facebook.com/profile.php?id=61574701214256"
     }
   ],
   "blocks": [
@@ -101,6 +156,16 @@
         { "type": "url", "id": "link", "label": "Link" },
         { "type": "text", "id": "gradient", "label": "Fallback Gradient", "default": "from-pink-400 to-purple-500" }
       ]
+    },
+    {
+      "type": "video",
+      "name": "UGC Video",
+      "settings": [
+        { "type": "video", "id": "video", "label": "Upload Video" },
+        { "type": "text", "id": "video_url", "label": "External Video URL (mp4)", "info": "Use this if you'd rather link out to a hosted .mp4 instead of uploading." },
+        { "type": "url", "id": "link", "label": "Link (e.g. Instagram reel)" },
+        { "type": "text", "id": "gradient", "label": "Fallback Gradient", "default": "from-purple-400 to-pink-500" }
+      ]
     }
   ],
   "presets": [
@@ -111,8 +176,8 @@
         { "type": "image", "settings": { "image_url": "https://1pg86aook1.ufs.sh/f/pN2g9q3wzUsTBF56nDQl3oAhbDIGrSJNv7YtpkE86aigXRs4", "link": "https://www.instagram.com/p/DTj_8ZDk4Vc/", "gradient": "from-blue-400 to-cyan-500" } },
         { "type": "image", "settings": { "image_url": "https://1pg86aook1.ufs.sh/f/pN2g9q3wzUsT6lm0dGSIb5XrW1u874y3wMHZYlzOSfjB2CAc", "link": "https://www.instagram.com/p/DTmfpSzE-S2/", "gradient": "from-red-400 to-pink-400" } },
         { "type": "image", "settings": { "image_url": "", "link": "https://www.instagram.com/p/DU4vuaKGT4B/", "gradient": "from-yellow-400 to-orange-500" } },
-        { "type": "image", "settings": { "gradient": "from-green-400 to-lime-500" } },
-        { "type": "image", "settings": { "gradient": "from-purple-400 to-pink-500" } }
+        { "type": "video", "settings": { "gradient": "from-green-400 to-lime-500" } },
+        { "type": "video", "settings": { "gradient": "from-purple-400 to-pink-500" } }
       ]
     }
   ]

@@ -11,30 +11,69 @@
 
       <div class="hidden md:flex items-center space-x-8">
         {%- assign all_products_url = routes.all_products_collection_url -%}
-        {% assign nav_items = "About Us:/pages/about,Contact:/pages/contact,FAQ:/pages/faq" | split: "," %}
         <a
           href="/"
           class="font-body font-semibold transition-colors hover:text-chewteinz-purple {% if request.path == '/' %}text-chewteinz-purple{% else %}text-gray-700{% endif %}"
         >
           Home
         </a>
-        <a
-          href="{{ all_products_url }}"
-          class="font-body font-semibold transition-colors hover:text-chewteinz-purple {% if request.path == all_products_url %}text-chewteinz-purple{% else %}text-gray-700{% endif %}"
-        >
-          Shop Products
-        </a>
-        {% for item in nav_items %}
-          {% assign parts = item | split: ":" %}
-          {% assign label = parts[0] %}
-          {% assign url = parts[1] %}
-          <a
-            href="{{ url }}"
-            class="font-body font-semibold transition-colors hover:text-chewteinz-purple {% if request.path == url %}text-chewteinz-purple{% else %}text-gray-700{% endif %}"
+
+        <div class="relative group" id="shop-dropdown">
+          <button
+            type="button"
+            class="font-body font-semibold transition-colors hover:text-chewteinz-purple flex items-center gap-1 {% if request.path == all_products_url %}text-chewteinz-purple{% else %}text-gray-700{% endif %}"
+            aria-haspopup="true"
+            aria-expanded="false"
+            id="shop-dropdown-btn"
           >
-            {{ label }}
-          </a>
-        {% endfor %}
+            Shop
+            <svg class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div
+            class="absolute left-1/2 -translate-x-1/2 top-full pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible focus-within:opacity-100 focus-within:visible transition-all duration-200 z-50"
+            role="menu"
+          >
+            <div class="bg-white rounded-2xl shadow-2xl ring-1 ring-black/5 overflow-hidden min-w-[220px] py-2">
+              <a href="{{ all_products_url }}" class="flex items-center gap-2 px-5 py-2.5 font-body font-semibold text-gray-700 hover:bg-chewteinz-yellow/30 hover:text-chewteinz-purple transition-colors" role="menuitem">
+                All Flavors
+              </a>
+              <a href="/products/mango-madness" class="flex items-center gap-2 px-5 py-2.5 font-body font-semibold text-gray-700 hover:bg-chewteinz-yellow/30 hover:text-chewteinz-purple transition-colors" role="menuitem">
+                <span class="text-base">🥭</span> Mango Madness
+              </a>
+              <a href="{{ all_products_url }}" class="flex items-center gap-2 px-5 py-2.5 font-body font-bold text-white bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink hover:opacity-90 transition-opacity mx-2 my-1 rounded-full justify-center" role="menuitem">
+                Buy Now
+              </a>
+              <div class="border-t border-gray-100 my-1"></div>
+              <a href="https://www.instagram.com/chewteinz" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-5 py-2.5 font-body font-semibold text-gray-700 hover:bg-chewteinz-pink/20 hover:text-chewteinz-purple transition-colors" role="menuitem">
+                {% render 'icon', icon: 'instagram', size: 16 %}
+                Instagram
+              </a>
+              <a href="https://www.facebook.com/profile.php?id=61574701214256" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-5 py-2.5 font-body font-semibold text-gray-700 hover:bg-chewteinz-blue/20 hover:text-chewteinz-purple transition-colors" role="menuitem">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073"/></svg>
+                Facebook
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <a
+          href="/pages/about"
+          class="font-body font-semibold transition-colors hover:text-chewteinz-purple {% if request.path == '/pages/about' %}text-chewteinz-purple{% else %}text-gray-700{% endif %}"
+        >
+          About Us
+        </a>
+        <a
+          href="/pages/contact"
+          class="font-body font-semibold transition-colors hover:text-chewteinz-purple {% if request.path == '/pages/contact' %}text-chewteinz-purple{% else %}text-gray-700{% endif %}"
+        >
+          Contact
+        </a>
+        <a
+          href="/pages/faq"
+          class="font-body font-semibold transition-colors hover:text-chewteinz-purple {% if request.path == '/pages/faq' %}text-chewteinz-purple{% else %}text-gray-700{% endif %}"
+        >
+          FAQ
+        </a>
       </div>
 
       <div class="hidden md:flex items-center space-x-4">
@@ -67,7 +106,6 @@
 
   <div class="md:hidden bg-white border-t hidden" id="mobile-menu">
     <div class="px-4 py-4 space-y-3">
-      {% assign nav_items = "About Us:/pages/about,Contact:/pages/contact,FAQ:/pages/faq" | split: "," %}
       <a
         href="/"
         class="block w-full text-left px-4 py-3 rounded-lg font-body font-semibold transition-colors {% if request.path == '/' %}bg-chewteinz-purple text-white{% else %}text-gray-700 hover:bg-gray-100{% endif %}"
@@ -75,13 +113,31 @@
       >
         Home
       </a>
-      <a
-        href="{{ all_products_url }}"
-        class="block w-full text-left px-4 py-3 rounded-lg font-body font-semibold transition-colors {% if request.path == all_products_url %}bg-chewteinz-purple text-white{% else %}text-gray-700 hover:bg-gray-100{% endif %}"
-        onclick="document.getElementById('mobile-menu').classList.add('hidden')"
+
+      <button
+        type="button"
+        class="flex items-center justify-between w-full text-left px-4 py-3 rounded-lg font-body font-semibold transition-colors text-gray-700 hover:bg-gray-100"
+        onclick="document.getElementById('mobile-shop-submenu').classList.toggle('hidden'); this.querySelector('svg').classList.toggle('rotate-180');"
+        aria-expanded="false"
+        aria-controls="mobile-shop-submenu"
       >
-        Shop Products
-      </a>
+        <span>Shop</span>
+        <svg class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+      </button>
+      <div id="mobile-shop-submenu" class="hidden pl-3 space-y-2">
+        <a href="{{ all_products_url }}" class="block px-4 py-2 rounded-lg font-body text-gray-700 hover:bg-gray-100" onclick="document.getElementById('mobile-menu').classList.add('hidden')">All Flavors</a>
+        <a href="/products/mango-madness" class="block px-4 py-2 rounded-lg font-body text-gray-700 hover:bg-gray-100" onclick="document.getElementById('mobile-menu').classList.add('hidden')">🥭 Mango Madness</a>
+        <a href="{{ all_products_url }}" class="block text-center px-4 py-2 rounded-full font-body font-bold text-white bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Buy Now</a>
+        <a href="https://www.instagram.com/chewteinz" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-4 py-2 rounded-lg font-body text-gray-700 hover:bg-gray-100">
+          {% render 'icon', icon: 'instagram', size: 16 %} Instagram
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=61574701214256" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-4 py-2 rounded-lg font-body text-gray-700 hover:bg-gray-100">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073"/></svg>
+          Facebook
+        </a>
+      </div>
+
+      {% assign nav_items = "About Us:/pages/about,Contact:/pages/contact,FAQ:/pages/faq" | split: "," %}
       {% for item in nav_items %}
         {% assign parts = item | split: ":" %}
         {% assign label = parts[0] %}
@@ -100,13 +156,41 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const btn = document.getElementById('mobile-menu-btn');
-    const menu = document.getElementById('mobile-menu');
+    var btn = document.getElementById('mobile-menu-btn');
+    var menu = document.getElementById('mobile-menu');
     if (btn && menu) {
       btn.addEventListener('click', function() {
-        const isOpen = !menu.classList.contains('hidden');
+        var isOpen = !menu.classList.contains('hidden');
         btn.querySelector('.menu-icon').classList.toggle('hidden', !isOpen);
         btn.querySelector('.close-icon').classList.toggle('hidden', isOpen);
+      });
+    }
+
+    // Keyboard support for desktop dropdown
+    var dropdownBtn = document.getElementById('shop-dropdown-btn');
+    var dropdown = document.getElementById('shop-dropdown');
+    if (dropdownBtn && dropdown) {
+      dropdownBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        var menu = dropdown.querySelector('[role="menu"]');
+        var isOpen = menu.classList.contains('opacity-100');
+        if (isOpen) {
+          menu.classList.remove('opacity-100', 'visible');
+          menu.classList.add('opacity-0', 'invisible');
+          dropdownBtn.setAttribute('aria-expanded', 'false');
+        } else {
+          menu.classList.add('opacity-100', 'visible');
+          menu.classList.remove('opacity-0', 'invisible');
+          dropdownBtn.setAttribute('aria-expanded', 'true');
+        }
+      });
+      document.addEventListener('click', function(e) {
+        if (!dropdown.contains(e.target)) {
+          var menu = dropdown.querySelector('[role="menu"]');
+          menu.classList.remove('opacity-100', 'visible');
+          menu.classList.add('opacity-0', 'invisible');
+          dropdownBtn.setAttribute('aria-expanded', 'false');
+        }
       });
     }
   });

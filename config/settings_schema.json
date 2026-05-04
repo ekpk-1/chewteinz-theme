@@ -1,80 +1,80 @@
 [
-  {
-    "name": "theme_info",
-    "theme_name": "ChewTeinz",
-    "theme_version": "1.0.0",
-    "theme_author": "ChewTeinz",
-    "theme_documentation_url": "https://chewteinz.com",
-    "theme_support_url": "https://chewteinz.com"
-  },
-  {
-    "name": "Klaviyo Integration",
-    "settings": [
-      {
-        "type": "header",
-        "content": "Klaviyo Email & SMS Marketing"
-      },
-      {
-        "type": "paragraph",
-        "content": "Power the subscribe and back-in-stock notify modals. Use your Public API Key (Site ID) from Klaviyo → Settings → API Keys. List IDs are in Audience → Lists & Segments (6-char code in the list URL)."
-      },
-      {
-        "type": "text",
-        "id": "klaviyo_public_key",
-        "label": "Klaviyo Public API Key (Site ID)"
-      },
-      {
-        "type": "text",
-        "id": "klaviyo_subscribe_list_id",
-        "label": "List ID (Subscribe / 10% Off Modal)"
-      },
-      {
-        "type": "text",
-        "id": "klaviyo_notify_list_id",
-        "label": "List ID (Back-in-Stock Notify Modal)",
-        "info": "Can be same as Subscribe list. Back-in-stock signups will include a product preference."
-      }
-    ]
-  },
-  {
-    "name": "Supabase Integration",
-    "settings": [
-      {
-        "type": "header",
-        "content": "Supabase Settings"
-      },
-      {
-        "type": "paragraph",
-        "content": "Used for logging contact form submissions."
-      },
-      {
-        "type": "text",
-        "id": "supabase_url",
-        "label": "Supabase URL"
-      },
-      {
-        "type": "text",
-        "id": "supabase_anon_key",
-        "label": "Supabase Anon Key"
-      }
-    ]
-  },
-  {
-    "name": "Make.com Integration",
-    "settings": [
-      {
-        "type": "header",
-        "content": "Make.com Webhook"
-      },
-      {
-        "type": "paragraph",
-        "content": "Used for forwarding contact form submissions."
-      },
-      {
-        "type": "text",
-        "id": "make_webhook_url",
-        "label": "Make.com Webhook URL"
-      }
-    ]
-  }
+    {
+        "name": "theme_info",
+        "theme_name": "ChewTeinz",
+        "theme_version": "1.0.0",
+        "theme_author": "ChewTeinz",
+        "theme_documentation_url": "https://chewteinz.com",
+        "theme_support_url": "https://chewteinz.com"
+    },
+    {
+        "name": "Klaviyo Integration",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Klaviyo Email & SMS Marketing"
+            },
+            {
+                "type": "paragraph",
+                "content": "Power the subscribe and back-in-stock notify modals. Use your Public API Key (Site ID) from Klaviyo → Settings → API Keys. List IDs are in Audience → Lists & Segments (6-char code in the list URL)."
+            },
+            {
+                "type": "text",
+                "id": "klaviyo_public_key",
+                "label": "Klaviyo Public API Key (Site ID)"
+            },
+            {
+                "type": "text",
+                "id": "klaviyo_subscribe_list_id",
+                "label": "List ID (Subscribe / 10% Off Modal)"
+            },
+            {
+                "type": "text",
+                "id": "klaviyo_notify_list_id",
+                "label": "List ID (Back-in-Stock Notify Modal)",
+                "info": "Can be same as Subscribe list. Back-in-stock signups will include a product preference."
+            }
+        ]
+    },
+    {
+        "name": "Supabase Integration",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Supabase Settings"
+            },
+            {
+                "type": "paragraph",
+                "content": "Used for logging contact form submissions."
+            },
+            {
+                "type": "text",
+                "id": "supabase_url",
+                "label": "Supabase URL"
+            },
+            {
+                "type": "text",
+                "id": "supabase_anon_key",
+                "label": "Supabase Anon Key"
+            }
+        ]
+    },
+    {
+        "name": "Make.com Integration",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Make.com Webhook"
+            },
+            {
+                "type": "paragraph",
+                "content": "Used for forwarding contact form submissions."
+            },
+            {
+                "type": "text",
+                "id": "make_webhook_url",
+                "label": "Make.com Webhook URL"
+            }
+        ]
+    }
 ]

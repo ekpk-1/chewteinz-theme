@@ -1,0 +1,155 @@
+{%- comment -%}
+  ChewTeinz SEO meta tags. Provides:
+  - Favicon / apple-touch-icon
+  - Robots, canonical, language alternates
+  - Keyword-rich meta description fallback
+  - Open Graph + Twitter cards
+  - JSON-LD structured data (Organization on every page, Product on product pages,
+    BreadcrumbList for collections/products) so Google can show the brand logo,
+    rich product cards and sitelinks for queries like "protein gummies".
+{%- endcomment -%}
+
+{%- assign brand_name = shop.name | default: 'ChewTeinz' -%}
+{%- comment -%}
+  Same transparent-background logo as the navbar so favicons + social previews match.
+  Note: the actual <link rel="icon"> tags live in layout/theme.liquid AFTER {{ content_for_header }}
+  so they override any Shopify-injected favicon. This variable is reused for OG / JSON-LD images.
+{%- endcomment -%}
+{%- assign brand_logo = 'https://1pg86aook1.ufs.sh/f/pN2g9q3wzUsTZWfCRu4PgqRxlpeEzvaLNWk8fbGJSHDVM2I5' -%}
+{%- assign default_description = 'ChewTeinz protein gummies — candy that actually builds muscle. 20g of protein, 0g sugar, 0 guilt. High-protein, low-sugar gummy snacks made for guilt-free cravings, post-workout recovery and everyday gains.' -%}
+{%- assign default_keywords = 'protein gummies, chewteinz, chewtienz, high protein candy, low sugar gummies, sugar free gummies, protein candy, healthy gummies, post workout snack, protein snacks, fitness candy, muscle building gummies, mango madness gummies' -%}
+
+{%- assign seo_description = page_description -%}
+{%- if template contains 'product' and product.description != blank -%}
+  {%- assign seo_description = product.description | strip_html | truncate: 300 -%}
+{%- endif -%}
+{%- if seo_description == blank -%}
+  {%- assign seo_description = default_description -%}
+{%- endif -%}
+
+{%- assign seo_canonical = canonical_url -%}
+{%- if seo_canonical == blank -%}
+  {%- assign seo_canonical = request.origin | append: request.path -%}
+{%- endif -%}
+
+<link rel="canonical" href="{{ seo_canonical }}">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="description" content="{{ seo_description | strip_newlines | escape }}">
+<meta name="keywords" content="{{ default_keywords }}">
+<meta name="author" content="{{ brand_name }}">
+<meta name="theme-color" content="#9B59B6">
+
+<meta property="og:site_name" content="{{ brand_name }}">
+<meta property="og:type" content="{% if template contains 'product' %}product{% else %}website{% endif %}">
+<meta property="og:url" content="{{ seo_canonical }}">
+<meta property="og:title" content="{{ page_title | default: brand_name }}">
+<meta property="og:description" content="{{ seo_description | strip_newlines | escape }}">
+<meta property="og:image" content="{% if template contains 'product' and product.featured_image %}{{ product.featured_image | image_url: width: 1200 }}{% else %}{{ brand_logo }}{% endif %}">
+<meta property="og:image:alt" content="{{ brand_name }} logo">
+<meta property="og:locale" content="en_AU">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@chewteinz">
+<meta name="twitter:title" content="{{ page_title | default: brand_name }}">
+<meta name="twitter:description" content="{{ seo_description | strip_newlines | escape }}">
+<meta name="twitter:image" content="{% if template contains 'product' and product.featured_image %}{{ product.featured_image | image_url: width: 1200 }}{% else %}{{ brand_logo }}{% endif %}">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": {{ brand_name | json }},
+  "url": {{ shop.url | json }},
+  "logo": {{ brand_logo | json }},
+  "description": {{ default_description | json }},
+  "sameAs": [
+    "https://www.instagram.com/chewteinz",
+    "https://www.facebook.com/profile.php?id=61574701214256"
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": {{ brand_name | json }},
+  "url": {{ shop.url | json }},
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "{{ shop.url }}/search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+{%- comment -%}
+  SiteNavigationElement helps Google pick these as sitelink candidates under the
+  main brand result (the indented links shown for branded searches). Sitelinks
+  are still algorithmic — typically appear after a few weeks of traffic + once
+  the site ranks #1 for the brand name.
+{%- endcomment -%}
+<script type="application/ld+json">
+[
+  { "@context": "https://schema.org", "@type": "SiteNavigationElement", "name": "Shop All Flavors", "url": "{{ shop.url }}{{ routes.all_products_collection_url }}" },
+  { "@context": "https://schema.org", "@type": "SiteNavigationElement", "name": "Mango Madness", "url": "{{ shop.url }}/products/mango-madness" },
+  { "@context": "https://schema.org", "@type": "SiteNavigationElement", "name": "Buy Now", "url": "{{ shop.url }}{{ routes.all_products_collection_url }}" },
+  { "@context": "https://schema.org", "@type": "SiteNavigationElement", "name": "About Us", "url": "{{ shop.url }}/pages/about" },
+  { "@context": "https://schema.org", "@type": "SiteNavigationElement", "name": "FAQ", "url": "{{ shop.url }}/pages/faq" },
+  { "@context": "https://schema.org", "@type": "SiteNavigationElement", "name": "Contact", "url": "{{ shop.url }}/pages/contact" }
+]
+</script>
+
+{%- if template contains 'product' and product != blank -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": {{ product.title | json }},
+    "image": [
+      {%- for img in product.images limit: 5 -%}
+        "{{ img | image_url: width: 1200 | prepend: 'https:' | replace: 'https:https:', 'https:' }}"{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ],
+    "description": {{ product.description | strip_html | truncate: 500 | json }},
+    "brand": {
+      "@type": "Brand",
+      "name": {{ brand_name | json }}
+    },
+    "sku": {{ product.selected_or_first_available_variant.sku | default: product.id | json }},
+    "category": "Health & Beauty > Health Care > Vitamins & Supplements > Protein Snacks",
+    "offers": {
+      "@type": "Offer",
+      "url": "{{ shop.url }}{{ product.url }}",
+      "priceCurrency": {{ cart.currency.iso_code | json }},
+      "price": "{{ product.selected_or_first_available_variant.price | money_without_currency | replace: ',', '' }}",
+      "availability": "{% if product.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+      "itemCondition": "https://schema.org/NewCondition"
+    }{%- if product.metafields.reviews.rating.value != blank and product.metafields.reviews.rating_count != blank and product.metafields.reviews.rating_count != 0 -%},
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "{{ product.metafields.reviews.rating.value.rating }}",
+      "bestRating": "{{ product.metafields.reviews.rating.value.scale_max }}",
+      "ratingCount": {{ product.metafields.reviews.rating_count }}
+    }{%- endif -%}
+  }
+  </script>
+{%- endif -%}
+
+{%- if template contains 'product' or template contains 'collection' -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ shop.url }}" },
+      {%- if template contains 'collection' and collection != blank -%}
+        { "@type": "ListItem", "position": 2, "name": {{ collection.title | json }}, "item": "{{ shop.url }}{{ collection.url }}" }
+      {%- elsif template contains 'product' and product != blank -%}
+        { "@type": "ListItem", "position": 2, "name": "Shop", "item": "{{ shop.url }}{{ routes.all_products_collection_url }}" },
+        { "@type": "ListItem", "position": 3, "name": {{ product.title | json }}, "item": "{{ shop.url }}{{ product.url }}" }
+      {%- endif -%}
+    ]
+  }
+  </script>
+{%- endif -%}

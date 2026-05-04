@@ -7,9 +7,7 @@
 
   <title>{{ page_title }}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
 
-  {% if page_description %}
-    <meta name="description" content="{{ page_description | escape }}">
-  {% endif %}
+  {% render 'seo-meta' %}
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,6 +16,16 @@
   {{ 'theme.css' | asset_url | stylesheet_tag }}
 
   {{ content_for_header }}
+
+  {%- comment -%}
+    Favicon links MUST come after {{ content_for_header }} so they override
+    Shopify's auto-injected favicon (from Online Store > Preferences).
+    Same transparent-background logo as the navbar.
+  {%- endcomment -%}
+  <link rel="icon" type="image/png" sizes="32x32" href="https://1pg86aook1.ufs.sh/f/pN2g9q3wzUsTZWfCRu4PgqRxlpeEzvaLNWk8fbGJSHDVM2I5">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://1pg86aook1.ufs.sh/f/pN2g9q3wzUsTZWfCRu4PgqRxlpeEzvaLNWk8fbGJSHDVM2I5">
+  <link rel="shortcut icon" type="image/png" href="https://1pg86aook1.ufs.sh/f/pN2g9q3wzUsTZWfCRu4PgqRxlpeEzvaLNWk8fbGJSHDVM2I5">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://1pg86aook1.ufs.sh/f/pN2g9q3wzUsTZWfCRu4PgqRxlpeEzvaLNWk8fbGJSHDVM2I5">
 
   <script>
     window.chewteinzSettings = {
