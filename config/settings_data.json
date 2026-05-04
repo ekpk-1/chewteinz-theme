@@ -9,6 +9,7 @@
  */
 {
   "current": {
+    "favicon": "shopify://shop_images/LogoChewTeinz_Logo_Page_1.png",
     "klaviyo_public_key": "YfFYSU",
     "klaviyo_subscribe_list_id": "Yiif5M",
     "klaviyo_notify_list_id": "Yiif5M",
@@ -35,6 +36,13 @@
         "settings": {}
       }
     },
-    "content_for_index": []
+    "content_for_index": [],
+    "blocks": {
+      "14060646107696862457": {
+        "type": "shopify://apps/judge-me-reviews/blocks/judgeme_core/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+        "disabled": false,
+        "settings": {}
+      }
+    }
   }
 }

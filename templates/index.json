@@ -59,7 +59,8 @@
         "social_5": {
           "type": "video",
           "settings": {
-            "video_url": "",
+            "image": "shopify://shop_images/624077973_17875434972474397_3929273761188032811_n.jpg",
+            "image_url": "",
             "link": "https://www.instagram.com/p/DUE2iXoE7Ye/",
             "gradient": "from-green-400 to-lime-500"
           }
@@ -67,7 +68,8 @@
         "social_6": {
           "type": "video",
           "settings": {
-            "video_url": "",
+            "image": "shopify://shop_images/670282029_17894458989443101_4809766276545479596_n.jpg",
+            "image_url": "",
             "link": "https://www.instagram.com/p/DXQPQrpj3OU/",
             "gradient": "from-purple-400 to-pink-500"
           }
