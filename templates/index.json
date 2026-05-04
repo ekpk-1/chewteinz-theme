@@ -50,6 +50,7 @@
         "social_4": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/638264301_17874054423519016_4695387875801582844_n.jpg",
             "image_url": "",
             "link": "https://www.instagram.com/p/DU4vuaKGT4B/",
             "gradient": "from-yellow-400 to-orange-500"
