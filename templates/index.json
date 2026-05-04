@@ -25,6 +25,7 @@
         "social_1": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/Followusimg1.png",
             "image_url": "",
             "link": "https://www.instagram.com/reel/DU2e5yFDVho/",
             "gradient": "from-pink-400 to-purple-500"
@@ -66,7 +67,7 @@
           "type": "video",
           "settings": {
             "video_url": "",
-            "link": "",
+            "link": "https://www.instagram.com/p/DXQPQrpj3OU/",
             "gradient": "from-purple-400 to-pink-500"
           }
         }
