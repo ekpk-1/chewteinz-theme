@@ -59,54 +59,18 @@
       <div id="looxReviews" data-product-id="{{ product.id }}"></div>
 
       {%- comment -%}
-        Empty state shown only when no review app has injected content.
-        Apps replace these containers on load, so this stays hidden once a
-        review app is installed.
+        Write a review CTA — always visible. Judge.me renders reviews above this;
+        if there are none yet this acts as the primary call to action.
       {%- endcomment -%}
-      <div id="reviews-empty-state" class="text-center py-8">
-        <div class="bg-gradient-to-br from-yellow-50 via-pink-50 to-purple-50 rounded-2xl p-6 sm:p-8">
-          <p class="text-gray-700 font-body text-base sm:text-lg mb-4">
-            Be the first to review {{ product.title }} and help other chewers find their flavor.
-          </p>
-          <a
-            href="https://judge.me/reviews/new?shop_domain={{ shop.permanent_domain }}&amp;product_handle={{ product.handle }}"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-block px-6 py-3 bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink text-white font-display font-bold rounded-full shadow-lg hover:scale-105 transition-transform">
-            Leave a review
-          </a>
-        </div>
+      <div class="text-center pt-6 pb-2">
+        <a
+          href="https://judge.me/reviews/new?shop_domain={{ shop.permanent_domain }}&amp;platform=shopify&amp;product_id={{ product.id }}&amp;product_handle={{ product.handle }}&amp;product_title={{ product.title | url_encode }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-block px-6 py-3 bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink text-white font-display font-bold rounded-full shadow-lg hover:scale-105 transition-transform">
+          Leave a Review
+        </a>
       </div>
     </div>
-
-    <script>
-      // Hide empty state if a review app has populated any of the containers.
-      (function () {
-        var empty = document.getElementById('reviews-empty-state');
-        if (!empty) return;
-        var targets = [
-          document.getElementById('shopify-product-reviews'),
-          document.querySelector('.jdgm-widget'),
-          document.getElementById('looxReviews')
-        ];
-        var hide = function () {
-          for (var i = 0; i < targets.length; i++) {
-            var t = targets[i];
-            if (t && t.children && t.children.length > 0) {
-              empty.style.display = 'none';
-              return true;
-            }
-          }
-          return false;
-        };
-        if (!hide()) {
-          var tries = 0;
-          var interval = setInterval(function () {
-            tries++;
-            if (hide() || tries > 20) clearInterval(interval);
-          }, 500);
-        }
-      })();
-    </script>
   </section>
 {%- endif -%}
