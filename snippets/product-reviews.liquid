@@ -51,13 +51,139 @@
         {%- endif -%}
       </div>
 
-      {%- comment -%}
-        Judge.me hydrates this div. The "Write a review" button is rendered
-        by Judge.me itself and opens an inline modal — no external link needed.
-      {%- endcomment -%}
-      <div class="bg-white rounded-xl p-4 sm:p-6">
+      <div class="bg-white rounded-xl p-4 sm:p-6 jdgm-widget-host">
         {% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', product: product %}
       </div>
     </div>
   </section>
+
+  {%- comment -%}
+    Theme overrides for Judge.me v3 (`jm-*` Vue component classes). v3 themes
+    via CSS custom properties on `.jm-review-widget` and per-review wrappers,
+    so the cleanest approach is overriding those vars at the `.jdgm-widget-host`
+    scope and adding gradient/font tweaks to specific elements.
+  {%- endcomment -%}
+  <style>
+    .jdgm-widget-host {
+      --chewteinz-yellow: #FFE55C;
+      --chewteinz-pink: #FFB3E6;
+      --chewteinz-purple: #C8A2F0;
+      --chewteinz-orange: #FFB380;
+    }
+
+    .jdgm-widget-host .jm-review-widget,
+    .jdgm-widget-host .jm-review-item,
+    .jdgm-widget-host .jm-star-rating {
+      --jm-review-widget-star-and-histogram-color: var(--chewteinz-yellow) !important;
+      --jm-widget-primary-color: var(--chewteinz-purple) !important;
+      --jm-review-widget-text-color: #1F2937 !important;
+      --jm-review-widget-lighter-text-color: #6B7280 !important;
+    }
+
+    .jdgm-widget-host .jm-star-rating__font-icon {
+      color: var(--chewteinz-yellow) !important;
+    }
+
+    .jdgm-widget-host .jm-button.jm-button--primary {
+      background: linear-gradient(to right, var(--chewteinz-purple), var(--chewteinz-pink)) !important;
+      background-color: transparent !important;
+      color: #FFFFFF !important;
+      border: none !important;
+      border-radius: 9999px !important;
+      font-family: 'Fredoka', system-ui, sans-serif !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.01em;
+      padding: 0.7rem 1.4rem !important;
+      box-shadow: 0 6px 16px rgba(200, 162, 240, 0.35) !important;
+      transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    }
+    .jdgm-widget-host .jm-button.jm-button--primary:hover {
+      transform: scale(1.04);
+      box-shadow: 0 8px 22px rgba(255, 179, 230, 0.45) !important;
+    }
+
+    .jdgm-widget-host .jm-button.jm-button--secondary {
+      border-radius: 9999px !important;
+      border-color: rgba(200, 162, 240, 0.5) !important;
+      color: #4B5563 !important;
+      font-family: 'Nunito', system-ui, sans-serif !important;
+      font-weight: 600 !important;
+      transition: background 0.2s ease, border-color 0.2s ease !important;
+    }
+    .jdgm-widget-host .jm-button.jm-button--secondary:hover {
+      background: rgba(200, 162, 240, 0.08) !important;
+      border-color: var(--chewteinz-purple) !important;
+    }
+
+    .jdgm-widget-host .jm-sort-filter__select,
+    .jdgm-widget-host .jdgm-sort-dropdown {
+      border-radius: 9999px !important;
+      border: 1px solid rgba(200, 162, 240, 0.5) !important;
+      font-family: 'Nunito', system-ui, sans-serif !important;
+      color: #4B5563 !important;
+      padding: 0.4rem 2rem 0.4rem 1.8rem !important;
+      cursor: pointer;
+    }
+
+    .jdgm-widget-host .jm-reviewer-avatar,
+    .jdgm-widget-host .jm-reviewer-avatar__initial {
+      background: linear-gradient(135deg, var(--chewteinz-purple), var(--chewteinz-pink)) !important;
+      border-radius: 9999px !important;
+      width: 2.75rem !important;
+      height: 2.75rem !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      box-shadow: 0 2px 6px rgba(200, 162, 240, 0.3);
+    }
+    .jdgm-widget-host .jm-reviewer-avatar__initial .jm-text {
+      color: #FFFFFF !important;
+      font-family: 'Fredoka', system-ui, sans-serif !important;
+      font-weight: 700 !important;
+    }
+
+    .jdgm-widget-host .jm-text {
+      font-family: 'Nunito', system-ui, sans-serif !important;
+    }
+    .jdgm-widget-host .jm-review-content__title,
+    .jdgm-widget-host .jm-average-rating-display .jm-text:first-child {
+      font-family: 'Fredoka', system-ui, sans-serif !important;
+      color: #1F2937 !important;
+    }
+    .jdgm-widget-host .jm-reviewer-info__name {
+      color: #1F2937 !important;
+      font-weight: 700 !important;
+    }
+
+    .jdgm-widget-host .jm-review-item {
+      border-color: rgba(200, 162, 240, 0.25) !important;
+    }
+
+    .jdgm-widget-host .jm-media-grid__container img,
+    .jdgm-widget-host .jm-review-item img {
+      border-radius: 0.75rem !important;
+    }
+
+    /* Hide v3 widget header chrome: rating average, review count,
+       filter dropdown, sort dropdown, and the empty media gallery preview.
+       The "Write a review" button stays. */
+    .jdgm-widget-host .jm-average-rating-display,
+    .jdgm-widget-host .jm-custom-answer-filter,
+    .jdgm-widget-host .jm-sort-filter,
+    .jdgm-widget-host .jm-review-widget-minimal-header__filters,
+    .jdgm-widget-host .jm-media-preview,
+    .jdgm-widget-host .jm-media-grid {
+      display: none !important;
+    }
+
+    /* Collapse the now-empty stacks so the button can truly center.
+       :has() targets the wrapper that held .jm-average-rating-display. */
+    .jdgm-widget-host .jm-review-widget__header .jm-stack:has(.jm-average-rating-display) {
+      display: none !important;
+    }
+
+    .jdgm-widget-host .jm-review-widget__header .jm-cluster {
+      --cluster-justify: center !important;
+    }
+  </style>
 {%- endif -%}
