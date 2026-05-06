@@ -1014,10 +1014,6 @@ h1, h2, h3, h4, h5, h6 {
   width: 5rem;
 }
 
-.w-4 {
-  width: 1rem;
-}
-
 .w-5 {
   width: 1.25rem;
 }
@@ -2033,6 +2029,10 @@ h1, h2, h3, h4, h5, h6 {
   padding-top: 2rem;
 }
 
+.pt-12 {
+  padding-top: 3rem;
+}
+
 .text-left {
   text-align: left;
 }
@@ -2889,6 +2889,10 @@ h1, h2, h3, h4, h5, h6 {
     padding-top: 2rem;
   }
 
+  .sm\:pt-16 {
+    padding-top: 4rem;
+  }
+
   .sm\:text-2xl {
     font-size: 1.5rem;
     line-height: 2rem;
@@ -3100,6 +3104,10 @@ h1, h2, h3, h4, h5, h6 {
 
   .md\:pt-32 {
     padding-top: 8rem;
+  }
+
+  .md\:pt-20 {
+    padding-top: 5rem;
   }
 
   .md\:text-2xl {

@@ -46,7 +46,9 @@
 
               {%- comment -%} Judge.me inline star rating (preview badge) {%- endcomment -%}
               <div class="mb-2">
-                {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', product: featured %}
+                {% render 'judgeme_widgets'
+                  , widget_type: 'judgeme_preview_badge'
+                  , product: featured %}
               </div>
               <p class="text-sm sm:text-base text-gray-600 font-body mb-3 sm:mb-4">{{ featured.description | strip_html | truncate: 120 }}</p>
 
@@ -96,7 +98,8 @@
     </div>
 
     {%- if section.settings.show_reviews and featured != blank -%}
-      {% render 'product-reviews', product: featured %}
+      {% render 'product-reviews'
+        , product: featured %}
     {%- endif -%}
   </div>
 </section>

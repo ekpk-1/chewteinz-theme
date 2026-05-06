@@ -18,7 +18,7 @@
   {%- assign rating = product.metafields.reviews.rating.value -%}
   {%- assign rating_count = product.metafields.reviews.rating_count | plus: 0 -%}
 
-  <section class="py-10 sm:py-14 md:py-16 mt-10 sm:mt-12 md:mt-16 bg-gradient-to-br from-chewteinz-blue to-chewteinz-purple rounded-2xl" id="product-reviews">
+  <section class="py-10 sm:py-14 md:py-16 mt-10 sm:mt-12 md:mt-16 bg-gradient-to-br from-chewteinz-blue to-chewteinz-purple rounded-2xl w-full" id="product-reviews">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
       <div class="text-center mb-6 sm:mb-8">
         <h2 class="text-2xl sm:text-3xl md:text-4xl font-display font-bold mb-2 text-white text-shadow">
@@ -255,6 +255,26 @@
       box-shadow: 0 2px 8px rgba(200, 162, 240, 0.12);
     }
 
+
+    /*
+   Stack avatar+name above the stars instead of side-by-side.
+   Targets the review header row so reviewer info sits on top
+   and the star rating drops below it.
+*/
+    .jdgm-widget-host .jm-review-item__header {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 0.4rem !important;
+    }
+    .jdgm-widget-host .jm-review-item__header .jm-reviewer-info {
+      order: 1;
+    }
+    .jdgm-widget-host .jm-review-item__header .jm-star-rating {
+      order: 2;
+      margin-left: 3.4rem;
+      /* aligns under the name, past the avatar */
+    }
+
     /* Carousel arrow buttons (injected by JS into the body container). */
     .jdgm-widget-host .jm-review-widget__body {
       position: relative;
@@ -306,6 +326,7 @@
 
     /* Slide counter ("1 / 5"). */
     .jdgm-carousel-counter {
+      display: none;
       text-align: center;
       margin-top: 0.75rem;
       font-family: 'Nunito'
