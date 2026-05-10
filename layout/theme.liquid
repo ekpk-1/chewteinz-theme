@@ -20,8 +20,6 @@
   {%- comment -%}
     Favicon links MUST come after {{ content_for_header }} so they override
     Shopify's auto-injected favicon (from Online Store > Preferences).
-    Prefer the theme-setting image (served from Shopify CDN); fall back to
-    the externally-hosted logo only if no favicon has been uploaded yet.
   {%- endcomment -%}
   {%- if settings.favicon != blank -%}
     {%- assign favicon_url = settings.favicon | image_url: width: 180 -%}
@@ -44,11 +42,19 @@
     };
   </script>
 </head>
-<body class="min-h-screen smooth-scroll">
+<body class="min-h-screen smooth-scroll bg-white text-chewteinz-ink">
+  {% render 'icon-sprite' %}
+
   {% section 'announcement-banner' %}
   {% section 'header' %}
 
-  <main class="pt-10 sm:pt-12 bg-gradient-to-b from-chewteinz-yellow/20 via-white to-chewteinz-pink/20">
+  {%- comment -%}
+    The announcement banner (h-10 sm:h-12) and site header are both fixed at
+    the top of the viewport. Reserve space for them so page content doesn't
+    sit underneath. Sections that intentionally bleed under the chrome can
+    override with their own padding.
+  {%- endcomment -%}
+  <main class="pt-[104px] sm:pt-[124px]">
     {{ content_for_layout }}
   </main>
 
@@ -63,5 +69,6 @@
 
   {{ 'cart.js' | asset_url | script_tag }}
   {{ 'modals.js' | asset_url | script_tag }}
+  {{ 'theme.js' | asset_url | script_tag }}
 </body>
 </html>

@@ -1,93 +1,83 @@
-<div class="fixed bottom-8 right-8 z-40" id="floating-cart-btn">
-  <button
-    type="button"
-    onclick="window.cartDrawer.open()"
-    class="relative p-4 bg-chewteinz-yellow rounded-full shadow-2xl hover:scale-110 transition-transform"
-    aria-label="Open cart"
-    tabindex="0"
-  >
-    {% render 'icon', icon: 'shopping-cart', size: 24 %}
-    <span class="cart-count-badge absolute -top-1 -right-1 bg-chewteinz-pink text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center animate-bounce {% if cart.item_count == 0 %}hidden{% endif %}">
-      {{ cart.item_count }}
-    </span>
-  </button>
-</div>
+{%- comment -%}
+  Cart drawer chrome — matches the redesigned visual language while preserving
+  the public DOM contract used by assets/cart.js:
+    #cart-drawer, #cart-drawer-panel, #cart-drawer-count, #cart-drawer-total,
+    #cart-drawer-footer, #cart-drawer-items, .cart-count-badge
+{%- endcomment -%}
 
 <div class="fixed inset-0 z-[70] overflow-hidden hidden" id="cart-drawer">
-  <div class="absolute inset-0 bg-black/50" onclick="window.cartDrawer.close()"></div>
+  <div class="absolute inset-0 bg-chewteinz-ink/45" onclick="window.cartDrawer.close()"></div>
 
-  <div class="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300" id="cart-drawer-panel">
-    <div class="flex items-center justify-between p-6 border-b border-gray-200">
-      <h2 class="text-2xl font-display font-bold text-gray-800">
-        Your Cart (<span id="cart-drawer-count">{{ cart.item_count }}</span>)
+  <aside
+    class="absolute right-0 top-0 h-full w-full max-w-md bg-chewteinz-cream shadow-[0_24px_48px_-12px_rgba(26,22,20,0.3)] flex flex-col transform translate-x-full transition-transform duration-300"
+    style="transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);"
+    id="cart-drawer-panel"
+    aria-label="Cart">
+    <header class="flex items-center justify-between px-6 py-5 border-b border-chewteinz-ink/10">
+      <h2 class="font-display font-bold text-xl text-chewteinz-ink">
+        Your bag (<span id="cart-drawer-count">{{ cart.item_count }}</span>)
       </h2>
       <button
         type="button"
         onclick="window.cartDrawer.close()"
-        class="p-2 hover:bg-gray-100 rounded-full transition-colors"
-        aria-label="Close cart"
-        tabindex="0"
-      >
-        {% render 'icon', icon: 'x', size: 24 %}
+        class="icon-btn"
+        aria-label="Close cart">
+        <svg class="w-[22px] h-[22px]"><use href="#i-x"/></svg>
       </button>
-    </div>
+    </header>
 
     <div class="flex-1 overflow-y-auto p-6" id="cart-drawer-items">
-      {% if cart.item_count == 0 %}
+      {%- if cart.item_count == 0 -%}
         <div class="text-center py-12" id="cart-empty-state">
-          <div class="text-6xl mb-4">🛒</div>
-          <p class="text-lg text-gray-600 font-body">Your cart is empty</p>
-          <p class="text-sm text-gray-500 mt-2">Add some delicious protein treats!</p>
+          <div class="text-5xl mb-4" aria-hidden="true">🛒</div>
+          <p class="text-lg font-display font-semibold text-chewteinz-ink">Your bag is empty</p>
+          <p class="text-sm text-chewteinz-ink-soft mt-2">Add a flavour to see the drawer fill.</p>
         </div>
-      {% else %}
+      {%- else -%}
         <div class="space-y-4" id="cart-items-list">
-          {% for item in cart.items %}
-            <div class="flex gap-4 bg-gray-50 rounded-2xl p-4 hover:bg-gray-100 transition-colors" data-line="{{ forloop.index }}" data-key="{{ item.key }}">
-              <div class="w-20 h-20 flex-shrink-0 bg-gradient-to-br from-chewteinz-yellow to-chewteinz-pink rounded-xl overflow-hidden">
-                {% if item.image %}
+          {%- for item in cart.items -%}
+            <div class="flex gap-4 bg-white rounded-2xl p-4 border border-chewteinz-ink/10" data-line="{{ forloop.index }}" data-key="{{ item.key }}">
+              <div class="w-20 h-20 flex-shrink-0 bg-chewteinz-cream-2 rounded-xl overflow-hidden grid place-items-center">
+                {%- if item.image -%}
                   <img src="{{ item.image | image_url: width: 160, height: 160 }}" alt="{{ item.title | escape }}" class="w-full h-full object-cover" width="160" height="160" loading="lazy">
-                {% else %}
-                  <div class="w-full h-full flex items-center justify-center text-2xl">🍬</div>
-                {% endif %}
+                {%- else -%}
+                  <div class="text-2xl">🍬</div>
+                {%- endif -%}
               </div>
-
               <div class="flex-1 min-w-0">
-                <h3 class="font-display font-semibold text-gray-800 truncate">{{ item.product.title }}</h3>
-                <p class="text-sm text-gray-600 mb-2">{{ item.price | money }} each</p>
+                <h3 class="font-display font-semibold text-chewteinz-ink truncate">{{ item.product.title }}</h3>
+                <p class="text-sm text-chewteinz-ink-soft mb-2">{{ item.price | money }} each</p>
                 <div class="flex items-center gap-2">
-                  <button type="button" onclick="window.cartDrawer.updateQuantity('{{ item.key }}', {{ item.quantity | minus: 1 }})" class="p-1 bg-white rounded-full hover:bg-gray-200 transition-colors" aria-label="Decrease quantity">
-                    {% render 'icon', icon: 'minus', size: 14 %}
+                  <button type="button" onclick="window.cartDrawer.updateQuantity('{{ item.key }}', {{ item.quantity | minus: 1 }})" class="w-7 h-7 grid place-items-center rounded-full border border-chewteinz-ink/20 hover:border-chewteinz-ink transition-colors" aria-label="Decrease quantity">
+                    <svg class="w-3 h-3"><use href="#i-minus"/></svg>
                   </button>
-                  <span class="w-8 text-center font-semibold">{{ item.quantity }}</span>
-                  <button type="button" onclick="window.cartDrawer.updateQuantity('{{ item.key }}', {{ item.quantity | plus: 1 }})" class="p-1 bg-white rounded-full hover:bg-gray-200 transition-colors" aria-label="Increase quantity">
-                    {% render 'icon', icon: 'plus', size: 14 %}
+                  <span class="w-8 text-center font-semibold tabular-nums">{{ item.quantity }}</span>
+                  <button type="button" onclick="window.cartDrawer.updateQuantity('{{ item.key }}', {{ item.quantity | plus: 1 }})" class="w-7 h-7 grid place-items-center rounded-full border border-chewteinz-ink/20 hover:border-chewteinz-ink transition-colors" aria-label="Increase quantity">
+                    <svg class="w-3 h-3"><use href="#i-plus"/></svg>
                   </button>
                 </div>
               </div>
-
               <div class="flex flex-col items-end justify-between">
-                <button type="button" onclick="window.cartDrawer.removeItem('{{ item.key }}')" class="p-2 text-red-500 hover:bg-red-50 rounded-full transition-colors" aria-label="Remove item">
-                  {% render 'icon', icon: 'trash-2', size: 18 %}
+                <button type="button" onclick="window.cartDrawer.removeItem('{{ item.key }}')" class="text-chewteinz-ink-soft hover:text-chewteinz-ink transition-colors p-1" aria-label="Remove item">
+                  <svg class="w-4 h-4"><use href="#i-x"/></svg>
                 </button>
-                <p class="font-display font-bold text-gray-800">{{ item.line_price | money }}</p>
+                <p class="font-display font-bold text-chewteinz-ink">{{ item.line_price | money }}</p>
               </div>
             </div>
-          {% endfor %}
+          {%- endfor -%}
         </div>
-      {% endif %}
+      {%- endif -%}
     </div>
 
-    <div class="border-t border-gray-200 p-6 space-y-4 {% if cart.item_count == 0 %}hidden{% endif %}" id="cart-drawer-footer">
-      <div class="flex items-center justify-between text-lg">
-        <span class="font-display font-semibold text-gray-800">Total:</span>
-        <span class="font-display font-bold text-2xl text-gray-800" id="cart-drawer-total">{{ cart.total_price | money }}</span>
+    <footer class="border-t border-chewteinz-ink/10 p-6 space-y-3 {% if cart.item_count == 0 %}hidden{% endif %}" id="cart-drawer-footer">
+      <div class="flex items-center justify-between">
+        <span class="font-display font-semibold text-chewteinz-ink">Subtotal</span>
+        <span class="font-display font-bold text-2xl text-chewteinz-ink" id="cart-drawer-total">{{ cart.total_price | money }}</span>
       </div>
-      <a href="/checkout" class="block w-full py-4 rounded-full font-display font-bold text-lg transition-transform bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink text-white hover:scale-105 text-center">
-        Checkout
-      </a>
-      <p class="text-xs text-gray-500 text-center">You'll be redirected to secure checkout</p>
-    </div>
-  </div>
+      <a href="/checkout" class="btn btn--gradient btn--lg btn--block">Checkout</a>
+      <p class="text-xs text-chewteinz-ink-soft text-center">You'll be redirected to secure checkout.</p>
+    </footer>
+  </aside>
 </div>
 
 {% schema %}

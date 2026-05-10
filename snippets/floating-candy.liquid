@@ -1,0 +1,39 @@
+{%- comment -%}
+  Floating candy decoration layer.
+  Mirrors the prototype `.floating-candy-layer` (see prototype/styles/components.css
+  and porting notes in prototype/README.md).
+
+  Usage:
+    {% render 'floating-candy', preset: 'hero' %}
+    {% render 'floating-candy', preset: 'why' %}
+{%- endcomment -%}
+
+{%- liquid
+  assign candy_src = 'https://1pg86aook1.ufs.sh/f/pN2g9q3wzUsTAzp81qYdzGFpfVKBbR6Qy9iWxIh3krP4LwZS'
+
+  case preset
+    when 'why'
+      assign positions = '88:65,45:50,15:40,85:90,70:20,30:65,55:35,92:55,25:75,75:85,40:92,60:8' | split: ','
+      assign rotations = '-135,22,-40,66,-72,48,-15,95,-58,33,-88,120' | split: ','
+    else
+      assign positions = '5:10,15:25,8:60,12:85,25:15,30:75,20:45,40:8,45:92,50:5,55:88,60:12,70:45,75:22,68:70,80:55,85:15,90:80' | split: ','
+      assign rotations = '0,18,-25,40,-35,55,-48,70,-60,85,-75,95,-88,110,-105,125,-120,140' | split: ','
+  endcase
+-%}
+
+<div class="floating-candy-layer" aria-hidden="true">
+  {%- for pos in positions -%}
+    {%- assign coords = pos | split: ':' -%}
+    {%- assign idx = forloop.index0 -%}
+    {%- assign delay = idx | times: 0.3 | modulo: 5 -%}
+    {%- assign dur   = idx | modulo: 4 | plus: 5 -%}
+    <img
+      src="{{ candy_src }}"
+      alt=""
+      width="64"
+      height="64"
+      loading="lazy"
+      decoding="async"
+      style="left:{{ coords[0] }}%;top:{{ coords[1] }}%;--candy-rot:{{ rotations[idx] }}deg;--candy-dur:{{ dur }}s;--candy-delay:{{ delay }}s">
+  {%- endfor -%}
+</div>

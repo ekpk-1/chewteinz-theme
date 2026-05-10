@@ -1,76 +1,103 @@
-<section class="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-chewteinz-yellow via-chewteinz-pink to-chewteinz-purple overflow-hidden">
-  <div class="absolute inset-0 overflow-hidden">
-    {%- assign positions = "5:10,15:25,8:60,12:85,25:15,30:75,20:45,40:8,45:92,50:5,55:88,60:12,70:45,75:22,68:70,80:55,85:15,90:80,92:40,88:65" | split: "," -%}
-    {%- assign rotations = "0,18,-25,40,-35,55,-48,70,-60,85,-75,95,-88,110,-105,125,-120,140,-135,155" | split: "," -%}
-    {%- for pos in positions -%}
-      {%- assign coords = pos | split: ":" -%}
-      {%- assign idx = forloop.index0 -%}
-      {%- assign delay_val = idx | times: 0.3 | modulo: 5 -%}
-      {%- assign dur_base = idx | modulo: 4 | plus: 5 -%}
-      <img
-        src="https://1pg86aook1.ufs.sh/f/pN2g9q3wzUsTAzp81qYdzGFpfVKBbR6Qy9iWxIh3krP4LwZS"
-        alt=""
-        class="absolute w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 opacity-20 animate-float"
-        style="left:{{ coords[0] }}%;top:{{ coords[1] }}%;animation-delay:{{ delay_val }}s;animation-duration:{{ dur_base }}s;transform:rotate({{ rotations[idx] }}deg)"
-        loading="lazy">
-    {%- endfor -%}
-  </div>
+{%- liquid
+  assign hero_image = section.settings.hero_image
+  assign accent_word = section.settings.accent_word | default: 'actually'
+  assign heading = section.settings.heading
 
-  <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
-    <div class="relative flex justify-center mt-6 sm:mt-8 md:top-[5vh]">
-      {%- assign hero_image = section.settings.hero_image -%}
+  comment
+    If the saved subheading is the legacy short stat string (or blank), fall
+    back to a proper lede so the hero never looks empty.Merchants can still
+    edit it from the customizer to override.
+  endcomment
+  assign subheading = section.settings.subheading
+  assign legacy_short = '20g of protein'
+  if subheading == blank or subheading contains legacy_short
+    assign subheading = 'Real fruity gummies pulling double duty — 20g of plant-based protein, zero added sugar, naturally sweetened with allulose and stevia. Built to fuel post-workout cravings without the crash.'
+  endif
+-%}
+
+<section class="hero">
+  {% render 'floating-candy'
+    , preset: 'hero' %}
+
+  <div class="ct-container hero__inner">
+    <div class="hero__copy reveal" data-delay="1">
+      <h1 class="hero__title">
+        {%- if heading contains accent_word and accent_word != blank -%}
+          {%- assign parts = heading | split: accent_word -%}
+          {{ parts[0] }}<em>{{ accent_word }}</em>
+          {{ parts[1] }}
+        {%- else -%}
+          {{ heading }}
+        {%- endif -%}
+      </h1>
+
+      <p class="hero__lede">{{ subheading }}</p>
+
+      <div class="hero__ctas">
+        {%- if section.settings.cta_text != blank -%}
+          <a class="btn btn--white btn--lg" href="{{ section.settings.cta_link | default: '#' }}">
+            {{ section.settings.cta_text }}
+            <span class="btn__arrow">
+              <svg class="w-[22px] h-[22px]" aria-hidden="true"><use href="#i-arrow-right" /></svg>
+            </span>
+          </a>
+        {%- endif -%}
+
+        {%- if section.settings.secondary_text != blank -%}
+          <a class="btn btn--ghost-white btn--lg" href="{{ section.settings.secondary_link | default: '#' }}">
+            {{ section.settings.secondary_text }}
+          </a>
+        {%- endif -%}
+      </div>
+
+      <div class="hero__stats stat-slab stat-slab--frosted" aria-label="Key product stats">
+        <div class="stat-slab__cell">
+          <div class="stat-slab__num">{{ section.settings.stat_1_value | default: '20g' }}</div>
+          <div class="stat-slab__label">{{ section.settings.stat_1_label | default: 'Protein' }}</div>
+        </div>
+        <div class="stat-slab__cell">
+          <div class="stat-slab__num">{{ section.settings.stat_2_value | default: '0g' }}</div>
+          <div class="stat-slab__label">{{ section.settings.stat_2_label | default: 'Sugar' }}</div>
+        </div>
+        <div class="stat-slab__cell">
+          <div class="stat-slab__num">{{ section.settings.stat_3_value | default: '160' }}</div>
+          <div class="stat-slab__label">{{ section.settings.stat_3_label | default: 'Calories' }}</div>
+        </div>
+        <div class="stat-slab__cell">
+          <div class="stat-slab__num">{{ section.settings.stat_4_value | default: '0' }}</div>
+          <div class="stat-slab__label">{{ section.settings.stat_4_label | default: 'Guilt' }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="hero__visual reveal"
+      data-delay="2"
+      aria-hidden="true">
+      <span class="hero__halo"></span>
       {%- if hero_image != blank -%}
         <img
+          class="hero__product"
           src="{{ hero_image | image_url: width: 800 }}"
-          srcset="{{ hero_image | image_url: width: 400 }} 400w,
-                  {{ hero_image | image_url: width: 600 }} 600w,
-                  {{ hero_image | image_url: width: 800 }} 800w,
-                  {{ hero_image | image_url: width: 1200 }} 1200w"
-          sizes="(max-width: 640px) 90vw, (max-width: 768px) 600px, 800px"
+          srcset="
+            {{ hero_image | image_url: width: 400 }} 400w,
+            {{ hero_image | image_url: width: 600 }} 600w,
+            {{ hero_image | image_url: width: 800 }} 800w,
+            {{ hero_image | image_url: width: 1200 }} 1200w"
+          sizes="(max-width: 900px) 80vw, 520px"
           alt="{{ hero_image.alt | default: shop.name }}"
-          class="w-[90%] max-w-sm sm:max-w-xl md:max-w-2xl h-auto drop-shadow-2xl animate-bounce-slow"
           loading="eager"
           width="{{ hero_image.width }}"
           height="{{ hero_image.height }}">
       {%- else -%}
         <img
-          src="https://1pg86aook1.ufs.sh/f/pN2g9q3wzUsTZWfCRu4PgqRxlpeEzvaLNWk8fbGJSHDVM2I5"
+          class="hero__product"
+          src="https://cdn.shopify.com/s/files/1/0991/6592/9553/files/Landing_page.png?v=1778408038"
           alt="{{ shop.name }}"
-          class="w-[90%] max-w-sm sm:max-w-xl md:max-w-2xl h-auto drop-shadow-2xl animate-bounce-slow">
+          width="1024"
+          height="1024">
       {%- endif -%}
     </div>
-
-    <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white text-shadow my-4 sm:my-5 md:my-6 px-4 leading-tight">
-      {{ section.settings.heading }}
-    </h2>
-
-    <div class="mb-6 sm:mb-8 md:mb-10 flex justify-center gap-4 sm:gap-6 md:gap-10 text-white px-4">
-      <div class="text-center">
-        <div class="text-3xl sm:text-4xl md:text-5xl font-display font-bold drop-shadow-lg">20g</div>
-        <div class="text-sm sm:text-base md:text-lg font-body font-semibold">Protein</div>
-      </div>
-      <div class="text-center">
-        <div class="text-3xl sm:text-4xl md:text-5xl font-display font-bold drop-shadow-lg">0g</div>
-        <div class="text-sm sm:text-base md:text-lg font-body font-semibold">Sugar</div>
-      </div>
-      <div class="text-center">
-        <div class="text-3xl sm:text-4xl md:text-5xl font-display font-bold drop-shadow-lg">0</div>
-        <div class="text-sm sm:text-base md:text-lg font-body font-semibold">Guilt</div>
-      </div>
-    </div>
-
-    <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4">
-      <a href="{{ section.settings.cta_link }}" class="group relative px-6 py-3 sm:px-8 sm:py-4 bg-white text-chewteinz-purple font-display font-bold text-lg sm:text-xl rounded-full shadow-2xl hover:scale-110 transition-transform w-full sm:w-auto max-w-xs sm:max-w-none text-center">
-        <span class="relative z-10">{{ section.settings.cta_text }}</span>
-        <span class="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">{% render 'icon'
-, icon: 'sparkles'
-, size: 20 %}</span>
-      </a>
-    </div>
-  </div>
-
-  <div class="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-    <div class="text-white text-2xl sm:text-3xl md:text-4xl">&darr;</div>
   </div>
 </section>
 
@@ -82,7 +109,7 @@
         "type": "image_picker",
         "id": "hero_image",
         "label": "Hero Image",
-        "info": "Upload the main hero image. If empty, the default image is shown."
+        "info": "Main product hero image. Falls back to a default if empty."
       },
       {
         "type": "text",
@@ -92,20 +119,78 @@
       },
       {
         "type": "text",
-        "id": "subheading",
-        "label": "Subheading",
-        "default": "20g of protein • 0g sugar • 0 guilt"
+        "id": "accent_word",
+        "label": "Accent word",
+        "info": "One word inside the heading rendered as the visual accent.",
+        "default": "actually"
       },
       {
+        "type": "textarea",
+        "id": "subheading",
+        "label": "Subheading",
+        "default": "Real fruity gummies pulling double duty — 20g of plant-based protein, zero added sugar, naturally sweetened with allulose and stevia. Built to fuel post-workout cravings without the crash."
+      }, {
         "type": "text",
         "id": "cta_text",
-        "label": "CTA Text",
+        "label": "Primary CTA Text",
         "default": "Shop Now"
       }, {
         "type": "url",
         "id": "cta_link",
-        "label": "CTA Link",
+        "label": "Primary CTA Link",
         "default": "/collections/all"
+      }, {
+        "type": "text",
+        "id": "secondary_text",
+        "label": "Secondary CTA Text",
+        "default": "See nutrition"
+      }, {
+        "type": "url",
+        "id": "secondary_link",
+        "label": "Secondary CTA Link"
+      }, {
+        "type": "header",
+        "content": "Stat slab"
+      }, {
+        "type": "text",
+        "id": "stat_1_value",
+        "label": "Stat 1 value",
+        "default": "20g"
+      }, {
+        "type": "text",
+        "id": "stat_1_label",
+        "label": "Stat 1 label",
+        "default": "Protein"
+      }, {
+        "type": "text",
+        "id": "stat_2_value",
+        "label": "Stat 2 value",
+        "default": "0g"
+      }, {
+        "type": "text",
+        "id": "stat_2_label",
+        "label": "Stat 2 label",
+        "default": "Sugar"
+      }, {
+        "type": "text",
+        "id": "stat_3_value",
+        "label": "Stat 3 value",
+        "default": "160"
+      }, {
+        "type": "text",
+        "id": "stat_3_label",
+        "label": "Stat 3 label",
+        "default": "Calories"
+      }, {
+        "type": "text",
+        "id": "stat_4_value",
+        "label": "Stat 4 value",
+        "default": "0"
+      }, {
+        "type": "text",
+        "id": "stat_4_label",
+        "label": "Stat 4 label",
+        "default": "Guilt"
       }
     ]
   }

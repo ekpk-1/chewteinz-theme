@@ -8,172 +8,237 @@
  * ------------------------------------------------------------
  */
 {
-  "sections": {
-    "hero": {
-      "type": "hero",
-      "settings": {
-        "hero_image": "shopify://shop_images/LogoChewTeinz_Logo_Page_1.png",
-        "heading": "Finally, candy that actually builds muscle.",
-        "subheading": "20g of protein • 0g sugar • 0 guilt",
-        "cta_text": "Shop Now",
-        "cta_link": "shopify://collections/all"
-      }
-    },
-    "social-feed": {
-      "type": "social-feed",
-      "blocks": {
-        "social_1": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/Followusimg1.png",
-            "image_url": "",
-            "link": "https://www.instagram.com/reel/DU2e5yFDVho/",
-            "gradient": "from-pink-400 to-purple-500"
-          }
+    "sections": {
+        "hero": {
+            "type": "hero",
+            "settings": {
+                "hero_image": "",
+                "heading": "Finally, candy that actually builds muscle.",
+                "accent_word": "actually",
+                "subheading": "Real fruity gummies pulling double duty — 20g of plant-based protein, zero added sugar, naturally sweetened with allulose and stevia. Built to fuel post-workout cravings without the crash.",
+                "cta_text": "Shop Now",
+                "cta_link": "shopify://collections/all",
+                "secondary_text": "See nutrition",
+                "secondary_link": "",
+                "stat_1_value": "20g",
+                "stat_1_label": "Protein",
+                "stat_2_value": "0g",
+                "stat_2_label": "Sugar",
+                "stat_3_value": "160",
+                "stat_3_label": "Calories",
+                "stat_4_value": "0",
+                "stat_4_label": "Guilt"
+            }
         },
-        "social_2": {
-          "type": "image",
-          "settings": {
-            "image_url": "https://1pg86aook1.ufs.sh/f/pN2g9q3wzUsTBF56nDQl3oAhbDIGrSJNv7YtpkE86aigXRs4",
-            "link": "https://www.instagram.com/p/DTj_8ZDk4Vc/",
-            "gradient": "from-blue-400 to-cyan-500"
-          }
+        "social-feed": {
+            "type": "social-feed",
+            "blocks": {
+                "social_1": {
+                    "type": "image",
+                    "settings": {
+                        "image": "shopify://shop_images/Followusimg1.png",
+                        "image_url": "",
+                        "link": "https://www.instagram.com/reel/DU2e5yFDVho/",
+                        "gradient": "from-pink-400 to-purple-500"
+                    }
+                },
+                "social_2": {
+                    "type": "image",
+                    "settings": {
+                        "image_url": "https://1pg86aook1.ufs.sh/f/pN2g9q3wzUsTBF56nDQl3oAhbDIGrSJNv7YtpkE86aigXRs4",
+                        "link": "https://www.instagram.com/p/DTj_8ZDk4Vc/",
+                        "gradient": "from-blue-400 to-cyan-500"
+                    }
+                },
+                "social_3": {
+                    "type": "image",
+                    "settings": {
+                        "image_url": "https://1pg86aook1.ufs.sh/f/pN2g9q3wzUsT6lm0dGSIb5XrW1u874y3wMHZYlzOSfjB2CAc",
+                        "link": "https://www.instagram.com/p/DTmfpSzE-S2/",
+                        "gradient": "from-red-400 to-pink-400"
+                    }
+                },
+                "social_4": {
+                    "type": "image",
+                    "settings": {
+                        "image": "shopify://shop_images/638264301_17874054423519016_4695387875801582844_n.jpg",
+                        "image_url": "",
+                        "link": "https://www.instagram.com/p/DU4vuaKGT4B/",
+                        "gradient": "from-yellow-400 to-orange-500"
+                    }
+                },
+                "social_5": {
+                    "type": "video",
+                    "settings": {
+                        "image": "shopify://shop_images/624077973_17875434972474397_3929273761188032811_n.jpg",
+                        "image_url": "",
+                        "link": "https://www.instagram.com/p/DUE2iXoE7Ye/",
+                        "gradient": "from-green-400 to-lime-500"
+                    }
+                },
+                "social_6": {
+                    "type": "video",
+                    "settings": {
+                        "image": "shopify://shop_images/670282029_17894458989443101_4809766276545479596_n.jpg",
+                        "image_url": "",
+                        "link": "https://www.instagram.com/p/DXQPQrpj3OU/",
+                        "gradient": "from-purple-400 to-pink-500"
+                    }
+                }
+            },
+            "block_order": [
+                "social_1",
+                "social_2",
+                "social_3",
+                "social_4",
+                "social_5",
+                "social_6"
+            ],
+            "settings": {
+                "heading": "Sweet gains, daily.",
+                "accent_word": "daily",
+                "subheading": "Tag @chewteinz to be featured.",
+                "instagram_url": "https://www.instagram.com/chewteinz",
+                "facebook_url": "https://www.facebook.com/profile.php?id=61574701214256"
+            }
         },
-        "social_3": {
-          "type": "image",
-          "settings": {
-            "image_url": "https://1pg86aook1.ufs.sh/f/pN2g9q3wzUsT6lm0dGSIb5XrW1u874y3wMHZYlzOSfjB2CAc",
-            "link": "https://www.instagram.com/p/DTmfpSzE-S2/",
-            "gradient": "from-red-400 to-pink-400"
-          }
+        "benefits": {
+            "type": "benefits",
+            "blocks": {
+                "benefit_1": {
+                    "type": "benefit",
+                    "settings": {
+                        "icon_key": "protein",
+                        "accent": "blue",
+                        "icon_char": "⬢",
+                        "title": "High in Protein",
+                        "description": "20g of plant-based pea and rice protein per pack. Real strength fuel, in gummy form.",
+                        "gradient": "from-chewteinz-blue to-blue-300",
+                        "icon_color": "text-blue-500"
+                    }
+                },
+                "benefit_2": {
+                    "type": "benefit",
+                    "settings": {
+                        "icon_key": "droplet",
+                        "accent": "pink",
+                        "icon_char": "○",
+                        "title": "Zero Added Sugar",
+                        "description": "Naturally sweetened with allulose and stevia. Sweet hit, no crash, none of the guilt.",
+                        "gradient": "from-chewteinz-pink to-pink-300",
+                        "icon_color": "text-pink-500"
+                    }
+                },
+                "benefit_3": {
+                    "type": "benefit",
+                    "settings": {
+                        "icon_key": "candy",
+                        "accent": "yellow",
+                        "icon_char": "✦",
+                        "title": "Tastes Amazing",
+                        "description": "Natural mango flavour with the soft, pillowy chew of your favourite lolly bag.",
+                        "gradient": "from-chewteinz-yellow to-yellow-300",
+                        "icon_color": "text-yellow-500"
+                    }
+                },
+                "benefit_4": {
+                    "type": "benefit",
+                    "settings": {
+                        "icon_key": "refresh",
+                        "accent": "purple",
+                        "icon_char": "↻",
+                        "title": "Boosts Recovery",
+                        "description": "Snack-sized post-workout fuel for faster recovery — or a mid-afternoon pick-me-up when cravings hit.",
+                        "gradient": "from-chewteinz-purple to-purple-300",
+                        "icon_color": "text-purple-500"
+                    }
+                }
+            },
+            "block_order": [
+                "benefit_1",
+                "benefit_2",
+                "benefit_3",
+                "benefit_4"
+            ],
+            "settings": {
+                "heading": "Protein, without the protein-bar penalty.",
+                "subheading": "We reverse-engineered everything you hate about protein snacks — the chalky texture, the boring flavours, the crash — and made it taste like the candy aisle.",
+                "button_label": "",
+                "button_link": ""
+            }
         },
-        "social_4": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/638264301_17874054423519016_4695387875801582844_n.jpg",
-            "image_url": "",
-            "link": "https://www.instagram.com/p/DU4vuaKGT4B/",
-            "gradient": "from-yellow-400 to-orange-500"
-          }
+        "why-us": {
+            "type": "why-us",
+            "blocks": {
+                "pill_1": {
+                    "type": "pill",
+                    "settings": {
+                        "label": "Clean Ingredients",
+                        "dot_color": "#3CC68A"
+                    }
+                },
+                "pill_2": {
+                    "type": "pill",
+                    "settings": {
+                        "label": "No Artificial Colours",
+                        "dot_color": "#F5C400"
+                    }
+                },
+                "pill_3": {
+                    "type": "pill",
+                    "settings": {
+                        "label": "Gluten Free",
+                        "dot_color": "#E66EB8"
+                    }
+                },
+                "pill_4": {
+                    "type": "pill",
+                    "settings": {
+                        "label": "Made with Love",
+                        "dot_color": "#E88A4D"
+                    }
+                }
+            },
+            "block_order": [
+                "pill_1",
+                "pill_2",
+                "pill_3",
+                "pill_4"
+            ],
+            "settings": {
+                "media_image": "shopify://shop_images/LogoChewTeinz_Logo_Page_1.png",
+                "heading": "We make fitness taste fun.",
+                "accent_word": "taste fun",
+                "body_1": "We've reimagined gummies into a light-hearted, protein-packed treat that fuels your day without the sugar crash. Bursting with bold fruity flavour, ChewTeinz are your go-to snack when you need something tasty, satisfying and better for you.",
+                "body_2": "Whether it's post-workout, mid-study, or just when cravings hit — ChewTeinz let you snack happy and guilt-free."
+            }
         },
-        "social_5": {
-          "type": "video",
-          "settings": {
-            "image": "shopify://shop_images/624077973_17875434972474397_3929273761188032811_n.jpg",
-            "image_url": "",
-            "link": "https://www.instagram.com/p/DUE2iXoE7Ye/",
-            "gradient": "from-green-400 to-lime-500"
-          }
+        "featured-product": {
+            "type": "featured-product",
+            "settings": {
+                "heading": "Mango Madness",
+                "accent_word": "Madness",
+            "subheading": "Each bag contains 60g of protein",
+            "description": "Tropical mango wrapped in a pillowy plant-protein gummy. 20g of pea and rice protein per pack, zero added sugar, and the same hit of sunshine you remember.",
+                "rating_value": "5",
+                "rating_count": "10",
+                "product": "chewteinz-mango-madness",
+                "show_nutrition_link": true,
+                "show_reviews": true
+            }
         },
-        "social_6": {
-          "type": "video",
-          "settings": {
-            "image": "shopify://shop_images/670282029_17894458989443101_4809766276545479596_n.jpg",
-            "image_url": "",
-            "link": "https://www.instagram.com/p/DXQPQrpj3OU/",
-            "gradient": "from-purple-400 to-pink-500"
-          }
+        "1777883564b583311b": {
+            "type": "apps",
+            "custom_css": [],
+            "settings": {}
         }
-      },
-      "block_order": [
-        "social_1",
-        "social_2",
-        "social_3",
-        "social_4",
-        "social_5",
-        "social_6"
-      ],
-      "settings": {
-        "heading": "Follow Us @chewteinz",
-        "subheading": "For sweet gains and daily inspo 🍭",
-        "instagram_url": "https://www.instagram.com/chewteinz",
-        "facebook_url": "https://www.facebook.com/profile.php?id=61574701214256"
-      }
     },
-    "benefits": {
-      "type": "benefits",
-      "blocks": {
-        "benefit_1": {
-          "type": "benefit",
-          "settings": {
-            "icon_char": "⬢",
-            "title": "High in Protein",
-            "description": "20g of premium protein per serving to fuel your gains",
-            "gradient": "from-chewteinz-blue to-blue-300",
-            "icon_color": "text-blue-500"
-          }
-        },
-        "benefit_2": {
-          "type": "benefit",
-          "settings": {
-            "icon_char": "○",
-            "title": "Low Sugar",
-            "description": "Only 0g of sugar. All the taste, none of the guilt",
-            "gradient": "from-chewteinz-pink to-pink-300",
-            "icon_color": "text-pink-500"
-          }
-        },
-        "benefit_3": {
-          "type": "benefit",
-          "settings": {
-            "icon_char": "✦",
-            "title": "Tastes Amazing",
-            "description": "Like candy, but better. Your taste buds will thank you",
-            "gradient": "from-chewteinz-yellow to-yellow-300",
-            "icon_color": "text-yellow-500"
-          }
-        },
-        "benefit_4": {
-          "type": "benefit",
-          "settings": {
-            "icon_char": "↻",
-            "title": "Boosts Recovery",
-            "description": "Perfect post-workout snack to speed up muscle recovery",
-            "gradient": "from-chewteinz-purple to-purple-300",
-            "icon_color": "text-purple-500"
-          }
-        }
-      },
-      "block_order": [
-        "benefit_1",
-        "benefit_2",
-        "benefit_3",
-        "benefit_4"
-      ],
-      "settings": {
-        "heading": "Why You'll Love Us",
-        "subheading": "Protein has never been this fun",
-        "button_label": "Buy Now",
-        "button_link": ""
-      }
-    },
-    "why-us": {
-      "type": "why-us",
-      "settings": {
-        "heading": "We Make Fitness Taste Fun"
-      }
-    },
-    "featured-product": {
-      "type": "featured-product",
-      "settings": {
-        "heading": "Choose Your Flavor",
-        "subheading": "Each bag contains 60g of protein",
-        "product": "chewteinz-mango-madness",
-        "show_reviews": true
-      }
-    },
-    "1777883564b583311b": {
-      "type": "apps",
-      "custom_css": [],
-      "settings": {}
-    }
-  },
-  "order": [
-    "hero",
-    "social-feed",
-    "benefits",
-    "why-us",
-    "featured-product",
-    "1777883564b583311b"
-  ]
+    "order": [
+        "hero",
+        "social-feed",
+        "benefits",
+        "why-us",
+        "featured-product",
+        "1777883564b583311b"
+    ]
 }

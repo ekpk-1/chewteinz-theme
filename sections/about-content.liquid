@@ -8,14 +8,14 @@
 
     <div class="space-y-12">
       <div class="bg-gradient-to-br from-chewteinz-yellow to-chewteinz-orange rounded-3xl p-8 md:p-12 text-white">
-        <h2 class="text-4xl font-display font-bold mb-4">The Beginning</h2>
+        <h2 class="text-4xl font-display font-bold mb-4 text-white">The Beginning</h2>
         <p class="text-xl font-body leading-relaxed">
           ChewTeinz was born from a simple frustration: Meal prepping took too long, snacking junk food was too convenient and all protein bars tasted boring. So we asked ourselves--Why can't getting your protein be quick, easy and yum?
         </p>
       </div>
 
       <div class="bg-gradient-to-br from-chewteinz-blue to-chewteinz-purple rounded-3xl p-8 md:p-12 text-white">
-        <h2 class="text-4xl font-display font-bold mb-4">The Mission</h2>
+        <h2 class="text-4xl font-display font-bold mb-4 text-white">The Mission</h2>
         <p class="text-xl font-body leading-relaxed mb-4">
           We're on a mission to make fitness taste fun. Every ChewTeinz pack is filled with clean protein, zero sugar and maximum flavours.
         </p>
@@ -25,41 +25,53 @@
       </div>
 
       <div class="bg-gradient-to-br from-chewteinz-pink to-pink-400 rounded-3xl p-8 md:p-12 text-white">
-        <h2 class="text-4xl font-display font-bold mb-6">Our Values</h2>
+        <h2 class="text-4xl font-display font-bold mb-6 text-white">Our Values</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-4">
-              {% render 'icon', icon: 'sparkles', size: 32, class: 'text-white' %}
+              {% render 'icon'
+                , icon: 'sparkles'
+                , size: 32
+                , class: 'text-white' %}
             </div>
-            <h3 class="text-2xl font-display font-bold mb-2">Quality First</h3>
+            <h3 class="text-2xl font-display font-bold mb-2 text-white">Quality First</h3>
             <p class="font-body">Clean ingredients, no artificial colors, and always delicious.</p>
           </div>
           <div>
             <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-4">
-              {% render 'icon', icon: 'zap', size: 32, class: 'text-white' %}
+              {% render 'icon'
+                , icon: 'zap'
+                , size: 32
+                , class: 'text-white' %}
             </div>
-            <h3 class="text-2xl font-display font-bold mb-2">Real Results</h3>
+            <h3 class="text-2xl font-display font-bold mb-2 text-white">Real Results</h3>
             <p class="font-body">Packed with protein to fuel your fitness goals.</p>
           </div>
           <div>
             <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-4">
-              {% render 'icon', icon: 'award', size: 32, class: 'text-white' %}
+              {% render 'icon'
+                , icon: 'award'
+                , size: 32
+                , class: 'text-white' %}
             </div>
-            <h3 class="text-2xl font-display font-bold mb-2">Fun Always</h3>
+            <h3 class="text-2xl font-display font-bold mb-2 text-white">Fun Always</h3>
             <p class="font-body">Life's too short for boring protein supplements.</p>
           </div>
           <div>
             <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-4">
-              {% render 'icon', icon: 'leaf', size: 32, class: 'text-white' %}
+              {% render 'icon'
+                , icon: 'leaf'
+                , size: 32
+                , class: 'text-white' %}
             </div>
-            <h3 class="text-2xl font-display font-bold mb-2">Better Tomorrow</h3>
+            <h3 class="text-2xl font-display font-bold mb-2 text-white">Better Tomorrow</h3>
             <p class="font-body">Sustainable practices and eco-friendly packaging.</p>
           </div>
         </div>
       </div>
 
       <div class="bg-white rounded-3xl p-8 md:p-12 shadow-lg text-center">
-        <h2 class="text-4xl font-display font-bold mb-4 text-gray-800">Join the ChewTeinz Family</h2>
+        <h2 class="text-4xl font-display font-bold mb-4 ">Join the ChewTeinz Family</h2>
         <p class="text-xl text-gray-600 font-body mb-8">
           Thousands of fitness enthusiasts have already made the switch to protein that tastes like candy...Guilt Free.
         </p>
@@ -71,14 +83,10 @@
               alt=""
               class="w-16 h-16"
               style="transform: rotate({{ rotations[forloop.index0] }}deg)"
-              loading="lazy"
-            >
+              loading="lazy">
           {% endfor %}
         </div>
-        <a
-          href="{{ routes.all_products_collection_url }}"
-          class="inline-block px-8 py-4 bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink text-white font-display font-bold text-xl rounded-full hover:scale-105 transition-transform"
-        >
+        <a href="{{ routes.all_products_collection_url }}" class="inline-block px-8 py-4 bg-gradient-to-r from-chewteinz-purple to-chewteinz-pink text-white font-display font-bold text-xl rounded-full hover:scale-105 transition-transform">
           I'm ready!
         </a>
       </div>
@@ -87,8 +95,8 @@
 </div>
 
 {% schema %}
-{
-  "name": "About Content",
-  "settings": []
-}
+  {
+    "name": "About Content",
+    "settings": []
+  }
 {% endschema %}
