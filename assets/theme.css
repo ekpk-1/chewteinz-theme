@@ -2893,6 +2893,10 @@ h1 em, h2 em, h3 em, h4 em, h5 em, h6 em,
   background-color: rgb(255 255 255 / 0.9);
 }
 
+.bg-chewteinz-ink\/10 {
+  background-color: rgb(26 22 20 / 0.1);
+}
+
 .bg-gradient-to-b {
   background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
 }
@@ -3355,6 +3359,10 @@ h1 em, h2 em, h3 em, h4 em, h5 em, h6 em,
   font-weight: 600;
 }
 
+.font-medium {
+  font-weight: 500;
+}
+
 .capitalize {
   text-transform: capitalize;
 }
@@ -3613,6 +3621,12 @@ h1 em, h2 em, h3 em, h4 em, h5 em, h6 em,
 
 .transition-transform {
   transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-\[width\] {
+  transition-property: width;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }

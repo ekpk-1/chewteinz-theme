@@ -53,6 +53,47 @@ window.cartDrawer = {
     await this.updateQuantity(key, 0);
   },
 
+  updateFreeShipping(cart) {
+    var panel = document.getElementById('cart-drawer-panel');
+    var wrap = document.getElementById('cart-free-shipping');
+    var msgEl = document.getElementById('cart-free-shipping-msg');
+    var fillEl = document.getElementById('cart-free-shipping-fill');
+    if (!panel || !wrap || !msgEl || !fillEl) return;
+
+    var enabled = panel.getAttribute('data-free-shipping-enabled') === 'true';
+    var threshold = parseInt(panel.getAttribute('data-free-shipping-threshold'), 10) || 0;
+
+    if (!enabled || threshold <= 0 || cart.item_count === 0) {
+      wrap.classList.add('hidden');
+      return;
+    }
+
+    wrap.classList.remove('hidden');
+
+    var currencyCode = cart.currency || 'USD';
+    var total = cart.total_price;
+    var remaining = threshold - total;
+    var pct = threshold > 0 ? Math.min(100, Math.round((total / threshold) * 10000) / 100) : 0;
+
+    if (remaining <= 0) {
+      msgEl.textContent = "You've unlocked free shipping on this order.";
+      fillEl.style.width = '100%';
+      return;
+    }
+
+    var remainingMajor = remaining / 100;
+    try {
+      msgEl.textContent =
+        'Add ' +
+        new Intl.NumberFormat(undefined, { style: 'currency', currency: currencyCode }).format(remainingMajor) +
+        ' more for free shipping.';
+    } catch (e) {
+      var sym = panel.getAttribute('data-currency-symbol') || '$';
+      msgEl.textContent = 'Add ' + sym + remainingMajor.toFixed(2) + ' more for free shipping.';
+    }
+    fillEl.style.width = pct + '%';
+  },
+
   async refresh() {
     try {
       const res = await fetch('/cart.js', { headers: { 'Accept': 'application/json' } });
@@ -83,6 +124,7 @@ window.cartDrawer = {
 
     if (cart.item_count === 0) {
       itemsContainer.innerHTML = '<div class="text-center py-12" id="cart-empty-state"><div class="text-6xl mb-4">\uD83D\uDED2</div><p class="text-lg text-gray-600 font-body">Your cart is empty</p><p class="text-sm text-gray-500 mt-2">Add some delicious protein treats!</p></div>';
+      this.updateFreeShipping(cart);
       return;
     }
 
@@ -112,5 +154,6 @@ window.cartDrawer = {
     });
     html += '</div>';
     itemsContainer.innerHTML = html;
+    this.updateFreeShipping(cart);
   }
 };

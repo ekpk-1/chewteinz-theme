@@ -13,6 +13,13 @@
   if subheading == blank or subheading contains legacy_short
     assign subheading = 'Real fruity gummies pulling double duty — 20g of plant-based protein, zero added sugar, naturally sweetened with allulose and stevia. Built to fuel post-workout cravings without the crash.'
   endif
+
+  assign hero_secondary_link = section.settings.secondary_link | strip
+  assign hero_secondary_opens_nutrition = false
+  if hero_secondary_link == blank or hero_secondary_link == '#' or hero_secondary_link == '/#'
+    assign hero_secondary_opens_nutrition = true
+  endif
+  assign nutrition_modal_product_name = section.settings.nutrition_modal_product_name | default: shop.name
 -%}
 
 <section class="hero">
@@ -44,9 +51,19 @@
         {%- endif -%}
 
         {%- if section.settings.secondary_text != blank -%}
-          <a class="btn btn--ghost-white btn--lg" href="{{ section.settings.secondary_link | default: '#' }}">
-            {{ section.settings.secondary_text }}
-          </a>
+          {%- if hero_secondary_opens_nutrition -%}
+            <button
+              type="button"
+              class="btn btn--ghost-white btn--lg"
+              data-open-nutrition
+              data-product-name="{{ nutrition_modal_product_name | escape }}">
+              {{ section.settings.secondary_text }}
+            </button>
+          {%- else -%}
+            <a class="btn btn--ghost-white btn--lg" href="{{ hero_secondary_link }}">
+              {{ section.settings.secondary_text }}
+            </a>
+          {%- endif -%}
         {%- endif -%}
       </div>
 
@@ -147,7 +164,13 @@
       }, {
         "type": "url",
         "id": "secondary_link",
-        "label": "Secondary CTA Link"
+        "label": "Secondary CTA Link",
+        "info": "Leave blank or use # to open the nutrition facts modal for this button. Otherwise set a real URL to navigate away."
+      }, {
+        "type": "text",
+        "id": "nutrition_modal_product_name",
+        "label": "Nutrition modal product name",
+        "info": "Used when the secondary CTA opens the nutrition modal. Mention a flavor name (e.g. Blueberry Blast) for matching colors in the modal. Blank uses your store name."
       }, {
         "type": "header",
         "content": "Stat slab"

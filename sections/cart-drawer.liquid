@@ -2,8 +2,22 @@
   Cart drawer chrome — matches the redesigned visual language while preserving
   the public DOM contract used by assets/cart.js:
     #cart-drawer, #cart-drawer-panel, #cart-drawer-count, #cart-drawer-total,
-    #cart-drawer-footer, #cart-drawer-items, .cart-count-badge
+    #cart-drawer-footer, #cart-drawer-items, #cart-free-shipping,
+    .cart-count-badge
 {%- endcomment -%}
+{%- liquid
+  assign fs_show_bar = section.settings.show_free_shipping_bar
+  assign fs_minimum_major = section.settings.free_shipping_minimum | default: 50
+  assign fs_threshold_cents = fs_minimum_major | times: 100
+  assign fs_bar_pct = 0
+  if fs_show_bar and fs_threshold_cents > 0
+    assign fs_bar_pct = cart.total_price | times: 100 | divided_by: fs_threshold_cents
+    if fs_bar_pct > 100
+      assign fs_bar_pct = 100
+    endif
+  endif
+  assign fs_remaining_cents = fs_threshold_cents | minus: cart.total_price
+-%}
 
 <div class="fixed inset-0 z-[70] overflow-hidden hidden" id="cart-drawer">
   <div class="absolute inset-0 bg-chewteinz-ink/45" onclick="window.cartDrawer.close()"></div>
@@ -12,7 +26,17 @@
     class="absolute right-0 top-0 h-full w-full max-w-md bg-chewteinz-cream shadow-[0_24px_48px_-12px_rgba(26,22,20,0.3)] flex flex-col transform translate-x-full transition-transform duration-300"
     style="transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);"
     id="cart-drawer-panel"
-    aria-label="Cart">
+    aria-label="Cart"
+    {% if fs_show_bar and fs_threshold_cents > 0 %}
+      data-free-shipping-enabled="true"
+      data-free-shipping-threshold="{{ fs_threshold_cents }}"
+      data-currency-symbol="{{ cart.currency.symbol }}"
+    {% else %}
+      data-free-shipping-enabled="false"
+      data-free-shipping-threshold="0"
+      data-currency-symbol="{{ cart.currency.symbol }}"
+    {% endif %}
+  >
     <header class="flex items-center justify-between px-6 py-5 border-b border-chewteinz-ink/10">
       <h2 class="font-display font-bold text-xl text-chewteinz-ink">
         Your bag (<span id="cart-drawer-count">{{ cart.item_count }}</span>)
@@ -25,6 +49,30 @@
         <svg class="w-[22px] h-[22px]"><use href="#i-x"/></svg>
       </button>
     </header>
+
+    {%- if fs_show_bar and fs_threshold_cents > 0 -%}
+      <div
+        class="px-6 pt-4 border-b border-chewteinz-ink/10 {% if cart.item_count == 0 %}hidden{% endif %}"
+        id="cart-free-shipping"
+        role="status"
+        aria-live="polite">
+        <p class="text-sm font-medium text-chewteinz-ink mb-3" id="cart-free-shipping-msg">
+          {%- if cart.item_count == 0 -%}
+            &nbsp;
+          {%- elsif fs_remaining_cents <= 0 -%}
+            You've unlocked free shipping on this order.
+          {%- else -%}
+            Add {{ fs_remaining_cents | money }} more for free shipping.
+          {%- endif -%}
+        </p>
+        <div class="h-2 rounded-full bg-chewteinz-ink/10 overflow-hidden mb-4" aria-hidden="true">
+          <div
+            class="h-full rounded-full bg-gradient-to-r from-chewteinz-yellow to-chewteinz-pink transition-[width] duration-300 ease-out"
+            id="cart-free-shipping-fill"
+            style="width: {{ fs_bar_pct }}%;"></div>
+        </div>
+      </div>
+    {%- endif -%}
 
     <div class="flex-1 overflow-y-auto p-6" id="cart-drawer-items">
       {%- if cart.item_count == 0 -%}
@@ -83,6 +131,20 @@
 {% schema %}
 {
   "name": "Cart Drawer",
-  "settings": []
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_free_shipping_bar",
+      "label": "Show free shipping progress",
+      "default": true
+    },
+    {
+      "type": "number",
+      "id": "free_shipping_minimum",
+      "label": "Free shipping minimum",
+      "default": 50,
+      "info": "Cart subtotal (before shipping/taxes), in your store currency. Match this to your announcement bar (e.g. free shipping over $50)."
+    }
+  ]
 }
 {% endschema %}

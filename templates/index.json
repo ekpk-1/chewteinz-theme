@@ -161,7 +161,7 @@
                 "benefit_4"
             ],
             "settings": {
-                "heading": "Protein, without the protein-bar penalty.",
+                "heading": "Why You'll Love Us",
                 "subheading": "We reverse-engineered everything you hate about protein snacks — the chalky texture, the boring flavours, the crash — and made it taste like the candy aisle.",
                 "button_label": "",
                 "button_link": ""
@@ -206,7 +206,7 @@
                 "pill_4"
             ],
             "settings": {
-                "media_image": "shopify://shop_images/LogoChewTeinz_Logo_Page_1.png",
+                "media_image": "",
                 "heading": "We make fitness taste fun.",
                 "accent_word": "taste fun",
                 "body_1": "We've reimagined gummies into a light-hearted, protein-packed treat that fuels your day without the sugar crash. Bursting with bold fruity flavour, ChewTeinz are your go-to snack when you need something tasty, satisfying and better for you.",
@@ -218,8 +218,8 @@
             "settings": {
                 "heading": "Mango Madness",
                 "accent_word": "Madness",
-            "subheading": "Each bag contains 60g of protein",
-            "description": "Tropical mango wrapped in a pillowy plant-protein gummy. 20g of pea and rice protein per pack, zero added sugar, and the same hit of sunshine you remember.",
+                "subheading": "Each bag contains 60g of protein",
+                "description": "Tropical mango wrapped in a pillowy plant-protein gummy. 20g of pea and rice protein per pack, zero added sugar, and the same hit of sunshine you remember.",
                 "rating_value": "5",
                 "rating_count": "10",
                 "product": "chewteinz-mango-madness",

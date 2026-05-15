@@ -395,6 +395,22 @@ window.modals = {
     },
 };
 
+// Nutrition modal: delegated clicks avoid inline onclick (CSP-safe) and work with hero when link is blank or '#'.
+document.addEventListener(
+    "click",
+    function (e) {
+        var trigger = e.target.closest("[data-open-nutrition]");
+        if (!trigger) return;
+        e.preventDefault();
+        var name = trigger.getAttribute("data-product-name");
+        if (name === null || name === undefined) name = "";
+        if (window.modals && typeof window.modals.openNutrition === "function") {
+            window.modals.openNutrition(name);
+        }
+    },
+    false,
+);
+
 // Auto-show subscribe modal after 30s so customers have time to scroll
 document.addEventListener("DOMContentLoaded", function () {
     if (!sessionStorage.getItem("subscribe-modal-seen")) {
