@@ -12,17 +12,21 @@
     <div class="why__media reveal" data-delay="1">
       {%- if media_image != blank -%}
         <img
-          src="{{ media_image | image_url: width: 800 }}"
-          alt="{{ media_image.alt | default: shop.name }}"
+          class="why__media-img"
+          src="{{ media_image | image_url: width: 1600 }}"
+          srcset="{{ media_image | image_url: width: 800 }} 800w, {{ media_image | image_url: width: 1200 }} 1200w, {{ media_image | image_url: width: 1600 }} 1600w"
+          sizes="(max-width: 900px) 100vw, 46vw"
+          alt="{{ media_image.alt | default: 'ChewTeinz protein gummies — product benefits and Mango Madness artwork' | escape }}"
           loading="lazy"
           width="{{ media_image.width }}"
           height="{{ media_image.height }}">
       {%- else -%}
         <img
-          src="https://1pg86aook1.ufs.sh/f/pN2g9q3wzUsTTIMCUx8Hbgd0zAB7flMmysjRpa9VuUxc38CE"
-          alt="{{ shop.name }} logo"
-          width="800"
-          height="800"
+          class="why__media-img"
+          src="{{ 'why-us-graphic.png' | asset_url }}"
+          alt="ChewTeinz Mango Madness protein gummies — protein benefits and product artwork"
+          width="1080"
+          height="1080"
           loading="lazy">
       {%- endif -%}
     </div>
@@ -83,7 +87,8 @@
       {
         "type": "image_picker",
         "id": "media_image",
-        "label": "Media image"
+        "label": "Media image",
+        "info": "Optional. If empty, the theme uses the built-in Mango Madness benefits graphic (assets/why-us-graphic.png)."
       },
       {
         "type": "text",
