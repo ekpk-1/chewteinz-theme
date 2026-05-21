@@ -1394,11 +1394,14 @@
 
     @media (max-width: 767px) {
         .signup-modal {
+            display: flex;
+            flex-direction: column;
             max-width: 420px;
         }
     }
 
     .signup-modal__media {
+        position: relative;
         width: 50%;
         line-height: 0;
         background: var(--c-cream-2);
@@ -1407,12 +1410,17 @@
     .signup-modal__media > img {
         width: 100%;
         height: auto;
+        max-width: 100%;
         display: block;
+        object-fit: contain;
+        object-position: center;
     }
 
     @media (max-width: 767px) {
         .signup-modal__media {
-            display: none;
+            order: 1;
+            width: 100%;
+            flex-shrink: 0;
         }
     }
 
@@ -1432,6 +1440,7 @@
     @media (max-width: 767px) {
         .signup-modal__panel {
             position: relative;
+            order: 2;
             width: 100%;
             height: auto;
             overflow: visible;
@@ -1478,7 +1487,7 @@
         position: absolute;
         top: var(--s-4);
         right: var(--s-4);
-        z-index: 2;
+        z-index: 3;
         display: grid;
         place-items: center;
         width: 2.25rem;
@@ -1489,6 +1498,13 @@
         transition:
             background var(--dur-fast) var(--ease-out),
             transform var(--dur-fast) var(--ease-out);
+    }
+
+    @media (max-width: 767px) {
+        .signup-modal__close {
+            background: rgba(255, 255, 255, 0.92);
+            box-shadow: 0 2px 8px rgba(26, 22, 20, 0.12);
+        }
     }
 
     .signup-modal__close:hover {
@@ -1509,7 +1525,6 @@
         line-height: 1.1;
         letter-spacing: -0.02em;
         color: var(--c-ink);
-        padding-right: 2.5rem;
     }
 
     .signup-modal__lede {
