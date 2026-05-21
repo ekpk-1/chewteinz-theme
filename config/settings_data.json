@@ -13,6 +13,8 @@
     "klaviyo_public_key": "YfFYSU",
     "klaviyo_subscribe_list_id": "Yiif5M",
     "klaviyo_notify_list_id": "Yiif5M",
+    "subscribe_modal_enabled": true,
+    "subscribe_modal_delay": 10,
     "supabase_url": "",
     "supabase_anon_key": "",
     "make_webhook_url": "https://hook.eu2.make.com/nqrs2nriv53twj2g7ygveq7kyihla633",

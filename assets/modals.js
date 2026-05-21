@@ -36,31 +36,70 @@ window.modals = {
         }, 300);
     },
 
-    // Subscribe Modal
-    openSubscribe() {
-        document
-            .getElementById("subscribe-form-section")
-            .classList.remove("hidden");
-        document
-            .getElementById("subscribe-success-section")
-            .classList.add("hidden");
-        document.getElementById("subscribe-error").classList.add("hidden");
-        document.getElementById("subscribe-name").value = "";
-        document.getElementById("subscribe-email").value = "";
-        document.getElementById("subscribe-submit-btn").textContent =
-            "Get My 10% Off";
-        document.getElementById("subscribe-submit-btn").disabled = false;
+    // Subscribe Modal (early access + 10% off)
+    _subscribeFlavor: null,
+
+    openSubscribe(flavorName) {
+        this._subscribeFlavor = flavorName || null;
+
+        var flavorNote = document.getElementById("subscribe-flavor-note");
+        var flavorNameEl = document.getElementById("subscribe-flavor-name");
+        if (flavorNote && flavorNameEl) {
+            if (this._subscribeFlavor) {
+                flavorNameEl.textContent = this._subscribeFlavor;
+                flavorNote.classList.remove("hidden");
+            } else {
+                flavorNote.classList.add("hidden");
+            }
+        }
+
+        var formSection = document.getElementById("subscribe-form-section");
+        var successSection = document.getElementById("subscribe-success-section");
+        var errorEl = document.getElementById("subscribe-error");
+        var emailInput = document.getElementById("subscribe-email");
+        var btn = document.getElementById("subscribe-submit-btn");
+
+        if (!formSection || !successSection || !errorEl || !btn) return;
+
+        formSection.classList.remove("hidden");
+        successSection.classList.add("hidden");
+        errorEl.classList.add("hidden");
+        if (emailInput) emailInput.value = "";
+        btn.textContent = "Get My 10% Off";
+        btn.disabled = false;
         this._openModal("subscribe-modal", "subscribe-modal-content");
     },
 
+    openPresale(flavorName) {
+        this.openSubscribe(flavorName);
+    },
+
     closeSubscribe() {
+        this._markSubscribeSeen();
         this._closeModal("subscribe-modal", "subscribe-modal-content");
+    },
+
+    _markSubscribeSeen() {
+        try {
+            sessionStorage.setItem("subscribe-modal-seen", "true");
+        } catch (e) {}
+    },
+
+    resetSubscribePopup() {
+        try {
+            sessionStorage.removeItem("subscribe-modal-seen");
+        } catch (e) {}
+        if (window.__subscribePopupTimer) {
+            clearTimeout(window.__subscribePopupTimer);
+            window.__subscribePopupTimer = null;
+        }
+        window.__subscribePopupInit = false;
+        initSubscribeAutoPopup();
     },
 
     handleSubscribeSubmit(e) {
         e.preventDefault();
         var self = this;
-        var name = document.getElementById("subscribe-name").value.trim();
         var email = document.getElementById("subscribe-email").value.trim();
         var errorEl = document.getElementById("subscribe-error");
         var errorText = document.getElementById("subscribe-error-text");
@@ -93,9 +132,19 @@ window.modals = {
             encodeURIComponent(listId) +
             "&email=" +
             encodeURIComponent(email.toLowerCase());
-        if (name) formBody += "&$first_name=" + encodeURIComponent(name);
-        formBody +=
-            "&$source=" + encodeURIComponent("Subscribe modal (10% off)");
+
+        var source = "Subscribe modal (10% off)";
+        if (self._subscribeFlavor) {
+            source =
+                "Early access & 10% off: " + self._subscribeFlavor;
+            formBody +=
+                "&$fields=" +
+                encodeURIComponent("$source,presale_product") +
+                "&presale_product=" +
+                encodeURIComponent(self._subscribeFlavor);
+        }
+
+        formBody += "&$source=" + encodeURIComponent(source);
 
         fetch("https://manage.kmail-lists.com/ajax/subscriptions/subscribe", {
             method: "POST",
@@ -122,6 +171,7 @@ window.modals = {
                     .getElementById("subscribe-success-section")
                     .classList.remove("hidden");
                 setTimeout(function () {
+                    self._markSubscribeSeen();
                     self._closeModal(
                         "subscribe-modal",
                         "subscribe-modal-content",
@@ -404,22 +454,56 @@ document.addEventListener(
         e.preventDefault();
         var name = trigger.getAttribute("data-product-name");
         if (name === null || name === undefined) name = "";
-        if (window.modals && typeof window.modals.openNutrition === "function") {
+        if (
+            window.modals &&
+            typeof window.modals.openNutrition === "function"
+        ) {
             window.modals.openNutrition(name);
         }
     },
     false,
 );
 
-// Auto-show subscribe modal after 30s so customers have time to scroll
-document.addEventListener("DOMContentLoaded", function () {
-    if (!sessionStorage.getItem("subscribe-modal-seen")) {
-        setTimeout(function () {
-            window.modals.openSubscribe();
-            sessionStorage.setItem("subscribe-modal-seen", "true");
-        }, 30000);
+// Auto-show subscribe modal once per session (after dismiss or signup)
+function initSubscribeAutoPopup() {
+    if (window.__subscribePopupInit) return;
+    window.__subscribePopupInit = true;
+
+    var settings = window.chewteinzSettings || {};
+
+    if (
+        typeof URLSearchParams !== "undefined" &&
+        new URLSearchParams(window.location.search).has("subscribe_reset")
+    ) {
+        try {
+            sessionStorage.removeItem("subscribe-modal-seen");
+        } catch (e) {}
     }
-});
+
+    if (settings.subscribeModalEnabled === false) return;
+    if (sessionStorage.getItem("subscribe-modal-seen")) return;
+
+    var delaySeconds = parseInt(settings.subscribeModalDelaySeconds, 10);
+    if (isNaN(delaySeconds) || delaySeconds < 0) delaySeconds = 10;
+    var delayMs = delaySeconds * 1000;
+
+    if (window.__subscribePopupTimer) {
+        clearTimeout(window.__subscribePopupTimer);
+    }
+
+    window.__subscribePopupTimer = setTimeout(function () {
+        if (sessionStorage.getItem("subscribe-modal-seen")) return;
+        if (window.modals && typeof window.modals.openSubscribe === "function") {
+            window.modals.openSubscribe();
+        }
+    }, delayMs);
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSubscribeAutoPopup);
+} else {
+    initSubscribeAutoPopup();
+}
 
 // Contact form handler
 function handleContactSubmit(e) {

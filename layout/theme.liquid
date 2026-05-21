@@ -38,7 +38,9 @@
       klaviyoNotifyListId: {{ settings.klaviyo_notify_list_id | json }},
       supabaseUrl: {{ settings.supabase_url | json }},
       supabaseAnonKey: {{ settings.supabase_anon_key | json }},
-      makeWebhookUrl: {{ settings.make_webhook_url | json }}
+      makeWebhookUrl: {{ settings.make_webhook_url | json }},
+      subscribeModalEnabled: {% if settings.subscribe_modal_enabled == false %}false{% else %}true{% endif %},
+      subscribeModalDelaySeconds: {% if settings.subscribe_modal_delay != blank %}{{ settings.subscribe_modal_delay }}{% else %}10{% endif %}
     };
   </script>
 </head>

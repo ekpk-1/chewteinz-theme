@@ -34,7 +34,7 @@
             },
             {
                 "type": "paragraph",
-                "content": "Power the subscribe and back-in-stock notify modals. Use your Public API Key (Site ID) from Klaviyo → Settings → API Keys. List IDs are in Audience → Lists & Segments (6-char code in the list URL)."
+                "content": "Power the signup popup and back-in-stock notify modal. Use your Public API Key (Site ID) from Klaviyo → Settings → API Keys. List IDs are in Audience → Lists & Segments (6-char code in the list URL)."
             },
             {
                 "type": "text",
@@ -44,13 +44,40 @@
             {
                 "type": "text",
                 "id": "klaviyo_subscribe_list_id",
-                "label": "List ID (Subscribe / 10% Off Modal)"
+                "label": "List ID (Signup Popup — early access & 10% off)"
             },
             {
                 "type": "text",
                 "id": "klaviyo_notify_list_id",
                 "label": "List ID (Back-in-Stock Notify Modal)",
                 "info": "Can be same as Subscribe list. Back-in-stock signups will include a product preference."
+            },
+            {
+                "type": "header",
+                "content": "Signup Popup"
+            },
+            {
+                "type": "image_picker",
+                "id": "subscribe_modal_image",
+                "label": "Popup image",
+                "info": "Full-bleed image on the left panel (desktop). Upload your designed graphic here."
+            },
+            {
+                "type": "checkbox",
+                "id": "subscribe_modal_enabled",
+                "label": "Show subscribe popup on first visit",
+                "default": true
+            },
+            {
+                "type": "range",
+                "id": "subscribe_modal_delay",
+                "label": "Popup delay (seconds)",
+                "min": 3,
+                "max": 60,
+                "step": 1,
+                "default": 10,
+                "unit": "s",
+                "info": "How long to wait before showing the subscribe modal. Resets when the visitor closes the popup or signs up."
             }
         ]
     },

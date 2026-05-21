@@ -53,12 +53,12 @@
       {% if is_coming_soon %}
         <button
           type="button"
-          onclick="window.modals.openNotify('{{ product.title | escape }}')"
+          onclick="window.modals.openSubscribe('{{ product.title | escape }}')"
           class="w-full font-display font-semibold py-2 sm:py-3 text-sm sm:text-base rounded-full transition-transform flex items-center justify-center gap-2 bg-gradient-to-r from-chewteinz-yellow to-chewteinz-orange text-gray-800 hover:scale-105">
           {% render 'icon'
             , icon: 'bell'
             , size: 16 %}
-          Notify Me
+          Get Early Access
         </button>
       {% elsif product.available %}
         <button
