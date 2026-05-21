@@ -68,6 +68,7 @@ window.modals = {
         btn.textContent = "Get My 10% Off";
         btn.disabled = false;
         this._openModal("subscribe-modal", "subscribe-modal-content");
+        this._toggleSubscribeFab(false);
     },
 
     openPresale(flavorName) {
@@ -77,6 +78,13 @@ window.modals = {
     closeSubscribe() {
         this._markSubscribeSeen();
         this._closeModal("subscribe-modal", "subscribe-modal-content");
+        this._toggleSubscribeFab(true);
+    },
+
+    _toggleSubscribeFab(show) {
+        var fab = document.getElementById("subscribe-fab");
+        if (!fab) return;
+        fab.classList.toggle("subscribe-fab--hidden", !show);
     },
 
     _markSubscribeSeen() {
@@ -172,6 +180,7 @@ window.modals = {
                     .classList.remove("hidden");
                 setTimeout(function () {
                     self._markSubscribeSeen();
+                    self._toggleSubscribeFab(true);
                     self._closeModal(
                         "subscribe-modal",
                         "subscribe-modal-content",

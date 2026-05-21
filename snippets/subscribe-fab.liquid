@@ -1,0 +1,11 @@
+{%- if settings.subscribe_fab_enabled != false -%}
+  <button
+    type="button"
+    id="subscribe-fab"
+    class="subscribe-fab"
+    onclick="window.modals.openSubscribe()"
+    aria-label="{{ settings.subscribe_fab_label | default: 'Get 10% Off' | escape }}">
+    {% render 'icon', icon: 'mail', size: 20, class: 'subscribe-fab__icon' %}
+    <span class="subscribe-fab__label">{{ settings.subscribe_fab_label | default: 'Get 10% Off' }}</span>
+  </button>
+{%- endif -%}

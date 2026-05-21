@@ -78,6 +78,19 @@
                 "default": 10,
                 "unit": "s",
                 "info": "How long to wait before showing the subscribe modal. Resets when the visitor closes the popup or signs up."
+            },
+            {
+                "type": "checkbox",
+                "id": "subscribe_fab_enabled",
+                "label": "Show floating signup button",
+                "default": true,
+                "info": "Fixed button at the bottom-right of the screen to open the signup popup."
+            },
+            {
+                "type": "text",
+                "id": "subscribe_fab_label",
+                "label": "Floating button label",
+                "default": "Get 10% Off"
             }
         ]
     },

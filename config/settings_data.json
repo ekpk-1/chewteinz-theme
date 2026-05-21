@@ -15,6 +15,8 @@
     "klaviyo_notify_list_id": "Yiif5M",
     "subscribe_modal_enabled": true,
     "subscribe_modal_delay": 10,
+    "subscribe_fab_enabled": true,
+    "subscribe_fab_label": "Get 10% Off",
     "supabase_url": "",
     "supabase_anon_key": "",
     "make_webhook_url": "https://hook.eu2.make.com/nqrs2nriv53twj2g7ygveq7kyihla633",
