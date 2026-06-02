@@ -285,44 +285,10 @@ window.modals = {
 
     // Nutrition Modal
     openNutrition(productName) {
-        document.getElementById("nutrition-product-name").textContent =
-            productName;
-        var container = document.getElementById("nutrition-table-container");
-        var name = (productName || "").toLowerCase();
-        var bg, border;
-        if (name.indexOf("blueberry") !== -1) {
-            bg = "#3E577D";
-            border = "#2E4361";
-        } else if (name.indexOf("sour watermelon") !== -1) {
-            bg = "#CC6666";
-            border = "#B35555";
-        } else {
-            bg = "#A2CD76";
-            border = "#8BB65C";
+        var label = document.getElementById("nutrition-product-name");
+        if (label) {
+            label.textContent = productName || "";
         }
-        container.style.backgroundColor = bg;
-        container.style.borderColor = border;
-        container
-            .querySelectorAll(".nutrition-border-l")
-            .forEach(function (el) {
-                el.style.borderLeftColor = border;
-                el.style.borderLeftWidth = "1px";
-                el.style.borderLeftStyle = "solid";
-            });
-        container
-            .querySelectorAll(".nutrition-row-border")
-            .forEach(function (el) {
-                el.style.borderBottomColor = border;
-                el.style.borderBottomWidth = "1px";
-                el.style.borderBottomStyle = "solid";
-            });
-        container
-            .querySelectorAll(".nutrition-border-t")
-            .forEach(function (el) {
-                el.style.borderTopColor = border;
-                el.style.borderTopWidth = "1px";
-                el.style.borderTopStyle = "solid";
-            });
         this._openModal("nutrition-modal", "nutrition-modal-content");
     },
 

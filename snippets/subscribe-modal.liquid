@@ -5,14 +5,6 @@
     <div class="signup-modal">
       {%- comment -%} Left: editable image (desktop left / mobile row 1) {%- endcomment -%}
       <div class="signup-modal__media" aria-hidden="true">
-        <button
-          type="button"
-          onclick="window.modals.closeSubscribe()"
-          class="signup-modal__close"
-          aria-label="Close"
-          tabindex="0">
-          {% render 'icon', icon: 'x', size: 20, class: 'text-chewteinz-ink-soft' %}
-        </button>
         {%- if settings.subscribe_modal_image != blank -%}
           <img
             src="{{ settings.subscribe_modal_image | image_url: width: 900 }}"
@@ -37,6 +29,15 @@
 
       {%- comment -%} Right: signup form (desktop right / mobile row 2) {%- endcomment -%}
       <div class="signup-modal__panel">
+        <button
+          type="button"
+          onclick="window.modals.closeSubscribe()"
+          class="signup-modal__close"
+          aria-label="Close"
+          tabindex="0">
+          {% render 'icon', icon: 'x', size: 20, class: 'text-chewteinz-ink-soft' %}
+        </button>
+
         <div class="signup-modal__stage">
           <div id="subscribe-form-section" class="signup-modal__body">
             <h2 class="signup-modal__title">Get Exclusive Perks!</h2>

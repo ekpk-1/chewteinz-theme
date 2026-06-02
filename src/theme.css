@@ -1423,7 +1423,6 @@
             flex-shrink: 0;
         }
     }
-
     .signup-modal__panel {
         position: absolute;
         top: 0;
@@ -1502,8 +1501,8 @@
 
     @media (max-width: 767px) {
         .signup-modal__close {
-            background: rgba(255, 255, 255, 0.92);
-            box-shadow: 0 2px 8px rgba(26, 22, 20, 0.12);
+            top: var(--s-3);
+            right: var(--s-3);
         }
     }
 
@@ -1525,6 +1524,7 @@
         line-height: 1.1;
         letter-spacing: -0.02em;
         color: var(--c-ink);
+        padding-right: 2.5rem;
     }
 
     .signup-modal__lede {
