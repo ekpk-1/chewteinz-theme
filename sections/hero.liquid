@@ -22,12 +22,14 @@
   assign nutrition_modal_product_name = section.settings.nutrition_modal_product_name | default: shop.name
 -%}
 
-<section class="hero">
-  {% render 'floating-candy'
-    , preset: 'hero' %}
-
+<section class="hero" id="ct-top">
   <div class="ct-container hero__inner">
     <div class="hero__copy reveal" data-delay="1">
+      <div class="hero__badge">
+        <span></span>
+        {{ section.settings.eyebrow | default: 'The smarter way to snack' }}
+      </div>
+
       <h1 class="hero__title">
         {%- if heading contains accent_word and accent_word != blank -%}
           {%- assign parts = heading | split: accent_word -%}
@@ -42,7 +44,7 @@
 
       <div class="hero__ctas">
         {%- if section.settings.cta_text != blank -%}
-          <a class="btn btn--white btn--lg" href="{{ section.settings.cta_link | default: '#' }}">
+          <a class="btn btn--lg btn--shadow" href="{{ section.settings.cta_link | default: '#ct-shop' }}">
             {{ section.settings.cta_text }}
             <span class="btn__arrow">
               <svg class="w-[22px] h-[22px]" aria-hidden="true"><use href="#i-arrow-right" /></svg>
@@ -54,36 +56,29 @@
           {%- if hero_secondary_opens_nutrition -%}
             <button
               type="button"
-              class="btn btn--ghost-white btn--lg"
+              class="btn btn--ghost btn--lg"
               data-open-nutrition
               data-product-name="{{ nutrition_modal_product_name | escape }}">
               {{ section.settings.secondary_text }}
             </button>
           {%- else -%}
-            <a class="btn btn--ghost-white btn--lg" href="{{ hero_secondary_link }}">
+            <a class="btn btn--ghost btn--lg" href="{{ hero_secondary_link }}">
               {{ section.settings.secondary_text }}
             </a>
           {%- endif -%}
         {%- endif -%}
       </div>
 
-      <div class="hero__stats stat-slab stat-slab--frosted" aria-label="Key product stats">
-        <div class="stat-slab__cell">
-          <div class="stat-slab__num">{{ section.settings.stat_1_value | default: '20g' }}</div>
-          <div class="stat-slab__label">{{ section.settings.stat_1_label | default: 'Protein' }}</div>
-        </div>
-        <div class="stat-slab__cell">
-          <div class="stat-slab__num">{{ section.settings.stat_2_value | default: '0g' }}</div>
-          <div class="stat-slab__label">{{ section.settings.stat_2_label | default: 'Sugar' }}</div>
-        </div>
-        <div class="stat-slab__cell">
-          <div class="stat-slab__num">{{ section.settings.stat_3_value | default: '160' }}</div>
-          <div class="stat-slab__label">{{ section.settings.stat_3_label | default: 'Calories' }}</div>
-        </div>
-        <div class="stat-slab__cell">
-          <div class="stat-slab__num">{{ section.settings.stat_4_value | default: '0' }}</div>
-          <div class="stat-slab__label">{{ section.settings.stat_4_label | default: 'Guilt' }}</div>
-        </div>
+      <div class="hero__rating">
+        <span aria-hidden="true">★★★★★</span>
+        <strong>{{ section.settings.rating_text | default: '4.9/5 from early tasters' }}</strong>
+      </div>
+
+      <div class="hero__trust" aria-label="Key product benefits">
+        <span style="--dot: var(--c-pink-deep)">{{ section.settings.trust_1 | default: 'Sugar free' }}</span>
+        <span style="--dot: var(--c-green, #82A56B)">{{ section.settings.trust_2 | default: 'Plant based' }}</span>
+        <span style="--dot: var(--c-orange)">{{ section.settings.stat_1_value | default: '20g' }} {{ section.settings.stat_1_label | default: 'Protein' }}</span>
+        <span style="--dot: var(--c-purple)">{{ section.settings.trust_4 | default: 'No nasties' }}</span>
       </div>
     </div>
 
@@ -92,6 +87,10 @@
       data-delay="2"
       aria-hidden="true">
       <span class="hero__halo"></span>
+      <span class="hero__float hero__float--one"></span>
+      <span class="hero__float hero__float--two"></span>
+      <span class="hero__float hero__float--three"></span>
+      <span class="hero__float hero__float--four"></span>
       {%- if hero_image != blank -%}
         <img
           class="hero__product"
@@ -109,10 +108,11 @@
       {%- else -%}
         <img
           class="hero__product"
-          src="https://cdn.shopify.com/s/files/1/0991/6592/9553/files/Landing_page.png?v=1778408038"
+          src="{{ 'bag-mango.png' | asset_url }}"
           alt="{{ shop.name }}"
-          width="1024"
-          height="1024">
+          width="874"
+          height="1184"
+          loading="eager">
       {%- endif -%}
     </div>
   </div>
@@ -148,6 +148,11 @@
         "default": "Real fruity gummies pulling double duty — 20g of plant-based protein, zero added sugar, naturally sweetened with allulose and stevia. Built to fuel post-workout cravings without the crash."
       }, {
         "type": "text",
+        "id": "eyebrow",
+        "label": "Eyebrow",
+        "default": "The smarter way to snack"
+      }, {
+        "type": "text",
         "id": "cta_text",
         "label": "Primary CTA Text",
         "default": "Shop Now"
@@ -171,6 +176,26 @@
         "id": "nutrition_modal_product_name",
         "label": "Nutrition modal product name",
         "info": "Used when the secondary CTA opens the nutrition modal. Shown to screen readers. Blank uses your store name."
+      }, {
+        "type": "text",
+        "id": "rating_text",
+        "label": "Rating text",
+        "default": "4.9/5 from early tasters"
+      }, {
+        "type": "text",
+        "id": "trust_1",
+        "label": "Trust pill 1",
+        "default": "Sugar free"
+      }, {
+        "type": "text",
+        "id": "trust_2",
+        "label": "Trust pill 2",
+        "default": "Plant based"
+      }, {
+        "type": "text",
+        "id": "trust_4",
+        "label": "Trust pill 4",
+        "default": "No nasties"
       }, {
         "type": "header",
         "content": "Stat slab"

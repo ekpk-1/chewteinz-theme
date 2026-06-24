@@ -1,0 +1,86 @@
+<section class="ct-section waitlist-section" id="ct-waitlist">
+  <div class="ct-container">
+    <div class="waitlist-card">
+      <span class="waitlist-card__shape waitlist-card__shape--one" aria-hidden="true"></span>
+      <span class="waitlist-card__shape waitlist-card__shape--two" aria-hidden="true"></span>
+
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="ct-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h2>{{ section.settings.heading }}</h2>
+      {%- if section.settings.subheading != blank -%}
+        <p>{{ section.settings.subheading }}</p>
+      {%- endif -%}
+
+      <form class="waitlist-form" data-waitlist-form data-source="{{ section.settings.source_label | escape }}">
+        <label class="sr-only" for="waitlist-email-{{ section.id }}">Email address</label>
+        <input
+          id="waitlist-email-{{ section.id }}"
+          type="email"
+          name="email"
+          autocomplete="email"
+          placeholder="{{ section.settings.placeholder | escape }}"
+          required>
+        <button type="submit" class="btn btn--accent">{{ section.settings.button_label }}</button>
+      </form>
+
+      <p class="waitlist-message waitlist-message--error" data-waitlist-error hidden></p>
+      <p class="waitlist-message waitlist-message--success" data-waitlist-success hidden>{{ section.settings.success_message }}</p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Waitlist",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Sour Watermelon and Blueberry are coming"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Be first to chew the new flavours."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Join the waitlist for early access, launch-day discounts, and the occasional free bag."
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Email placeholder",
+      "default": "you@email.com"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Notify me"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "You're on the list. We'll be in touch."
+    },
+    {
+      "type": "text",
+      "id": "source_label",
+      "label": "Klaviyo source label",
+      "default": "Homepage waitlist"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Waitlist"
+    }
+  ]
+}
+{% endschema %}

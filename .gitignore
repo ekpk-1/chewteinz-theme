@@ -1,2 +1,5 @@
 # Local HTML/CSS prototype — not part of the Shopify theme
 prototype/
+
+# Shopify skill script dependencies (run npm install in .cursor/skills/shopify-liquid)
+.cursor/skills/shopify-liquid/node_modules/

@@ -85,4 +85,73 @@
   } else {
     Array.prototype.forEach.call(reveals, function (el) { el.classList.add('is-in'); });
   }
+
+  // -------------------------------------------------------------- //
+  // Homepage waitlist signup                                       //
+  // -------------------------------------------------------------- //
+  document.addEventListener('submit', function (e) {
+    var form = e.target.closest && e.target.closest('[data-waitlist-form]');
+    if (!form) return;
+    e.preventDefault();
+
+    var input = form.querySelector('input[type="email"]');
+    var errorEl = form.parentNode.querySelector('[data-waitlist-error]');
+    var successEl = form.parentNode.querySelector('[data-waitlist-success]');
+    var button = form.querySelector('button[type="submit"]');
+    var email = input ? input.value.trim() : '';
+    var settings = window.chewteinzSettings || {};
+    var listId = settings.klaviyoSubscribeListId;
+    var source = form.getAttribute('data-source') || 'Homepage waitlist';
+
+    function showError(message) {
+      if (successEl) successEl.hidden = true;
+      if (errorEl) {
+        errorEl.textContent = message;
+        errorEl.hidden = false;
+      }
+      if (button) {
+        button.disabled = false;
+        button.textContent = button.getAttribute('data-label') || 'Notify me';
+      }
+    }
+
+    if (errorEl) errorEl.hidden = true;
+    if (successEl) successEl.hidden = true;
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showError('Please enter a valid email address.');
+      return;
+    }
+
+    if (!listId) {
+      showError('Email signup is not configured yet.');
+      return;
+    }
+
+    if (button) {
+      button.setAttribute('data-label', button.textContent);
+      button.disabled = true;
+      button.textContent = 'Joining...';
+    }
+
+    var formBody =
+      'g=' + encodeURIComponent(listId) +
+      '&email=' + encodeURIComponent(email.toLowerCase()) +
+      '&$source=' + encodeURIComponent(source);
+
+    fetch('https://manage.kmail-lists.com/ajax/subscriptions/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: formBody
+    })
+      .then(function (res) {
+        if (!res.ok) throw new Error('Failed to subscribe');
+        form.reset();
+        form.hidden = true;
+        if (successEl) successEl.hidden = false;
+      })
+      .catch(function (err) {
+        showError(err.message || 'Something went wrong. Please try again.');
+      });
+  });
 })();

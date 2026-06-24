@@ -1,0 +1,96 @@
+<section class="ct-section home-faq-section" id="ct-faq">
+  <div class="ct-container home-faq__inner">
+    <div class="section-head section-head--center">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="ct-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h2>{{ section.settings.heading }}</h2>
+    </div>
+
+    <div class="home-faq__list">
+      {%- for block in section.blocks -%}
+        <details class="home-faq__item" {% if forloop.first %}open{% endif %} {{ block.shopify_attributes }}>
+          <summary>
+            <span>{{ block.settings.question }}</span>
+            <span class="home-faq__icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="home-faq__answer">
+            {{ block.settings.answer }}
+          </div>
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Home FAQ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Good to know"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently chewed questions."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ item",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "Is it really sugar free?" },
+        { "type": "textarea", "id": "answer", "label": "Answer", "default": "Yes. ChewTeinz has 0g added sugar and is naturally sweetened with allulose and stevia." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home FAQ",
+      "blocks": [
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Is it really sugar free?",
+            "answer": "Yes. ChewTeinz has 0g added sugar and is naturally sweetened with allulose and stevia, so you get the sweet hit without the crash."
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "What protein do you use?",
+            "answer": "We use a plant-based blend of organic pea and rice protein isolate for a complete amino profile and a softer chew."
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "How much protein is in a bag?",
+            "answer": "Every 180g Mango Madness bag has 3 servings, with 20g of plant protein per serving."
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "When do Watermelon and Blueberry drop?",
+            "answer": "They are coming soon. Join the waitlist for early access and launch-day offers."
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Do you ship free?",
+            "answer": "Yes. Free shipping is available on orders over $50."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

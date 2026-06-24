@@ -1,29 +1,38 @@
 {%- liquid
-  assign all_products_url = routes.all_products_collection_url
   assign current_path = request.path
+  assign shop_anchor = '#ct-shop'
+  assign why_anchor = '#ct-why'
+  assign nutrition_anchor = '#ct-nutrition'
+  assign faq_anchor = '#ct-faq'
+  if current_path != '/'
+    assign shop_anchor = '/#ct-shop'
+    assign why_anchor = '/#ct-why'
+    assign nutrition_anchor = '/#ct-nutrition'
+    assign faq_anchor = '/#ct-faq'
+  endif
 -%}
 
 <header class="site-header" id="site-header">
   <div class="ct-container site-header__inner">
-    <a href="/" class="inline-flex items-center transition-transform duration-200 hover:-translate-y-0.5" aria-label="{{ shop.name }} home">
+    <a href="{{ routes.root_url }}" class="site-header__brand" aria-label="{{ shop.name }} home">
       <img
-        src="https://1pg86aook1.ufs.sh/f/pN2g9q3wzUsTZWfCRu4PgqRxlpeEzvaLNWk8fbGJSHDVM2I5"
+        src="{{ 'chewteinz-logo.png' | asset_url }}"
         alt="{{ shop.name }}"
         class="h-10 sm:h-11 md:h-12 w-auto"
         width="180"
         height="48"
-      >
+        loading="eager">
     </a>
 
-    <nav class="hidden md:flex items-center gap-8" aria-label="Primary">
-      <a class="nav-link" href="/" {% if current_path == '/' %}aria-current="page"{% endif %}>Home</a>
-      <a class="nav-link" href="{{ all_products_url }}" {% if current_path == all_products_url %}aria-current="page"{% endif %}>Shop</a>
-      <a class="nav-link" href="/pages/about" {% if current_path == '/pages/about' %}aria-current="page"{% endif %}>About</a>
-      <a class="nav-link" href="/pages/contact" {% if current_path == '/pages/contact' %}aria-current="page"{% endif %}>Contact</a>
-      <a class="nav-link" href="/pages/faq" {% if current_path == '/pages/faq' %}aria-current="page"{% endif %}>FAQ</a>
+    <nav class="site-nav" aria-label="Primary">
+      <a class="nav-link" href="{{ shop_anchor }}">Shop</a>
+      <a class="nav-link" href="{{ why_anchor }}">Why Us</a>
+      <a class="nav-link" href="{{ nutrition_anchor }}">Nutrition</a>
+      <a class="nav-link" href="{{ faq_anchor }}">FAQ</a>
     </nav>
 
     <div class="flex items-center gap-2 sm:gap-3">
+      <a href="{{ shop_anchor }}" class="site-header__shop">Shop</a>
       <button
         type="button"
         class="icon-btn icon-btn--filled"
@@ -48,15 +57,15 @@
 
 {%- comment -%} Mobile menu — slides in from the right on small screens {%- endcomment -%}
 <div
-  class="fixed inset-x-0 bottom-0 top-[calc(40px+64px)] sm:top-[calc(48px+76px)] z-30 bg-white px-6 py-10 translate-x-full transition-transform duration-300 ease-out md:hidden"
+  class="fixed inset-x-0 bottom-0 top-[calc(40px+64px)] sm:top-[calc(48px+76px)] z-30 bg-chewteinz-cream px-6 py-10 translate-x-full transition-transform duration-300 ease-out md:hidden"
   id="mobile-menu"
   aria-hidden="true">
   <ul class="flex flex-col gap-2">
-    <li><a class="block py-3 border-b border-chewteinz-ink/10 font-display text-3xl font-semibold" href="/">Home</a></li>
-    <li><a class="block py-3 border-b border-chewteinz-ink/10 font-display text-3xl font-semibold" href="{{ all_products_url }}">Shop</a></li>
-    <li><a class="block py-3 border-b border-chewteinz-ink/10 font-display text-3xl font-semibold" href="/pages/about">About</a></li>
+    <li><a class="block py-3 border-b border-chewteinz-ink/10 font-display text-3xl font-semibold" href="{{ shop_anchor }}">Shop</a></li>
+    <li><a class="block py-3 border-b border-chewteinz-ink/10 font-display text-3xl font-semibold" href="{{ why_anchor }}">Why Us</a></li>
+    <li><a class="block py-3 border-b border-chewteinz-ink/10 font-display text-3xl font-semibold" href="{{ nutrition_anchor }}">Nutrition</a></li>
+    <li><a class="block py-3 border-b border-chewteinz-ink/10 font-display text-3xl font-semibold" href="{{ faq_anchor }}">FAQ</a></li>
     <li><a class="block py-3 border-b border-chewteinz-ink/10 font-display text-3xl font-semibold" href="/pages/contact">Contact</a></li>
-    <li><a class="block py-3 border-b border-chewteinz-ink/10 font-display text-3xl font-semibold" href="/pages/faq">FAQ</a></li>
   </ul>
 </div>
 

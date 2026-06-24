@@ -37,19 +37,23 @@
               width="600"
               height="600">
           {%- elsif url_attr != blank -%}
-            <img
-              src="{% if url_attr contains '://' %}{{ url_attr }}{% else %}{{ url_attr | asset_url }}{% endif %}"
-              alt=""
-              loading="lazy"
-              width="600"
-              height="600">
-          {%- else -%}
-            <div class="w-full h-full bg-gradient-to-br {{ block.settings.gradient | default: 'from-pink-400 to-purple-500' }} grid place-items-center">
+            {%- if url_attr contains '://' -%}
+              <span
+                class="social__external-image"
+                style="--social-image: url('{{ url_attr | escape }}');"
+                role="img"
+                aria-label="Social post {{ forloop.index }}"></span>
+            {%- else -%}
               <img
-                src="https://1pg86aook1.ufs.sh/f/pN2g9q3wzUsTAzp81qYdzGFpfVKBbR6Qy9iWxIh3krP4LwZS"
+                src="{{ url_attr | asset_url }}"
                 alt=""
-                class="w-1/3 opacity-40"
-                loading="lazy">
+                loading="lazy"
+                width="600"
+                height="600">
+            {%- endif -%}
+          {%- else -%}
+            <div class="social__fallback">
+              <span>{{ block.settings.fallback_text | default: 'Sweet gains' }}</span>
             </div>
           {%- endif -%}
 
@@ -70,7 +74,7 @@
         href="{{ section.settings.instagram_url }}"
         target="_blank"
         rel="noopener noreferrer"
-        class="btn btn--gradient btn--lg w-full sm:w-auto">
+        class="btn btn--shadow btn--lg w-full sm:w-auto">
         <svg class="w-[18px] h-[18px]" aria-hidden="true"><use href="#i-instagram"/></svg>
         Follow on Instagram
       </a>
@@ -130,7 +134,8 @@
         { "type": "image_picker", "id": "image",     "label": "Image" },
         { "type": "text",         "id": "image_url", "label": "External Image URL" },
         { "type": "url",          "id": "link",      "label": "Link" },
-        { "type": "text",         "id": "gradient",  "label": "Fallback Gradient", "default": "from-pink-400 to-purple-500" }
+        { "type": "text",         "id": "fallback_text", "label": "Fallback text", "default": "Sweet gains" },
+        { "type": "text",         "id": "gradient",  "label": "(legacy) Fallback gradient", "default": "from-pink-400 to-purple-500" }
       ]
     },
     {
@@ -140,7 +145,8 @@
         { "type": "image_picker", "id": "image",     "label": "Image" },
         { "type": "text",         "id": "image_url", "label": "External Image URL" },
         { "type": "url",          "id": "link",      "label": "Instagram Reel Link" },
-        { "type": "text",         "id": "gradient",  "label": "Fallback Gradient", "default": "from-purple-400 to-pink-500" }
+        { "type": "text",         "id": "fallback_text", "label": "Fallback text", "default": "Tag us" },
+        { "type": "text",         "id": "gradient",  "label": "(legacy) Fallback gradient", "default": "from-purple-400 to-pink-500" }
       ]
     }
   ],

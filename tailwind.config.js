@@ -12,26 +12,27 @@ module.exports = {
     extend: {
       colors: {
         // Brand palette
-        'chewteinz-yellow': '#FFE55C',
-        'chewteinz-blue':   '#A8D8FF',
-        'chewteinz-pink':   '#FFB3E6',
-        'chewteinz-purple': '#C8A2F0',
-        'chewteinz-orange': '#FFB380',
+        'chewteinz-yellow': '#E6C56F',
+        'chewteinz-blue':   '#9FACDA',
+        'chewteinz-pink':   '#E3A39A',
+        'chewteinz-purple': '#7585BE',
+        'chewteinz-orange': '#C98E4F',
+        'chewteinz-green':  '#82A56B',
 
         // Saturated variants for cream surfaces
-        'chewteinz-yellow-deep': '#F5C400',
-        'chewteinz-blue-deep':   '#4A8FD9',
-        'chewteinz-pink-deep':   '#E66EB8',
-        'chewteinz-purple-deep': '#8B5FCC',
-        'chewteinz-orange-deep': '#E88A4D',
+        'chewteinz-yellow-deep': '#C98E4F',
+        'chewteinz-blue-deep':   '#53609A',
+        'chewteinz-pink-deep':   '#C77F76',
+        'chewteinz-purple-deep': '#5F6DA3',
+        'chewteinz-orange-deep': '#A06E37',
 
         // Surface / ink (mirrors prototype tokens.css)
-        'chewteinz-cream':    '#FBF7EE',
-        'chewteinz-cream-2':  '#F4EEE0',
-        'chewteinz-cream-3':  '#ECE4D2',
-        'chewteinz-ink':      '#1A1614',
-        'chewteinz-ink-soft': '#5A5048',
-        'chewteinz-ink-mute': '#8A8076',
+        'chewteinz-cream':    '#F5EEE0',
+        'chewteinz-cream-2':  '#FCFAF7',
+        'chewteinz-cream-3':  '#E7DCC4',
+        'chewteinz-ink':      '#3A332C',
+        'chewteinz-ink-soft': '#5C5248',
+        'chewteinz-ink-mute': '#9A8F82',
       },
       fontFamily: {
         'display': ['"Fredoka"', 'system-ui', 'sans-serif'],

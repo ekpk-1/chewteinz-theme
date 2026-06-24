@@ -125,13 +125,7 @@
       "price": "{{ product.selected_or_first_available_variant.price | money_without_currency | replace: ',', '' }}",
       "availability": "{% if product.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
       "itemCondition": "https://schema.org/NewCondition"
-    }{%- if product.metafields.reviews.rating.value != blank and product.metafields.reviews.rating_count != blank and product.metafields.reviews.rating_count != 0 -%},
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "{{ product.metafields.reviews.rating.value.rating }}",
-      "bestRating": "{{ product.metafields.reviews.rating.value.scale_max }}",
-      "ratingCount": {{ product.metafields.reviews.rating_count }}
-    }{%- endif -%}
+    }
   }
   </script>
 {%- endif -%}

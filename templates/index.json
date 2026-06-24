@@ -30,6 +30,58 @@
                 "stat_4_label": "Guilt"
             }
         },
+        "marquee": {
+            "type": "marquee",
+            "blocks": {
+                "marquee_1": {
+                    "type": "item",
+                    "settings": {
+                        "text": "Sugar free"
+                    }
+                },
+                "marquee_2": {
+                    "type": "item",
+                    "settings": {
+                        "text": "20g protein"
+                    }
+                },
+                "marquee_3": {
+                    "type": "item",
+                    "settings": {
+                        "text": "Plant based"
+                    }
+                },
+                "marquee_4": {
+                    "type": "item",
+                    "settings": {
+                        "text": "Zero crash"
+                    }
+                },
+                "marquee_5": {
+                    "type": "item",
+                    "settings": {
+                        "text": "No artificial colours"
+                    }
+                },
+                "marquee_6": {
+                    "type": "item",
+                    "settings": {
+                        "text": "Naturally sweet"
+                    }
+                }
+            },
+            "block_order": [
+                "marquee_1",
+                "marquee_2",
+                "marquee_3",
+                "marquee_4",
+                "marquee_5",
+                "marquee_6"
+            ],
+            "settings": {
+                "accessibility_label": "Product highlights"
+            }
+        },
         "social-feed": {
             "type": "social-feed",
             "blocks": {
@@ -167,6 +219,90 @@
                 "button_link": ""
             }
         },
+        "product-lineup": {
+            "type": "product-lineup",
+            "blocks": {
+                "lineup_mango": {
+                    "type": "product",
+                    "settings": {
+                        "product": "chewteinz-mango-madness",
+                        "image": "",
+                        "title": "Mango Madness",
+                        "badge": "Available now",
+                        "protein_label": "60g protein",
+                        "price_label": "$25.00",
+                        "description": "Tropical mango, pillowy chew, real sunshine energy.",
+                        "soft_color": "#F6E1C6",
+                        "deep_color": "#A06E37",
+                        "force_coming_soon": false,
+                        "available_button_label": "Add to cart",
+                        "waitlist_button_label": "Join the waitlist"
+                    }
+                },
+                "lineup_watermelon": {
+                    "type": "product",
+                    "settings": {
+                        "product": "",
+                        "image": "",
+                        "title": "Sour Watermelon Travel Size",
+                        "badge": "Coming soon",
+                        "protein_label": "30g protein",
+                        "price_label": "$13.99",
+                        "description": "Tangy-sweet watermelon with a proper sour kick.",
+                        "soft_color": "#F4D7D2",
+                        "deep_color": "#A85B50",
+                        "force_coming_soon": true,
+                        "available_button_label": "Add to cart",
+                        "waitlist_button_label": "Join the waitlist"
+                    }
+                },
+                "lineup_blueberry": {
+                    "type": "product",
+                    "settings": {
+                        "product": "",
+                        "image": "",
+                        "title": "Blueberry Travel Size",
+                        "badge": "Coming soon",
+                        "protein_label": "30g protein",
+                        "price_label": "$13.99",
+                        "description": "Juicy wild blueberry, deep, mellow and moreish.",
+                        "soft_color": "#D9DFF1",
+                        "deep_color": "#53609A",
+                        "force_coming_soon": true,
+                        "available_button_label": "Add to cart",
+                        "waitlist_button_label": "Join the waitlist"
+                    }
+                },
+                "lineup_mango_travel": {
+                    "type": "product",
+                    "settings": {
+                        "product": "",
+                        "image": "",
+                        "title": "Mango Madness Travel Size",
+                        "badge": "Coming soon",
+                        "protein_label": "30g protein",
+                        "price_label": "$13.99",
+                        "description": "Same Mango Madness, in a grab-and-go 90g pack.",
+                        "soft_color": "#F6E1C6",
+                        "deep_color": "#A06E37",
+                        "force_coming_soon": true,
+                        "available_button_label": "Add to cart",
+                        "waitlist_button_label": "Join the waitlist"
+                    }
+                }
+            },
+            "block_order": [
+                "lineup_mango",
+                "lineup_watermelon",
+                "lineup_blueberry",
+                "lineup_mango_travel"
+            ],
+            "settings": {
+                "eyebrow": "The full lineup",
+                "heading": "Meet the lineup.",
+                "subheading": ""
+            }
+        },
         "why-us": {
             "type": "why-us",
             "blocks": {
@@ -220,11 +356,131 @@
                 "accent_word": "Madness",
                 "subheading": "Each bag contains 60g of protein",
                 "description": "Tropical mango wrapped in a pillowy plant-protein gummy. 20g of pea and rice protein per pack, zero added sugar, and the same hit of sunshine you remember.",
-                "rating_value": "5",
-                "rating_count": "10",
                 "product": "chewteinz-mango-madness",
-                "show_nutrition_link": true,
-                "show_reviews": true
+                "show_nutrition_link": true
+            }
+        },
+        "bundles": {
+            "type": "bundles",
+            "blocks": {
+                "bundle_single": {
+                    "type": "bundle",
+                    "settings": {
+                        "product": "chewteinz-mango-madness",
+                        "variant_id": "",
+                        "image": "",
+                        "title": "Single Bag",
+                        "save_label": "",
+                        "description": "180g · 20g protein per serve",
+                        "price_label": "$25.00",
+                        "price_suffix": "AUD",
+                        "button_label": "Add to cart",
+                        "waitlist_button_label": "Join the waitlist"
+                    }
+                },
+                "bundle_three": {
+                    "type": "bundle",
+                    "settings": {
+                        "product": "",
+                        "variant_id": "59203203334225",
+                        "image": "",
+                        "title": "Mango 3-Pack",
+                        "save_label": "Save 15%",
+                        "description": "3 bags · 180g each",
+                        "price_label": "$65.00",
+                        "price_suffix": "AUD",
+                        "button_label": "Add to cart",
+                        "waitlist_button_label": "Join the waitlist"
+                    }
+                },
+                "bundle_ten": {
+                    "type": "bundle",
+                    "settings": {
+                        "product": "",
+                        "variant_id": "59214437351505",
+                        "image": "",
+                        "title": "Mango 10-Pack",
+                        "save_label": "Save 30%",
+                        "description": "10 bags · stock up",
+                        "price_label": "$175.00",
+                        "price_suffix": "AUD",
+                        "button_label": "Add to cart",
+                        "waitlist_button_label": "Join the waitlist"
+                    }
+                }
+            },
+            "block_order": [
+                "bundle_single",
+                "bundle_three",
+                "bundle_ten"
+            ],
+            "settings": {
+                "eyebrow": "Stock up and save",
+                "heading": "Buy more, save more.",
+                "subheading": "Mango Madness ships today — grab a multipack and lock in up to 30% off."
+            }
+        },
+        "waitlist": {
+            "type": "waitlist",
+            "settings": {
+                "eyebrow": "Sour Watermelon and Blueberry are coming",
+                "heading": "Be first to chew the new flavours.",
+                "subheading": "Join the waitlist for early access, launch-day discounts, and the occasional free bag.",
+                "placeholder": "you@email.com",
+                "button_label": "Notify me",
+                "success_message": "You're on the list. We'll be in touch.",
+                "source_label": "Homepage waitlist"
+            }
+        },
+        "home-faq": {
+            "type": "home-faq",
+            "blocks": {
+                "faq_1": {
+                    "type": "faq",
+                    "settings": {
+                        "question": "Is it really sugar free?",
+                        "answer": "Yes — 0g added sugar. We sweeten naturally with allulose and stevia, so you get the sweet hit without the crash."
+                    }
+                },
+                "faq_2": {
+                    "type": "faq",
+                    "settings": {
+                        "question": "What protein do you use?",
+                        "answer": "A blend of organic pea and rice protein isolate — 100% plant based, easy to digest, and a complete amino profile."
+                    }
+                },
+                "faq_3": {
+                    "type": "faq",
+                    "settings": {
+                        "question": "How much protein is in a bag?",
+                        "answer": "Every 180g Mango Madness bag holds 3 servings, with 20g of plant protein per serving."
+                    }
+                },
+                "faq_4": {
+                    "type": "faq",
+                    "settings": {
+                        "question": "When do Watermelon and Blueberry drop?",
+                        "answer": "Sour Watermelon and Blueberry are coming soon. Join the waitlist and you'll be first to know."
+                    }
+                },
+                "faq_5": {
+                    "type": "faq",
+                    "settings": {
+                        "question": "Do you ship free?",
+                        "answer": "Free shipping is available on orders over $50."
+                    }
+                }
+            },
+            "block_order": [
+                "faq_1",
+                "faq_2",
+                "faq_3",
+                "faq_4",
+                "faq_5"
+            ],
+            "settings": {
+                "eyebrow": "Good to know",
+                "heading": "Frequently chewed questions."
             }
         },
         "1777883564b583311b": {
@@ -235,10 +491,15 @@
     },
     "order": [
         "hero",
-        "social-feed",
+        "marquee",
         "benefits",
+        "product-lineup",
         "why-us",
         "featured-product",
+        "bundles",
+        "waitlist",
+        "social-feed",
+        "home-faq",
         "1777883564b583311b"
     ]
 }

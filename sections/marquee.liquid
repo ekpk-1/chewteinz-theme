@@ -1,0 +1,65 @@
+<section class="marquee-section" aria-label="{{ section.settings.accessibility_label | escape }}">
+  <div class="marquee">
+    {%- for repeat in (1..2) -%}
+      <div class="marquee__track" {% if repeat == 2 %}aria-hidden="true"{% endif %}>
+        {%- if section.blocks.size > 0 -%}
+          {%- for block in section.blocks -%}
+            <span class="marquee__item" {{ block.shopify_attributes }}>
+              {{ block.settings.text }}
+              <span class="marquee__diamond" aria-hidden="true"></span>
+            </span>
+          {%- endfor -%}
+        {%- else -%}
+          {%- assign fallback_items = 'Sugar free,20g protein,Plant based,Zero crash,No artificial colours,Naturally sweet' | split: ',' -%}
+          {%- for item in fallback_items -%}
+            <span class="marquee__item">
+              {{ item }}
+              <span class="marquee__diamond" aria-hidden="true"></span>
+            </span>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Marquee",
+  "settings": [
+    {
+      "type": "text",
+      "id": "accessibility_label",
+      "label": "Accessibility label",
+      "default": "Product highlights"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "20g protein"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Marquee",
+      "blocks": [
+        { "type": "item", "settings": { "text": "Sugar free" } },
+        { "type": "item", "settings": { "text": "20g protein" } },
+        { "type": "item", "settings": { "text": "Plant based" } },
+        { "type": "item", "settings": { "text": "Zero crash" } },
+        { "type": "item", "settings": { "text": "No artificial colours" } },
+        { "type": "item", "settings": { "text": "Naturally sweet" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

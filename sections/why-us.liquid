@@ -4,34 +4,10 @@
   assign media_image = section.settings.media_image
 -%}
 
-<section class="ct-section why-section relative overflow-hidden" id="about">
-  {% render 'floating-candy'
-    , preset: 'why' %}
-
+<section class="ct-section why-section" id="ct-why">
   <div class="ct-container why__inner">
-    <div class="why__media reveal" data-delay="1">
-      {%- if media_image != blank -%}
-        <img
-          class="why__media-img"
-          src="{{ media_image | image_url: width: 1600 }}"
-          srcset="{{ media_image | image_url: width: 800 }} 800w, {{ media_image | image_url: width: 1200 }} 1200w, {{ media_image | image_url: width: 1600 }} 1600w"
-          sizes="(max-width: 900px) 100vw, 46vw"
-          alt="{{ media_image.alt | default: 'ChewTeinz protein gummies — product benefits and Mango Madness artwork' | escape }}"
-          loading="lazy"
-          width="{{ media_image.width }}"
-          height="{{ media_image.height }}">
-      {%- else -%}
-        <img
-          class="why__media-img"
-          src="{{ 'why-us-graphic.png' | asset_url }}"
-          alt="ChewTeinz Mango Madness protein gummies — protein benefits and product artwork"
-          width="1080"
-          height="1080"
-          loading="lazy">
-      {%- endif -%}
-    </div>
-
-    <div class="why__copy reveal" data-delay="2">
+    <div class="why__copy reveal" data-delay="1">
+      <p class="ct-eyebrow">{{ section.settings.eyebrow | default: 'Snack smarter' }}</p>
       <h2>
         {%- if heading contains accent_word and accent_word != blank -%}
           {%- assign parts = heading | split: accent_word -%}
@@ -77,6 +53,38 @@
         {%- endif -%}
       </div>
     </div>
+
+    <div class="why__stats reveal" data-delay="2">
+      <div class="why-stat why-stat--wide">
+        <div>
+          <strong>{{ section.settings.stat_1_value | default: '20g' }}</strong>
+          <span>{{ section.settings.stat_1_label | default: 'Plant protein / serve' }}</span>
+        </div>
+        {%- if media_image != blank -%}
+          <img
+            src="{{ media_image | image_url: width: 420 }}"
+            alt="{{ media_image.alt | default: shop.name | escape }}"
+            width="{{ media_image.width }}"
+            height="{{ media_image.height }}"
+            loading="lazy">
+        {%- else -%}
+          <img
+            src="{{ 'watermelon-fella.png' | asset_url }}"
+            alt="ChewTeinz Sour Watermelon mascot"
+            width="512"
+            height="332"
+            loading="lazy">
+        {%- endif -%}
+      </div>
+      <div class="why-stat why-stat--pink">
+        <strong>{{ section.settings.stat_2_value | default: '3' }}</strong>
+        <span>{{ section.settings.stat_2_label | default: 'Servings / bag' }}</span>
+      </div>
+      <div class="why-stat why-stat--blue">
+        <strong>{{ section.settings.stat_3_value | default: '100%' }}</strong>
+        <span>{{ section.settings.stat_3_label | default: 'Plant based' }}</span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -85,10 +93,16 @@
     "name": "Why Us",
     "settings": [
       {
+        "type": "text",
+        "id": "eyebrow",
+        "label": "Eyebrow",
+        "default": "Snack smarter"
+      },
+      {
         "type": "image_picker",
         "id": "media_image",
         "label": "Media image",
-        "info": "Optional. If empty, the theme uses the built-in Mango Madness benefits graphic (assets/why-us-graphic.png)."
+        "info": "Optional stat-card image or mascot."
       },
       {
         "type": "text",
@@ -113,6 +127,36 @@
         "id": "body_2",
         "label": "Body paragraph 2",
         "default": "Whether it's post-workout, mid-study, or just when cravings hit — ChewTeinz let you snack happy and guilt-free."
+      }, {
+        "type": "text",
+        "id": "stat_1_value",
+        "label": "Stat 1 value",
+        "default": "20g"
+      }, {
+        "type": "text",
+        "id": "stat_1_label",
+        "label": "Stat 1 label",
+        "default": "Plant protein / serve"
+      }, {
+        "type": "text",
+        "id": "stat_2_value",
+        "label": "Stat 2 value",
+        "default": "3"
+      }, {
+        "type": "text",
+        "id": "stat_2_label",
+        "label": "Stat 2 label",
+        "default": "Servings / bag"
+      }, {
+        "type": "text",
+        "id": "stat_3_value",
+        "label": "Stat 3 value",
+        "default": "100%"
+      }, {
+        "type": "text",
+        "id": "stat_3_label",
+        "label": "Stat 3 label",
+        "default": "Plant based"
       }
     ],
     "blocks": [
