@@ -87,6 +87,26 @@
   }
 
   // -------------------------------------------------------------- //
+  // Waitlist anchor — scroll card to viewport center               //
+  // -------------------------------------------------------------- //
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest && e.target.closest('a[href="#ct-waitlist"]');
+    if (!link) return;
+
+    var waitlistCard = document.querySelector('#ct-waitlist .waitlist-card');
+    if (!waitlistCard) return;
+
+    e.preventDefault();
+    waitlistCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    if (history.replaceState) {
+      history.replaceState(null, '', '#ct-waitlist');
+    } else {
+      window.location.hash = 'ct-waitlist';
+    }
+  });
+
+  // -------------------------------------------------------------- //
   // Homepage waitlist signup                                       //
   // -------------------------------------------------------------- //
   document.addEventListener('submit', function (e) {

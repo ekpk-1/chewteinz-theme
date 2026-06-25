@@ -96,12 +96,11 @@
                 {{ block.settings.available_button_label | default: 'Add to cart' }}
               </button>
             {%- else -%}
-              <button
-                type="button"
-                class="btn btn--ghost btn--block lineup-card__button"
-                onclick="window.modals && window.modals.openSubscribe({{ card_title | json }})">
+              <a
+                href="#ct-waitlist"
+                class="btn btn--ghost btn--block lineup-card__button">
                 {{ block.settings.waitlist_button_label | default: 'Join the waitlist' }}
-              </button>
+              </a>
             {%- endif -%}
           </div>
         </article>
