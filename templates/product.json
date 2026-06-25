@@ -1,6 +1,105 @@
 {
   "sections": {
-    "main": { "type": "featured-product", "settings": {} }
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "review_tara": {
+          "type": "review",
+          "settings": {
+            "name": "Tara M.",
+            "stars": 5,
+            "date": "2 weeks ago",
+            "title": "Tastes like actual lollies",
+            "body": "I cannot believe these are sugar free. The mango is unreal and I get 20g of protein - my 3pm snack is sorted for good."
+          }
+        },
+        "review_josh": {
+          "type": "review",
+          "settings": {
+            "name": "Josh R.",
+            "stars": 5,
+            "date": "1 month ago",
+            "title": "Post-gym go-to",
+            "body": "Chewy, not chalky. So much nicer than choking down another shake. The bag never lasts long in my house."
+          }
+        },
+        "review_priya": {
+          "type": "review",
+          "settings": {
+            "name": "Priya K.",
+            "stars": 5,
+            "date": "1 month ago",
+            "title": "No bloat, no crash",
+            "body": "Plant protein my stomach actually likes. Sweet without the sugar high afterwards. Already on my second order."
+          }
+        },
+        "review_dan": {
+          "type": "review",
+          "settings": {
+            "name": "Dan W.",
+            "stars": 4,
+            "date": "3 weeks ago",
+            "title": "Great - bring on watermelon",
+            "body": "Mango is delicious. Only knocking a star because I want the other flavours yesterday. Hurry up!"
+          }
+        },
+        "flavour_watermelon": {
+          "type": "flavour",
+          "settings": {
+            "title": "Sour Watermelon",
+            "badge": "Coming soon · $13.99",
+            "description": "Tangy-sweet watermelon with a proper sour kick.",
+            "soft_color": "#F4D7D2",
+            "deep_color": "#A85B50"
+          }
+        },
+        "flavour_blueberry": {
+          "type": "flavour",
+          "settings": {
+            "title": "Blueberry",
+            "badge": "Coming soon · $13.99",
+            "description": "Juicy wild blueberry, deep, mellow and moreish.",
+            "soft_color": "#D9DFF1",
+            "deep_color": "#53609A"
+          }
+        },
+        "flavour_mango_travel": {
+          "type": "flavour",
+          "settings": {
+            "title": "Mango Madness · Travel",
+            "badge": "Coming soon · $13.99",
+            "description": "Same Mango Madness, in a grab-and-go 90g pack.",
+            "soft_color": "#F6E1C6",
+            "deep_color": "#A06E37"
+          }
+        }
+      },
+      "block_order": ["review_tara", "review_josh", "review_priya", "review_dan", "flavour_watermelon", "flavour_blueberry", "flavour_mango_travel"],
+      "settings": {
+        "description_override": "Tropical mango wrapped in a pillowy plant-protein gummy. 20g of pea & rice protein per serving, zero added sugar, and a real hit of sunshine in every chew.",
+        "price_meta": "AUD · 1 bag · 180g each · 20g protein/serve",
+        "variant_note": "$25.00 per bag - upgrade to a multipack & save up to 30%",
+        "pack_single_label": "Single Bag",
+        "pack_3_variant_id": "59203203334225",
+        "pack_3_label": "3-Pack",
+        "pack_3_price_label": "$65.00",
+        "pack_3_price_cents": "6500",
+        "pack_3_unit_price_label": "$21.67",
+        "pack_3_save_amount_label": "$10.00",
+        "pack_3_save_percent": "15",
+        "pack_3_disabled": false,
+        "pack_10_variant_id": "59214437351505",
+        "pack_10_label": "10-Pack",
+        "pack_10_price_label": "$175.00",
+        "pack_10_price_cents": "17500",
+        "pack_10_unit_price_label": "$17.50",
+        "pack_10_save_amount_label": "$75.00",
+        "pack_10_save_percent": "30",
+        "pack_10_disabled": false,
+        "info_1_text": "Organic pea & rice protein, allulose, stevia & real fruit. 100% plant based, gluten free, no artificial colours.",
+        "related_link_label": "View details →"
+      }
+    }
   },
   "order": ["main"]
 }

@@ -1,0 +1,1684 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign soft_color = section.settings.soft_color | default: '#F6E1C6'
+  assign deep_color = section.settings.deep_color | default: '#A06E37'
+  assign badge = section.settings.badge
+  if badge == blank
+    if product.available
+      assign badge = section.settings.available_badge
+    else
+      assign badge = section.settings.sold_out_badge
+    endif
+  endif
+
+  assign has_flavour_blocks = false
+  for block in section.blocks
+    if block.type == 'flavour'
+      assign has_flavour_blocks = true
+    endif
+  endfor
+-%}
+
+<section class="ct-section product-main" data-ct-product-section data-currency="{{ cart.currency.iso_code | default: shop.currency }}" style="--product-soft: {{ soft_color }}; --product-deep: {{ deep_color }};">
+  <div class="ct-container">
+    <div class="product-main__nav">
+      <a class="product-main__back" href="{{ routes.root_url }}#ct-shop">{{ section.settings.back_label }}</a>
+      {%- if section.settings.show_product_jump and has_flavour_blocks -%}
+        <label class="product-main__jump">
+          <span>{{ section.settings.jump_label }}</span>
+          <select data-ct-product-jump>
+            <option value="{{ product.url }}" selected>{{ product.title }}</option>
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'flavour' -%}
+                {%- liquid
+                  assign flavour_product = block.settings.product
+                  assign flavour_title = block.settings.title
+                  if flavour_title == blank and flavour_product != blank
+                    assign flavour_title = flavour_product.title
+                  endif
+
+                  assign flavour_url = block.settings.link
+                  if flavour_url == blank and flavour_product != blank
+                    assign flavour_url = flavour_product.url
+                  endif
+                  if flavour_url == blank
+                    assign flavour_url = '#ct-waitlist'
+                  endif
+
+                  assign flavour_badge = block.settings.badge
+                -%}
+                {%- if flavour_title != blank -%}
+                  <option value="{{ flavour_url }}">{{ flavour_title }}{% if flavour_badge contains 'Coming soon' %} - soon{% endif %}</option>
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </select>
+        </label>
+      {%- endif -%}
+    </div>
+
+    <div class="product-main__inner">
+      <div class="product-main__gallery reveal" data-delay="1">
+        <div class="product-main__media">
+          {%- if badge != blank -%}
+            <span class="product-main__badge">{{ badge }}</span>
+          {%- endif -%}
+
+          <img
+            data-ct-product-main-image
+            src="{{ 'bag-mango.png' | asset_url }}"
+            alt="{{ product.title | escape }}"
+            width="874"
+            height="1184">
+        </div>
+
+        <div class="product-main__thumbs" aria-label="Product images">
+          <button
+            type="button"
+            class="product-main__thumb is-active"
+            data-ct-product-thumb
+            data-image-src="{{ 'bag-mango.png' | asset_url }}"
+            data-image-srcset=""
+            data-image-alt="{{ product.title | escape }}"
+            aria-label="Show {{ product.title | escape }} front">
+            <img src="{{ 'bag-mango.png' | asset_url }}" alt="{{ product.title | escape }}" width="874" height="1184" loading="lazy">
+          </button>
+          <button
+            type="button"
+            class="product-main__thumb"
+            data-ct-product-thumb
+            data-image-src="{{ 'bag-mango.png' | asset_url }}"
+            data-image-srcset=""
+            data-image-alt="{{ product.title | escape }}"
+            aria-label="Show {{ product.title | escape }} pack">
+            <img src="{{ 'bag-mango.png' | asset_url }}" alt="{{ product.title | escape }}" width="874" height="1184" loading="lazy">
+          </button>
+          <button
+            type="button"
+            class="product-main__thumb"
+            data-ct-product-thumb
+            data-image-src="{{ 'mango-nutrition-info.png' | asset_url }}"
+            data-image-srcset=""
+            data-image-alt="{{ product.title | escape }} nutrition information"
+            aria-label="Show {{ product.title | escape }} nutrition information">
+            <img src="{{ 'mango-nutrition-info.png' | asset_url }}" alt="{{ product.title | escape }} nutrition information" width="1024" height="657" loading="lazy">
+          </button>
+        </div>
+      </div>
+
+      <div class="product-main__content reveal" data-delay="2">
+        <h1>{{ product.title }}</h1>
+
+        {%- if section.settings.show_rating -%}
+          <div class="product-main__rating" aria-label="{{ section.settings.rating_label | escape }}">
+            <span aria-hidden="true">★★★★★</span>
+            <strong>{{ section.settings.rating_score }}</strong>
+            <span>{{ section.settings.rating_text }}</span>
+          </div>
+        {%- endif -%}
+
+        <div class="product-main__description">
+          {%- if section.settings.description_override != blank -%}
+            {{ section.settings.description_override }}
+          {%- else -%}
+            {{ product.description | strip_html | truncate: 210 }}
+          {%- endif -%}
+        </div>
+
+        <div class="product-main__price">
+          <span data-ct-product-price>{{ current_variant.price | money }}</span>
+          {%- if current_variant.compare_at_price > current_variant.price -%}
+            <s data-ct-product-compare-price>{{ current_variant.compare_at_price | money }}</s>
+          {%- else -%}
+            <s data-ct-product-compare-price hidden></s>
+          {%- endif -%}
+          {%- if section.settings.price_meta != blank -%}
+            <small data-ct-product-price-meta>{{ section.settings.price_meta }}</small>
+          {%- endif -%}
+        </div>
+
+        <div class="product-main__pills" aria-label="Product highlights">
+          {%- if section.settings.pill_1 != blank -%}
+            <span class="pill"><span class="dot" style="--dot: var(--c-pink)"></span>{{ section.settings.pill_1 }}</span>
+          {%- endif -%}
+          {%- if section.settings.pill_2 != blank -%}
+            <span class="pill"><span class="dot" style="--dot: var(--c-green)"></span>{{ section.settings.pill_2 }}</span>
+          {%- endif -%}
+          {%- if section.settings.pill_3 != blank -%}
+            <span class="pill"><span class="dot" style="--dot: var(--c-purple)"></span>{{ section.settings.pill_3 }}</span>
+          {%- endif -%}
+        </div>
+
+        {%- form 'product', product, class: 'product-main__form', data-ct-product-form: '' -%}
+          <input type="hidden" name="id" value="{{ current_variant.id }}" data-ct-variant-input>
+
+          <div class="product-main__selector-head">
+            <label for="ProductSelect-{{ section.id }}">{{ section.settings.variant_label }}</label>
+            {%- if section.settings.variant_badge != blank -%}
+              <span>{{ section.settings.variant_badge }}</span>
+            {%- endif -%}
+          </div>
+
+          <select id="ProductSelect-{{ section.id }}" class="product-main__select" data-ct-variant-select>
+            {%- if section.settings.pack_3_variant_id != blank or section.settings.pack_10_variant_id != blank -%}
+              <option
+                value="{{ current_variant.id }}"
+                data-price="{{ current_variant.price | money }}"
+                data-price-cents="{{ current_variant.price }}"
+                data-price-meta="AUD · 1 bag · 180g each · 20g protein/serve"
+                data-compare-price="{% if current_variant.compare_at_price > current_variant.price %}{{ current_variant.compare_at_price | money }}{% endif %}"
+                data-available="{% if current_variant.available %}true{% else %}false{% endif %}"
+                data-units="1"
+                data-unit-price="{{ current_variant.price | money }}"
+                data-save-amount="{{ 0 | money }}"
+                data-save-percent="0"
+                selected
+                {% unless current_variant.available %}disabled{% endunless %}>
+                {{ section.settings.pack_single_label }} · {{ current_variant.price | money }}
+              </option>
+              {%- if section.settings.pack_3_variant_id != blank -%}
+                <option
+                  value="{{ section.settings.pack_3_variant_id | strip }}"
+                  data-price="{{ section.settings.pack_3_price_label }}"
+                  data-price-cents="{{ section.settings.pack_3_price_cents | strip }}"
+                  data-price-meta="AUD · 3 bags · 180g each · 20g protein/serve"
+                  data-compare-price=""
+                  data-available="true"
+                  data-units="3"
+                  data-unit-price="{{ section.settings.pack_3_unit_price_label }}"
+                  data-save-amount="{{ section.settings.pack_3_save_amount_label }}"
+                  data-save-percent="{{ section.settings.pack_3_save_percent }}"
+                  {% if section.settings.pack_3_disabled %}disabled{% endif %}>
+                  {{ section.settings.pack_3_label }} · {{ section.settings.pack_3_price_label }} - Save {{ section.settings.pack_3_save_percent }}% (most popular)
+                </option>
+              {%- endif -%}
+              {%- if section.settings.pack_10_variant_id != blank -%}
+                <option
+                  value="{{ section.settings.pack_10_variant_id | strip }}"
+                  data-price="{{ section.settings.pack_10_price_label }}"
+                  data-price-cents="{{ section.settings.pack_10_price_cents | strip }}"
+                  data-price-meta="AUD · 10 bags · 180g each · 20g protein/serve"
+                  data-compare-price=""
+                  data-available="true"
+                  data-units="10"
+                  data-unit-price="{{ section.settings.pack_10_unit_price_label }}"
+                  data-save-amount="{{ section.settings.pack_10_save_amount_label }}"
+                  data-save-percent="{{ section.settings.pack_10_save_percent }}"
+                  {% if section.settings.pack_10_disabled %}disabled{% endif %}>
+                  {{ section.settings.pack_10_label }} · {{ section.settings.pack_10_price_label }} - Save {{ section.settings.pack_10_save_percent }}% (best value)
+                </option>
+              {%- endif -%}
+            {%- else -%}
+              {%- for variant in product.variants -%}
+              {%- liquid
+                assign variant_units = 1
+                assign variant_title = variant.title | downcase
+                if variant_title contains '10'
+                  assign variant_units = 10
+                  assign pack_label = '10-Pack'
+                  assign pack_tag = 'best value'
+                elsif variant_title contains '3'
+                  assign variant_units = 3
+                  assign pack_label = '3-Pack'
+                  assign pack_tag = 'most popular'
+                else
+                  assign pack_label = 'Single Bag'
+                  assign pack_tag = ''
+                endif
+
+                assign variant_unit_price = variant.price | divided_by: variant_units
+                assign base_total = product.variants.first.price | times: variant_units
+                assign save_amount = base_total | minus: variant.price
+                assign save_percent = 0
+                if save_amount > 0 and base_total > 0
+                  assign save_percent = save_amount | times: 100 | divided_by: base_total
+                endif
+
+                capture variant_price_meta
+                  echo 'AUD · '
+                  echo variant_units
+                  if variant_units > 1
+                    echo ' bags · 180g each · 20g protein/serve'
+                  else
+                    echo ' bag · 180g each · 20g protein/serve'
+                  endif
+                endcapture
+              -%}
+              <option
+                value="{{ variant.id }}"
+                data-price="{{ variant.price | money }}"
+                data-price-cents="{{ variant.price }}"
+                data-price-meta="{{ variant_price_meta | strip | escape }}"
+                data-compare-price="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money }}{% endif %}"
+                data-available="{% if variant.available %}true{% else %}false{% endif %}"
+                data-units="{{ variant_units }}"
+                data-unit-price="{{ variant_unit_price | money }}"
+                data-save-amount="{{ save_amount | money }}"
+                data-save-percent="{{ save_percent }}"
+                {% if variant == current_variant %}selected{% endif %}
+                {% unless variant.available %}disabled{% endunless %}>
+                {{ pack_label }} · {{ variant.price | money }}{% if save_percent > 0 %} - Save {{ save_percent }}%{% endif %}{% if pack_tag != blank %} ({{ pack_tag }}){% endif %}
+              </option>
+              {%- endfor -%}
+            {%- endif -%}
+          </select>
+
+          <p class="product-main__variant-note" data-ct-variant-note data-default-note="{{ section.settings.variant_note | escape }}">{{ section.settings.variant_note }}</p>
+
+          <div class="product-main__purchase">
+            <div class="product-main__quantity" data-ct-quantity>
+              <button type="button" data-ct-quantity-minus aria-label="Decrease quantity">-</button>
+              <input type="number" name="quantity" value="1" min="1" data-ct-quantity-input aria-label="Quantity">
+              <button type="button" data-ct-quantity-plus aria-label="Increase quantity">+</button>
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn--lg btn--shadow product-main__add"
+              data-ct-product-submit
+              data-add-label="{{ section.settings.add_to_cart_label | escape }}"
+              data-sold-out-label="{{ section.settings.sold_out_label | escape }}"
+              {% unless current_variant.available %}disabled{% endunless %}>
+              <span data-ct-product-submit-label>
+                {%- if current_variant.available -%}
+                  {{ section.settings.add_to_cart_label }} · {{ current_variant.price | money }} →
+                {%- else -%}
+                  {{ section.settings.sold_out_label }}
+                {%- endif -%}
+              </span>
+            </button>
+          </div>
+        {%- endform -%}
+
+        <div class="product-main__trust" aria-label="Purchase benefits">
+          {%- if section.settings.trust_1 != blank -%}
+            <span>{{ section.settings.trust_1 }}</span>
+          {%- endif -%}
+          {%- if section.settings.trust_2 != blank -%}
+            <span>{{ section.settings.trust_2 }}</span>
+          {%- endif -%}
+          {%- if section.settings.trust_3 != blank -%}
+            <span>{{ section.settings.trust_3 }}</span>
+          {%- endif -%}
+        </div>
+
+        <div class="macro-strip" aria-label="Nutrition highlights">
+          <div>
+            <strong>{{ section.settings.macro_1_value }}</strong>
+            <span>{{ section.settings.macro_1_label }}</span>
+          </div>
+          <div>
+            <strong>{{ section.settings.macro_2_value }}</strong>
+            <span>{{ section.settings.macro_2_label }}</span>
+          </div>
+          <div>
+            <strong>{{ section.settings.macro_3_value }}</strong>
+            <span>{{ section.settings.macro_3_label }}</span>
+          </div>
+          <div>
+            <strong>{{ section.settings.macro_4_value }}</strong>
+            <span>{{ section.settings.macro_4_label }}</span>
+          </div>
+        </div>
+
+        <div class="product-main__info-grid">
+          <article>
+            <h2>{{ section.settings.info_1_title }}</h2>
+            <p>{{ section.settings.info_1_text }}</p>
+            {%- if section.settings.show_nutrition_link -%}
+              <button type="button" onclick="window.modals && window.modals.openNutrition('{{ product.title | escape }}')">{{ section.settings.nutrition_link_label }}</button>
+            {%- endif -%}
+          </article>
+          <article>
+            <h2>{{ section.settings.info_2_title }}</h2>
+            <p>{{ section.settings.info_2_text }}</p>
+          </article>
+        </div>
+      </div>
+    </div>
+
+      {%- assign has_reviews = false -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'review' -%}
+          {%- assign has_reviews = true -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- if has_reviews -%}
+        <section class="product-main__reviews" aria-labelledby="ProductReviews-{{ section.id }}">
+          <div class="product-main__reviews-head">
+            <h2 id="ProductReviews-{{ section.id }}">{{ section.settings.reviews_heading }}</h2>
+            <div>
+              <span aria-hidden="true">★★★★★</span>
+              <strong>{{ section.settings.rating_score }} · {{ section.settings.rating_text }}</strong>
+            </div>
+          </div>
+          <div class="product-main__reviews-grid">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'review' -%}
+                {%- assign review_stars = '★★★★★' | slice: 0, block.settings.stars -%}
+                <article class="product-main__review" {{ block.shopify_attributes }}>
+                  <div class="product-main__review-head">
+                    <span>{{ block.settings.name | slice: 0, 1 }}</span>
+                    <div>
+                      <strong>{{ block.settings.name }}</strong>
+                      <em>{{ section.settings.verified_label }}</em>
+                    </div>
+                    <small>{{ block.settings.date }}</small>
+                  </div>
+                  <div class="product-main__review-stars" aria-label="{{ block.settings.stars }} out of 5 stars">{{ review_stars }}</div>
+                  <h3>{{ block.settings.title }}</h3>
+                  <p>{{ block.settings.body }}</p>
+                </article>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </section>
+      {%- endif -%}
+
+      {%- if section.settings.show_related and has_flavour_blocks -%}
+        <section class="product-main__related" aria-labelledby="ProductRelated-{{ section.id }}">
+          <h2 id="ProductRelated-{{ section.id }}">{{ section.settings.related_heading }}</h2>
+          <div class="product-main__related-grid">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'flavour' -%}
+                {%- liquid
+                  assign flavour_product = block.settings.product
+                  assign flavour_title = block.settings.title
+                  if flavour_title == blank and flavour_product != blank
+                    assign flavour_title = flavour_product.title
+                  endif
+
+                  assign flavour_url = block.settings.link
+                  if flavour_url == blank and flavour_product != blank
+                    assign flavour_url = flavour_product.url
+                  endif
+                  if flavour_url == blank
+                    assign flavour_url = '#ct-waitlist'
+                  endif
+
+                  assign flavour_image = block.settings.image
+                  if flavour_image == blank and flavour_product != blank
+                    assign flavour_image = flavour_product.featured_image
+                  endif
+
+                  assign flavour_badge = block.settings.badge
+                  if flavour_badge == blank
+                    if flavour_product != blank and flavour_product.available
+                      assign flavour_badge = flavour_product.price | money
+                    else
+                      assign flavour_badge = section.settings.related_coming_soon_label
+                    endif
+                  endif
+
+                  assign fallback_asset = blank
+                  assign flavour_title_downcase = flavour_title | downcase
+                  if flavour_title_downcase contains 'watermelon'
+                    assign fallback_asset = 'bag-watermelon.png'
+                  elsif flavour_title_downcase contains 'blueberry'
+                    assign fallback_asset = 'bag-blueberry.png'
+                  elsif flavour_title_downcase contains 'travel'
+                    assign fallback_asset = 'bag-mango-travel.png'
+                  endif
+                -%}
+                {%- if flavour_title != blank -%}
+                  <a class="product-main__related-card" href="{{ flavour_url }}" style="--flavour-soft: {{ block.settings.soft_color }}; --flavour-deep: {{ block.settings.deep_color }};" {{ block.shopify_attributes }}>
+                    <div>
+                      {%- if flavour_image != blank -%}
+                        <img
+                          src="{{ flavour_image | image_url: width: 420 }}"
+                          alt="{{ flavour_image.alt | default: flavour_title | escape }}"
+                          width="{{ flavour_image.width }}"
+                          height="{{ flavour_image.height }}"
+                          loading="lazy">
+                      {%- elsif fallback_asset != blank -%}
+                        <img
+                          src="{{ fallback_asset | asset_url }}"
+                          alt="{{ flavour_title | escape }}"
+                          width="874"
+                          height="1184"
+                          loading="lazy">
+                      {%- else -%}
+                        <span>{{ flavour_title | slice: 0, 1 }}</span>
+                      {%- endif -%}
+                    </div>
+                    <strong>{{ flavour_title }}</strong>
+                    <small>{{ flavour_badge }}</small>
+                    <em>{{ section.settings.related_link_label }}</em>
+                  </a>
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </section>
+      {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .product-main {
+    padding-block: clamp(var(--s-10), 6vw, var(--s-20));
+    background: var(--c-cream);
+  }
+
+  .product-main__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-4);
+    flex-wrap: wrap;
+    margin-bottom: var(--s-6);
+  }
+
+  .product-main__back,
+  .product-main__jump select {
+    display: inline-flex;
+    align-items: center;
+    min-height: 42px;
+    border: 1.5px solid var(--c-ink);
+    border-radius: var(--r-pill);
+    background: var(--c-paper);
+    color: var(--c-ink);
+    font-weight: 800;
+  }
+
+  .product-main__back {
+    gap: var(--s-2);
+    padding: 0 1.125rem;
+  }
+
+  .product-main__back:before {
+    content: "\2190";
+  }
+
+  .product-main__jump {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-3);
+    color: var(--c-ink-soft);
+    font-size: .82rem;
+    font-weight: 800;
+  }
+
+  .product-main__jump select {
+    padding: 0 1rem;
+    outline: none;
+  }
+
+  .product-main__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 52px;
+    align-items: start;
+  }
+
+  .product-main__gallery {
+    position: relative;
+  }
+
+  .product-main__media {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1 / 1;
+    padding: 24px;
+    border: 1.5px solid var(--c-ink);
+    border-radius: 26px;
+    background: var(--flavour-soft, var(--product-soft));
+    box-shadow: 6px 6px 0 var(--c-ink);
+    overflow: hidden;
+  }
+
+  .product-main__media img {
+    width: auto;
+    height: auto;
+    max-width: 88%;
+    max-height: 88%;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 26px rgba(58, 51, 44, .24));
+  }
+
+  .product-main__badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 2;
+    padding: .3125rem .75rem;
+    border: 1.5px solid var(--c-ink);
+    border-radius: var(--r-pill);
+    background: var(--product-deep);
+    color: var(--c-paper);
+    font-family: Fredoka, system-ui, sans-serif;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+  }
+
+  .product-main__placeholder {
+    display: grid;
+    place-items: center;
+    width: 60%;
+    aspect-ratio: 1;
+    border-radius: 28px;
+    background: var(--c-paper);
+    color: rgba(58, 51, 44, .2);
+    font-family: Fredoka, system-ui, sans-serif;
+    font-size: clamp(6rem, 16vw, 12rem);
+    font-weight: 700;
+  }
+
+  .product-main__thumbs {
+    display: flex;
+    gap: var(--s-3);
+    margin-top: var(--s-4);
+  }
+
+  .product-main__thumb {
+    width: 74px;
+    height: 74px;
+    display: grid;
+    place-items: center;
+    padding: 6px;
+    border: 2px solid rgba(58,51,44,.2);
+    border-radius: 14px;
+    background: var(--c-paper);
+    overflow: hidden;
+    transition: border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+  }
+
+  .product-main__thumb:hover,
+  .product-main__thumb.is-active {
+    border-color: var(--c-ink);
+    transform: translateY(-1px);
+  }
+
+  .product-main__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .product-main__content h1 {
+    font-size: clamp(2.35rem, 5vw, 4rem);
+  }
+
+  .product-main__rating {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .45rem;
+    margin-top: var(--s-3);
+    color: var(--c-ink-soft);
+    font-size: .875rem;
+  }
+
+  .product-main__rating span:first-child {
+    color: var(--c-orange);
+    letter-spacing: .08em;
+  }
+
+  .product-main__description {
+    margin-top: var(--s-4);
+    color: var(--c-ink-soft);
+    font-size: 1.05rem;
+    line-height: 1.65;
+    max-width: 62ch;
+  }
+
+  .product-main__price {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-3);
+    margin-top: var(--s-5);
+    font-family: Fredoka, system-ui, sans-serif;
+    font-weight: 700;
+  }
+
+  .product-main__price span {
+    font-size: 2.2rem;
+  }
+
+  .product-main__price s {
+    color: var(--c-ink-mute);
+    font-size: 1.15rem;
+  }
+
+  .product-main__price small {
+    color: var(--c-ink-mute);
+    font-family: Nunito, system-ui, sans-serif;
+    font-size: .875rem;
+    font-weight: 700;
+  }
+
+  .product-main__pills,
+  .product-main__trust {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    margin-top: var(--s-4);
+  }
+
+  .product-main__form {
+    margin-top: var(--s-5);
+  }
+
+  .product-main__selector-head {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    margin-bottom: var(--s-2);
+  }
+
+  .product-main__selector-head label {
+    font-family: Fredoka, system-ui, sans-serif;
+    font-weight: 700;
+  }
+
+  .product-main__selector-head span {
+    padding: .25rem .55rem;
+    border-radius: var(--r-pill);
+    background: var(--c-yellow);
+    color: var(--c-ink);
+    font-size: .68rem;
+    font-weight: 900;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .product-main__select {
+    width: 100%;
+    min-height: 54px;
+    padding: 0 1.2rem;
+    border: 1.5px solid var(--c-ink);
+    border-radius: 18px;
+    background: var(--c-paper);
+    color: var(--c-ink);
+    font-weight: 800;
+    outline: none;
+  }
+
+  .product-main__variant-note {
+    margin-top: var(--s-2);
+    color: var(--c-ink-mute);
+    font-size: .82rem;
+    font-weight: 700;
+  }
+
+  .product-main__variant-note.is-saving {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    padding: .55rem 1rem;
+    border: 1.5px solid var(--c-ink);
+    border-radius: var(--r-pill);
+    background: #dee9d2;
+    color: #2e2823;
+    font-weight: 900;
+  }
+
+  .product-main__variant-note.is-saving:before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border: 1.5px solid var(--c-ink);
+    border-radius: 50%;
+    background: var(--c-green);
+  }
+
+  .product-main__purchase {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--s-3);
+    margin-top: var(--s-5);
+  }
+
+  .product-main__quantity {
+    display: grid;
+    grid-template-columns: 42px 46px 42px;
+    align-items: center;
+    min-height: 58px;
+    border: 1.5px solid var(--c-ink);
+    border-radius: var(--r-pill);
+    background: var(--c-paper);
+    overflow: hidden;
+  }
+
+  .product-main__quantity button {
+    height: 100%;
+    display: grid;
+    place-items: center;
+    font-family: Fredoka, system-ui, sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+
+  .product-main__quantity input {
+    width: 100%;
+    border: 0;
+    background: transparent;
+    text-align: center;
+    font-weight: 800;
+    outline: none;
+    appearance: textfield;
+  }
+
+  .product-main__quantity input::-webkit-inner-spin-button,
+  .product-main__quantity input::-webkit-outer-spin-button {
+    appearance: none;
+    margin: 0;
+  }
+
+  .product-main__add {
+    width: 100%;
+  }
+
+  .product-main__add:disabled {
+    opacity: .55;
+    pointer-events: none;
+  }
+
+  .product-main__trust {
+    font-size: .8rem;
+    font-weight: 800;
+  }
+
+  .product-main__trust span {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    color: var(--c-ink-soft);
+  }
+
+  .product-main__trust span:before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--c-green);
+    border: 1px solid rgba(58, 51, 44, .18);
+  }
+
+  .product-main__info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-3);
+    margin-top: var(--s-4);
+  }
+
+  .product-main__info-grid article {
+    padding: var(--s-5);
+    border: 1.5px solid var(--c-ink);
+    border-radius: 18px;
+    background: var(--c-paper);
+  }
+
+  .product-main__info-grid h2 {
+    font-size: 1rem;
+    margin-bottom: var(--s-2);
+  }
+
+  .product-main__info-grid p {
+    color: var(--c-ink-soft);
+    font-size: .88rem;
+    line-height: 1.55;
+  }
+
+  .product-main__info-grid button {
+    margin-top: var(--s-2);
+    color: var(--c-pink-deep);
+    font-size: .82rem;
+    font-weight: 900;
+    text-decoration: underline;
+    text-underline-offset: .2em;
+  }
+
+  .product-main__reviews,
+  .product-main__related {
+    margin-top: var(--s-16);
+    padding-top: var(--s-10);
+    border-top: 1.5px solid var(--c-hairline);
+  }
+
+  .product-main__reviews-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-4);
+    flex-wrap: wrap;
+    margin-bottom: var(--s-6);
+  }
+
+  .product-main__reviews-head h2,
+  .product-main__related h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.55rem);
+  }
+
+  .product-main__reviews-head div {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-3);
+    font-size: .9rem;
+    font-weight: 900;
+  }
+
+  .product-main__reviews-head span,
+  .product-main__review-stars {
+    color: var(--c-orange);
+    letter-spacing: .1em;
+  }
+
+  .product-main__reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .product-main__review {
+    padding: 16px 18px 18px;
+    border: 1.5px solid var(--c-ink);
+    border-radius: 20px;
+    background: var(--c-paper);
+    box-shadow: 4px 4px 0 var(--c-ink);
+  }
+
+  .product-main__review-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+
+  .product-main__review-head > span {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border: 1.5px solid var(--c-ink);
+    border-radius: 50%;
+    background: #f6e1c6;
+    font-family: Fredoka, system-ui, sans-serif;
+    font-size: .9rem;
+    font-weight: 700;
+  }
+
+  .product-main__review-head strong,
+  .product-main__review-head small,
+  .product-main__review-head em {
+    display: block;
+  }
+
+  .product-main__review-head > div {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .product-main__review-head strong {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: .88rem;
+    font-weight: 900;
+  }
+
+  .product-main__review-head em {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: 6px;
+    color: #5c8c4e;
+    font-style: normal;
+    font-size: .68rem;
+    font-weight: 900;
+    vertical-align: middle;
+  }
+
+  .product-main__review-head em:before {
+    content: "\2713";
+    width: 14px;
+    height: 14px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--c-green);
+    color: var(--c-paper);
+    font-size: .55rem;
+    line-height: 1;
+  }
+
+  .product-main__review-head small {
+    color: var(--c-ink-mute);
+    font-size: .7rem;
+    font-weight: 800;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  .product-main__review-stars {
+    font-size: .78rem;
+    line-height: 1;
+  }
+
+  .product-main__review h3 {
+    margin-top: 8px;
+    font-size: .95rem;
+    line-height: 1.15;
+  }
+
+  .product-main__review p {
+    margin-top: 8px;
+    color: var(--c-ink-soft);
+    font-size: .86rem;
+    line-height: 1.45;
+  }
+
+  .product-main__related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    margin-top: var(--s-6);
+  }
+
+  .product-main__related-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1.5px solid var(--c-ink);
+    border-radius: 24px;
+    background: var(--c-paper);
+    box-shadow: 5px 5px 0 var(--c-ink);
+    transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+  }
+
+  .product-main__related-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 var(--c-ink);
+  }
+
+  .product-main__related-card > div {
+    min-height: 172px;
+    display: grid;
+    place-items: center;
+    padding: 18px;
+    border-bottom: 1.5px solid var(--c-ink);
+    background: var(--flavour-soft, var(--product-soft));
+  }
+
+  .product-main__related-card img {
+    width: auto;
+    height: 128px;
+    max-width: 80%;
+    object-fit: contain;
+    filter: drop-shadow(0 12px 16px rgba(58, 51, 44, .2));
+  }
+
+  .product-main__related-card > strong,
+  .product-main__related-card > small,
+  .product-main__related-card > em {
+    margin-inline: 20px;
+  }
+
+  .product-main__related-card > strong {
+    margin-top: 18px;
+    font-family: Fredoka, system-ui, sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.1;
+  }
+
+  .product-main__related-card > small {
+    margin-top: var(--s-1);
+    color: var(--flavour-deep, var(--product-deep));
+    font-size: .82rem;
+    font-weight: 900;
+  }
+
+  .product-main__related-card > p {
+    margin: var(--s-2) var(--s-5) 0;
+    color: var(--c-ink-soft);
+    font-size: .9rem;
+    line-height: 1.45;
+  }
+
+  .product-main__related-card > em {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: var(--c-ink);
+    font-style: normal;
+    font-size: .82rem;
+    font-weight: 900;
+  }
+
+  @media (max-width: 920px) {
+    .product-main__inner {
+      grid-template-columns: 1fr;
+      gap: var(--s-8);
+    }
+
+    .product-main__gallery {
+      position: static;
+    }
+
+    .product-main__media {
+      min-height: 0;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .product-main__purchase,
+    .product-main__info-grid,
+    .product-main__reviews-grid,
+    .product-main__related-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .product-main__quantity {
+      width: max-content;
+    }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  function formatProductMoney(cents, currency) {
+    var amount = (parseInt(cents, 10) || 0) / 100;
+    try {
+      return new Intl.NumberFormat(undefined, { style: 'currency', currency: currency || 'AUD' }).format(amount);
+    } catch (error) {
+      return '$' + amount.toFixed(2);
+    }
+  }
+
+  function syncProductForm(section) {
+    var select = section.querySelector('[data-ct-variant-select]');
+    var option = select ? select.options[select.selectedIndex] : null;
+    var submit = section.querySelector('[data-ct-product-submit]');
+    var label = section.querySelector('[data-ct-product-submit-label]');
+    var quantityInput = section.querySelector('[data-ct-quantity-input]');
+    var note = section.querySelector('[data-ct-variant-note]');
+    var priceMeta = section.querySelector('[data-ct-product-price-meta]');
+    if (!option || !submit || !label) return;
+
+    var available = option.getAttribute('data-available') === 'true';
+    var quantity = quantityInput ? parseInt(quantityInput.value, 10) || 1 : 1;
+    var priceCents = parseInt(option.getAttribute('data-price-cents'), 10) || 0;
+    var currency = section.getAttribute('data-currency') || 'AUD';
+
+    submit.disabled = !available;
+    label.textContent = available
+      ? submit.getAttribute('data-add-label') + ' · ' + formatProductMoney(priceCents * quantity, currency) + ' →'
+      : submit.getAttribute('data-sold-out-label');
+
+    if (priceMeta && option.getAttribute('data-price-meta')) {
+      priceMeta.textContent = option.getAttribute('data-price-meta');
+    }
+
+    if (note) {
+      var savePercent = parseInt(option.getAttribute('data-save-percent'), 10) || 0;
+      if (savePercent > 0) {
+        note.textContent = 'You save ' + option.getAttribute('data-save-amount') + ' · just ' + option.getAttribute('data-unit-price') + '/bag';
+        note.classList.add('is-saving');
+      } else {
+        note.textContent = note.getAttribute('data-default-note') || '';
+        note.classList.remove('is-saving');
+      }
+    }
+  }
+
+  document.addEventListener('click', function(event) {
+    var thumb = event.target.closest('[data-ct-product-thumb]');
+    if (thumb) {
+      var section = thumb.closest('[data-ct-product-section]');
+      var image = section ? section.querySelector('[data-ct-product-main-image]') : null;
+      if (!image) return;
+      image.src = thumb.getAttribute('data-image-src');
+      image.srcset = thumb.getAttribute('data-image-srcset');
+      image.alt = thumb.getAttribute('data-image-alt') || image.alt;
+      section.querySelectorAll('[data-ct-product-thumb]').forEach(function(button) {
+        button.classList.toggle('is-active', button === thumb);
+      });
+      return;
+    }
+
+    var minus = event.target.closest('[data-ct-quantity-minus]');
+    var plus = event.target.closest('[data-ct-quantity-plus]');
+    if (!minus && !plus) return;
+
+    var quantity = event.target.closest('[data-ct-quantity]');
+    var input = quantity ? quantity.querySelector('[data-ct-quantity-input]') : null;
+    if (!input) return;
+
+    var value = parseInt(input.value, 10) || 1;
+    input.value = Math.max(1, value + (plus ? 1 : -1));
+
+    var section = input.closest('[data-ct-product-section]');
+    if (section) syncProductForm(section);
+  });
+
+  document.addEventListener('change', function(event) {
+    var jump = event.target.closest('[data-ct-product-jump]');
+    if (jump && jump.value) {
+      window.location.href = jump.value;
+      return;
+    }
+
+    var select = event.target.closest('[data-ct-variant-select]');
+    if (!select) return;
+
+    var section = select.closest('[data-ct-product-section]');
+    var option = select.options[select.selectedIndex];
+    var input = section.querySelector('[data-ct-variant-input]');
+    var price = section.querySelector('[data-ct-product-price]');
+    var compare = section.querySelector('[data-ct-product-compare-price]');
+
+    input.value = option.value;
+    price.textContent = option.getAttribute('data-price');
+
+    if (option.getAttribute('data-compare-price')) {
+      compare.textContent = option.getAttribute('data-compare-price');
+      compare.hidden = false;
+    } else {
+      compare.textContent = '';
+      compare.hidden = true;
+    }
+
+    syncProductForm(section);
+  });
+
+  document.addEventListener('input', function(event) {
+    var quantityInput = event.target.closest('[data-ct-quantity-input]');
+    if (!quantityInput) return;
+
+    var section = quantityInput.closest('[data-ct-product-section]');
+    if (section) syncProductForm(section);
+  });
+
+  document.addEventListener('submit', function(event) {
+    var form = event.target.closest('[data-ct-product-form]');
+    if (!form) return;
+
+    var variantInput = form.querySelector('[data-ct-variant-input]');
+    var quantityInput = form.querySelector('[data-ct-quantity-input]');
+    var variantId = variantInput ? variantInput.value : null;
+    var quantity = quantityInput ? parseInt(quantityInput.value, 10) || 1 : 1;
+
+    if (!variantId || !window.cartDrawer) return;
+
+    event.preventDefault();
+    window.cartDrawer.addItem(variantId, quantity);
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('[data-ct-product-section]').forEach(syncProductForm);
+  });
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Main product",
+  "settings": [
+    {
+      "type": "color",
+      "id": "soft_color",
+      "label": "Product media background",
+      "default": "#F6E1C6"
+    },
+    {
+      "type": "color",
+      "id": "deep_color",
+      "label": "Product accent colour",
+      "default": "#A06E37"
+    },
+    {
+      "type": "text",
+      "id": "back_label",
+      "label": "Back link label",
+      "default": "All flavours"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_jump",
+      "label": "Show product jump selector",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "jump_label",
+      "label": "Jump selector label",
+      "default": "Jump to flavour"
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge override"
+    },
+    {
+      "type": "text",
+      "id": "available_badge",
+      "label": "Available badge",
+      "default": "Available now"
+    },
+    {
+      "type": "text",
+      "id": "sold_out_badge",
+      "label": "Sold out badge",
+      "default": "Sold out"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show rating",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "rating_label",
+      "label": "Rating accessibility label",
+      "default": "Rated 5 out of 5 from 10 reviews"
+    },
+    {
+      "type": "text",
+      "id": "rating_score",
+      "label": "Rating score",
+      "default": "5.0"
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Rating text",
+      "default": "10 reviews"
+    },
+    {
+      "type": "textarea",
+      "id": "description_override",
+      "label": "Description override",
+      "default": "Tropical mango wrapped in a pillowy plant-protein gummy. 20g of pea & rice protein per serving, zero added sugar, and a real hit of sunshine in every chew."
+    },
+    {
+      "type": "text",
+      "id": "price_meta",
+      "label": "Price meta",
+      "default": "AUD · 1 bag · 180g each · 20g protein/serve"
+    },
+    {
+      "type": "text",
+      "id": "pill_1",
+      "label": "Pill 1",
+      "default": "Sugar Free"
+    },
+    {
+      "type": "text",
+      "id": "pill_2",
+      "label": "Pill 2",
+      "default": "20g Protein"
+    },
+    {
+      "type": "text",
+      "id": "pill_3",
+      "label": "Pill 3",
+      "default": "No Nasties"
+    },
+    {
+      "type": "text",
+      "id": "variant_label",
+      "label": "Variant label",
+      "default": "Choose your pack"
+    },
+    {
+      "type": "text",
+      "id": "variant_badge",
+      "label": "Variant badge",
+      "default": "Buy more, save more"
+    },
+    {
+      "type": "text",
+      "id": "variant_note",
+      "label": "Variant note",
+      "default": "$25.00 per bag - upgrade to a multipack & save up to 30%"
+    },
+    {
+      "type": "text",
+      "id": "pack_single_label",
+      "label": "Single pack label",
+      "default": "Single Bag"
+    },
+    {
+      "type": "text",
+      "id": "pack_3_variant_id",
+      "label": "3-pack variant ID",
+      "default": "59203203334225"
+    },
+    {
+      "type": "text",
+      "id": "pack_3_label",
+      "label": "3-pack label",
+      "default": "3-Pack"
+    },
+    {
+      "type": "text",
+      "id": "pack_3_price_label",
+      "label": "3-pack price label",
+      "default": "$65.00"
+    },
+    {
+      "type": "text",
+      "id": "pack_3_price_cents",
+      "label": "3-pack price in cents",
+      "default": "6500"
+    },
+    {
+      "type": "text",
+      "id": "pack_3_unit_price_label",
+      "label": "3-pack unit price label",
+      "default": "$21.67"
+    },
+    {
+      "type": "text",
+      "id": "pack_3_save_amount_label",
+      "label": "3-pack save amount label",
+      "default": "$10.00"
+    },
+    {
+      "type": "text",
+      "id": "pack_3_save_percent",
+      "label": "3-pack save percent",
+      "default": "15"
+    },
+    {
+      "type": "checkbox",
+      "id": "pack_3_disabled",
+      "label": "Disable 3-pack option",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "pack_10_variant_id",
+      "label": "10-pack variant ID",
+      "default": "59214437351505"
+    },
+    {
+      "type": "text",
+      "id": "pack_10_label",
+      "label": "10-pack label",
+      "default": "10-Pack"
+    },
+    {
+      "type": "text",
+      "id": "pack_10_price_label",
+      "label": "10-pack price label",
+      "default": "$175.00"
+    },
+    {
+      "type": "text",
+      "id": "pack_10_price_cents",
+      "label": "10-pack price in cents",
+      "default": "17500"
+    },
+    {
+      "type": "text",
+      "id": "pack_10_unit_price_label",
+      "label": "10-pack unit price label",
+      "default": "$17.50"
+    },
+    {
+      "type": "text",
+      "id": "pack_10_save_amount_label",
+      "label": "10-pack save amount label",
+      "default": "$75.00"
+    },
+    {
+      "type": "text",
+      "id": "pack_10_save_percent",
+      "label": "10-pack save percent",
+      "default": "30"
+    },
+    {
+      "type": "checkbox",
+      "id": "pack_10_disabled",
+      "label": "Disable 10-pack option",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "add_to_cart_label",
+      "label": "Add to cart label",
+      "default": "Add to cart"
+    },
+    {
+      "type": "text",
+      "id": "sold_out_label",
+      "label": "Sold out label",
+      "default": "Sold out"
+    },
+    {
+      "type": "text",
+      "id": "trust_1",
+      "label": "Trust 1",
+      "default": "30-day money-back guarantee"
+    },
+    {
+      "type": "text",
+      "id": "trust_2",
+      "label": "Trust 2",
+      "default": "Free shipping over $50"
+    },
+    {
+      "type": "text",
+      "id": "trust_3",
+      "label": "Trust 3",
+      "default": "Secure checkout"
+    },
+    {
+      "type": "text",
+      "id": "macro_1_value",
+      "label": "Macro 1 value",
+      "default": "20g"
+    },
+    {
+      "type": "text",
+      "id": "macro_1_label",
+      "label": "Macro 1 label",
+      "default": "Protein/serve"
+    },
+    {
+      "type": "text",
+      "id": "macro_2_value",
+      "label": "Macro 2 value",
+      "default": "0g"
+    },
+    {
+      "type": "text",
+      "id": "macro_2_label",
+      "label": "Macro 2 label",
+      "default": "Sugar"
+    },
+    {
+      "type": "text",
+      "id": "macro_3_value",
+      "label": "Macro 3 value",
+      "default": "108"
+    },
+    {
+      "type": "text",
+      "id": "macro_3_label",
+      "label": "Macro 3 label",
+      "default": "Calories"
+    },
+    {
+      "type": "text",
+      "id": "macro_4_value",
+      "label": "Macro 4 value",
+      "default": "180g"
+    },
+    {
+      "type": "text",
+      "id": "macro_4_label",
+      "label": "Macro 4 label",
+      "default": "Net wt"
+    },
+    {
+      "type": "text",
+      "id": "info_1_title",
+      "label": "Info 1 title",
+      "default": "What's inside"
+    },
+    {
+      "type": "textarea",
+      "id": "info_1_text",
+      "label": "Info 1 text",
+      "default": "Organic pea & rice protein, allulose, stevia & real fruit. 100% plant based, gluten free, no artificial colours."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_nutrition_link",
+      "label": "Show nutrition link",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "nutrition_link_label",
+      "label": "Nutrition link label",
+      "default": "See full nutrition panel"
+    },
+    {
+      "type": "text",
+      "id": "info_2_title",
+      "label": "Info 2 title",
+      "default": "Shipping & returns"
+    },
+    {
+      "type": "textarea",
+      "id": "info_2_text",
+      "label": "Info 2 text",
+      "default": "Free shipping over $50, Australia-wide. Ships in 1-2 business days. Love it or your money back within 30 days."
+    },
+    {
+      "type": "text",
+      "id": "reviews_heading",
+      "label": "Reviews heading",
+      "default": "What chewers say"
+    },
+    {
+      "type": "text",
+      "id": "verified_label",
+      "label": "Verified buyer label",
+      "default": "Verified buyer"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_related",
+      "label": "Show related products",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "related_heading",
+      "label": "Related heading",
+      "default": "More flavours to chew"
+    },
+    {
+      "type": "text",
+      "id": "related_coming_soon_label",
+      "label": "Related sold out label",
+      "default": "Coming soon"
+    },
+    {
+      "type": "text",
+      "id": "related_link_label",
+      "label": "Related link label",
+      "default": "View details →"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "Tara M."
+        },
+        {
+          "type": "range",
+          "id": "stars",
+          "label": "Stars",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Date",
+          "default": "2 weeks ago"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Tastes like actual lollies"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Body",
+          "default": "I cannot believe these are sugar free. The mango is unreal and I get 20g of protein - my 3pm snack is sorted for good."
+        }
+      ]
+    },
+    {
+      "type": "flavour",
+      "name": "Flavour card",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product page"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Fallback link"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Sour Watermelon Travel Size"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge",
+          "default": "Coming soon"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Tangy-sweet watermelon with a proper sour kick."
+        },
+        {
+          "type": "color",
+          "id": "soft_color",
+          "label": "Soft background",
+          "default": "#F4D7D2"
+        },
+        {
+          "type": "color",
+          "id": "deep_color",
+          "label": "Deep accent",
+          "default": "#A85B50"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
